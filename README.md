@@ -3,8 +3,7 @@
 Tech-stack:
 - PostgreSQL (maybe WhoDB as addon)
 - SQLAlchemy
-- FastAPI
-- AI API 
+- openrouter free AI API 
 - Python
 - PyMuPDF (PDF pre-processer)
 - Flask
