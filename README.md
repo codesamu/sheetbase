@@ -2,9 +2,13 @@
 
 Tech-stack:
 - PostgreSQL (maybe WhoDB as addon)
+- SQLAlchemy
 - FastAPI
-- OpenAI API 
+- AI API 
 - Python
-- PyMuPDF (PDF processer)
+- PyMuPDF (PDF pre-processer)
+- Flask
+- Tailwind CSS 
+
 
 
