@@ -44,7 +44,6 @@ Built for managing, exploring, and enriching structured data with AI.
 | AI Integration | OpenRouter (Free API) |
 | Document Processing | PyMuPDF |
 | Frontend | Tailwind CSS |
-| Optional Add-on | WhoDB |
 
 ---
 
