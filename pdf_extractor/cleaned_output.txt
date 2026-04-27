@@ -1,0 +1,7448 @@
+LMx24, LMx24x, LMx24xx, LM2902, LM2902x, LM2902xx, LM2902xxx
+Quadruple Operational Amplifiers
+1 Features
+•
+Next-generation LM324B and LM2902B
+•
+B versions are drop-in replacements for all versions of LM224, LM324, and LM2902
+•
+Improved specifications of B version
+–
+Supply range: 3V to 36V (B, BA versions)
+–
+Low input offset voltage: ±2mV (BA version) /
+3mV (B version)
+–
+ESD rating: 2kV (HBM), 1.5kV (CDM)
+–
+EMI rejection: integrated RF and EMI filter
+–
+Low input bias current: 50nA maximum (across
+–40°C to +125°C)
+•
+Common-mode input voltage range includes V–
+•
+Input voltage differential are drivable up to the supply voltage
+•
+For dual B versions, see LM358B and LM2904B
+2 Applications
+•
+Merchant network and server power supply units
+•
+Multi-function printers
+•
+Power supplies and mobile chargers
+•
+Desktop PC and motherboard
+•
+Indoor and outdoor air conditioners
+•
+Washers, dryers, and refrigerators
+•
+AC inverters, string inverters, central inverters, and voltage frequency drives
+•
+Uninterruptible power supplies
+3 Description
+The LM324B and LM2902B devices are the next-generation versions of the industry-standard operational amplifiers (op amps) LM324 and LM2902, which include four high-voltage (36V) op amps.
+These devices provide outstanding value for cost- sensitive applications, with features including low offset (600uV, typical), common-mode input range to ground, and high differential input voltage capability.
+The LM324B and LM2902B are unity-gain stable and achieve a low offset voltage maximum of 3mV
+(2mV maximum for LM324BA and LM2902BA) and quiescent current of 240uA per amplifier (typical).
+High ESD (2kV HBM and 1.5kV CDM) and integrated
+EMI and RF filters enable the LM324B and
+LM2902B devices to be used in the most rugged, environmentally challenging applications.
+The LM324B and LM2902B can drop-in replace all versions of the LM224, LM324, and LM2902 devices.
+Device Information
+PART NUMBER(1)
+PACKAGE
+PACKAGE SIZE(2)
+LM124, LM224, LM224A,
+LM224K, LM224KA, LM324,
+LM324A, LM324B, LM324BA,
+LM324K, LM324KA, LM2902,
+LM2902B, LM2902BA,
+LM2902K, LM2902KAV,
+LM2902KV,
+D (SOIC, 14)
+8.65mm × 6mm
+LM324, LM324A, LM324B,
+LM324BA, LM324K,
+LM324KA, LM2902,
+LM2902B, LM2902BA,
+LM1902K, LM2902KAV,
+LM2902KV
+PW (TSSOP, 14)
+5mm × 6.4mm
+LM224, LM224A, LM224K,
+LM224KA, LM324, LM324A,
+LM324K, LM324KA, LM2902,
+LM2902K
+N (PDIP, 14)
+19.3mm × 9.4mm
+LM324, LM324A, LM324K,
+LM324KA, LM2902, LM2902K
+NS (SOP, 14)
+10.3mm × 7.8mm
+LM324A, LM2902K
+DB (SSOP, 14)
+6.2mm × 7.8mm
+LM124, LM124A
+FK (LCCC, 20)
+8.89mm × 8.89mm
+J (CDIP, 14)
+19.56mm × 6.67mm
+W (CFP, 14)
+9.21mm × 6.3mm
+LM324B, LM2902B
+RTE (WQFN, 16)
+3mm × 3mm
+(1)
+For more information, see Section 12.
+(2)
+The package size (length × width) is a nominal value and includes pins, where applicable.
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+An IMPORTANT NOTICE at the end of this data sheet addresses availability, warranty, changes, use in safety-critical applications, intellectual property matters and other important disclaimers. PRODUCTION DATA.
+
+Table of Contents
+1 Features............................................................................1
+2 Applications.....................................................................1
+3 Description.......................................................................1
+4 Related Products.............................................................2
+5 Pin Configuration and Functions...................................3
+6 Specifications.................................................................. 5
+6.1 Absolute Maximum Ratings........................................ 5
+6.2 ESD Ratings............................................................... 5
+6.3 Recommended Operating Conditions.........................6
+6.4 Thermal Information....................................................6
+6.5 Electrical Characteristics for LM324B and
+LM324BA.......................................................................7
+6.6 Electrical Characteristics for LM2902B and
+LM2902BA.....................................................................9
+6.7 Electrical Characteristics for LM324, LM324K,
+LM224, LM224K, and LM124...................................... 11
+6.8 Electrical Characteristics for LM2902, LM2902K,
+LM2902KV and LM2902KAV.......................................12
+6.9 Electrical Characteristics for LM324A,
+LM324KA, LM224A, LM224KA, and LM124A.............13
+6.10 Operating Conditions.............................................. 13
+6.11 Typical Characteristics: LM324B and LM2902B..... 14
+6.12 Typical Characteristics: All Devices Except B and BA Versions..........................................................20
+7 Parameter Measurement Information..........................21
+8 Detailed Description......................................................21
+8.1 Overview...................................................................21
+8.2 Functional Block Diagram.........................................22
+8.3 Feature Description...................................................23
+8.4 Device Functional Modes..........................................23
+9 Application and Implementation..................................24
+9.1 Application Information............................................. 24
+9.2 Typical Application.................................................... 24
+9.3 Power Supply Recommendations.............................25
+9.4 Layout....................................................................... 26
+10 Device and Documentation Support..........................27
+10.1 Receiving Notification of Documentation Updates..27
+10.2 Support Resources................................................. 27
+10.3 Trademarks.............................................................27
+10.4 Electrostatic Discharge Caution..............................27
+10.5 Glossary..................................................................27
+11 Revision History.......................................................... 27
+12 Mechanical, Packaging, and Orderable
+Information.................................................................... 29
+4 Related Products
+SPECIFICATION
+LM324B
+LM324BA
+LM2902B
+LM2902BA
+LM324
+LM324A
+LM324K
+LM324KA
+LM2902
+LM2902K
+LM2902KV
+LM2902KAV
+LM224
+LM224A
+LM224K
+LM224KA
+LM124
+LM124A
+UNIT
+Supply voltage
+3 to 36
+3 to 36
+3 to 30
+3 to 30
+3 to 26
+3 to 26 (K)
+3 to 30 (KV,
+KAV)
+3 to 30
+3 to 30
+3 to 30
+V
+Offset voltage (max, 25°C)
+± 3
+± 2
+± 3
+± 2
+± 7
+± 3
+± 7
+± 3
+± 7
+± 7 (K, KV)
+± 2 (KAV)
+± 5
+± 3
+± 5
+± 3
+± 5
+± 2 mV
+Input bias current at 25 °C
+(typ / max)
+10 / 35
+10 / 35
+20 / 250
+15 / 100
+20 / 250
+15 / 100
+20 / 250
+20 / 250
+20 / 150
+15 / 80
+20 / 150
+15 / 80
+20 / 150
+– / 50 nA
+ESD (HBM)
+2000
+2000
+500
+2000
+500
+2000
+500
+2000
+500
+V
+Operating ambient temperature
+−40 to +85
+−40 to +125
+0 to 70
+0 to 70
+−40 to +125
+−40 to +125
+−25 to +85
+−25 to +85
+−55 to +125
+°C
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+
+2
+Submit Document Feedback
+Copyright © 2025 Texas Instruments Incorporated
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+5 Pin Configuration and Functions
+1
+1OUT
+14
+4OUT
+2
+1IN±
+13
+4IN±
+3
+1IN+
+12
+4IN+
+4
+VCC+
+11
+VCC±
+5
+2IN+
+10
+3IN+
+6
+2IN±
+9
+3IN±
+7
+2OUT
+8
+3OUT
+Not to scale
+Figure 5-1. D, DB, J, N, NS, PW, W Packages,
+14-Pin SOIC, SSOP, CDIP, PDIP, SO, TSSOP, CFP
+(Top View)
+4
+1IN+
+5
+NC
+6
+VCC+
+7
+NC
+8
+2IN+
+9
+2IN±
+10
+2OUT
+11
+NC
+12
+3OUT
+13
+3IN±
+14
+3IN+
+15
+NC
+16
+VCC±
+17
+NC
+18
+4IN+
+19
+4IN±
+20
+4OUT
+1
+NC
+2
+1OUT
+3
+1IN±
+Not to scale
+Figure 5-2. FK Package,
+20-Pin LCCC
+(Top View)
+Table 5-1. Pin Functions
+PIN
+TYPE
+DESCRIPTION
+NAME
+NO.
+FK (LCCC)
+D (SOIC),
+DB (SSOP),
+J (CDIP),
+N (PDIP),
+NS (SO),
+PW (TSSOP),
+W (CFP)
+1IN–
+3
+2
+Input
+Negative input
+1IN+
+4
+3
+Input
+Positive input
+1OUT
+2
+1
+Output
+Output
+2IN–
+9
+6
+Input
+Negative input
+2IN+
+8
+5
+Input
+Positive input
+2OUT
+10
+7
+Output
+Output
+3IN–
+13
+9
+Input
+Negative input
+3IN+
+14
+10
+Input
+Positive input
+3OUT
+12
+8
+Output
+Output
+4IN–
+19
+13
+Input
+Negative input
+4IN+
+18
+12
+Input
+Positive input
+4OUT
+20
+14
+Output
+Output
+NC
+1, 5, 7, 11, 15, 17
+—
+—
+Do not connect
+VCC–
+16
+11
+—
+Negative (lowest) supply or ground (for single-supply operation)
+VCC+
+6
+4
+—
+Positive (highest) supply
+
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+Copyright © 2025 Texas Instruments Incorporated
+Submit Document Feedback
+3
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+16
+1IN-
+5
+2IN–
+1
+1IN+
+12
+4IN+
+15
+1OUT
+6
+2OUT
+2
+VCC+
+11
+VCC-
+14
+4OUT
+7
+3OUT
+3
+NC
+10
+NC
+13
+4IN-
+8
+3IN-
+4
+2IN+
+9
+3IN+
+Not to scale
+Thermal
+Pad
+Figure 5-3. RTE Package,
+16-Pin WQFN
+(Top View)
+Table 5-2. Pin Functions
+PIN
+TYPE
+DESCRIPTION
+NAME
+NO.
+1IN–
+16
+Input
+Negative input
+1IN+
+1
+Input
+Positive input
+1OUT
+15
+Output
+Output
+2IN–
+5
+Input
+Negative input
+2IN+
+4
+Input
+Positive input
+2OUT
+6
+Output
+Output
+3IN–
+8
+Input
+Negative input
+3IN+
+9
+Input
+Positive input
+3OUT
+7
+Output
+Output
+4IN–
+13
+Input
+Negative input
+4IN+
+12
+Input
+Positive input
+4OUT
+14
+Output
+Output
+NC
+3, 10
+—
+Do not connect
+VCC–
+11
+—
+Negative (lowest) supply or ground (for single-supply operation)
+VCC+
+2
+—
+Positive (highest) supply
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+
+4
+Submit Document Feedback
+Copyright © 2025 Texas Instruments Incorporated
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+6 Specifications
+6.1 Absolute Maximum Ratings over operating free-air temperature range (unless otherwise noted)(1)
+LM324B, LM324BA,
+LM2902B, LM2902BA
+LM2902
+LM324xx, LM224xx,
+LM2902xxx, LM124x
+UNIT
+MIN
+MAX
+MIN
+MAX
+MIN
+MAX
+Supply voltage, VCC (2)
+40
+26
+32
+V
+Differential input voltage, VID (3)
+±40
+±26
+±32
+V
+Input voltage, VI (either input)
+–0.3
+40
+–0.3
+26
+–0.3
+32
+V
+Duration of output short circuit (one amplifier) to ground at (or below) TA = 25°C, VCC ≤ 15V(4)
+Unlimited
+Unlimited
+Unlimited
+Operating virtual junction temperature, TJ
+150
+150
+150
+°C
+Case temperature for 60 seconds
+FK package
+260
+°C
+Lead temperature 1.6mm (1/16 inch) from case for 60 seconds
+J or W package
+300
+300
+°C
+Storage temperature, Tstg
+–65
+150
+–65
+150
+–65
+150
+°C
+(1)
+Operation outside the Absolute Maximum Ratings may cause permanent device damage. Absolute Maximum Ratings do not imply functional operation of the device at these or any other conditions beyond those listed under Recommended Operating Conditions.
+If used outside the Recommended Operating Conditions but within the Absolute Maximum Ratings, the device may not be fully functional, and this may affect device reliability, functionality, performance, and shorten the device lifetime.
+(2)
+All voltage values (except differential voltages and VCC specified for the measurement of IOS) are with respect to the network GND.
+(3)
+Differential voltages are at IN+, with respect to IN−.
+(4)
+Short circuits from outputs to VCC can cause excessive heating and eventual destruction.
+6.2 ESD Ratings
+VALUE
+UNIT
+LM324B, LM324BA, LM2902B, LM2902BA, LM224K, LM224KA, LM324K, LM324KA, LM2902K, LM2902KV, LM2902KAV
+V(ESD)
+Electrostatic discharge
+Human-body model (HBM), per ANSI/ESDA/JEDEC JS-001(1)
+±1000
+V
+Charged-device model (CDM), per JEDEC specification JESD22-
+C101(2)
+±1000
+LM124, LM124A, LM224, LM224A, LM324, LM324A, LM2902
+V(ESD)
+Electrostatic discharge
+Human-body model (HBM), per ANSI/ESDA/JEDEC JS-001(1)
+±500
+V
+Charged-device model (CDM), per JEDEC specification JESD22-
+C101(2)
+±1000
+(1)
+JEDEC document JEP155 states that 500V HBM allows safe manufacturing with a standard ESD control process.
+(2)
+JEDEC document JEP157 states that 250V CDM allows safe manufacturing with a standard ESD control process.
+
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+Copyright © 2025 Texas Instruments Incorporated
+Submit Document Feedback
+5
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+6.3 Recommended Operating Conditions over operating free-air temperature range (unless otherwise noted)
+LM324B, LM324BA,
+LM2902B, LM2902BA
+LM2902
+LM324xx, LM224xx,
+LM2902xxx, LM124x
+UNIT
+MIN
+MAX
+MIN
+MAX
+MIN
+MAX
+VCC
+Supply voltage
+3
+36
+3
+26
+3
+30
+V
+VCM
+Common-mode voltage
+0
+VCC – 2
+0
+VCC – 2
+0
+VCC – 2
+V
+TA
+Operating free air temperature
+LM124x
+–55
+125
+°C
+LM2902xxx,
+LM2902Bx
+-40
+125
+–40
+125
+LM324Bx
+-40
+85
+LM224xx
+–25
+85
+LM324xx
+0
+70
+6.4 Thermal Information
+THERMAL METRIC(1)
+LMx24, LM2902
+LMx24
+UNIT
+D
+(SOIC)
+DB
+(SSOP)
+N
+(PDIP)
+NS
+(SO)
+PW
+(TSSOP)
+RTE
+(WQFN)
+FK
+(LCCC)
+J
+(CDIP)
+W
+(CFP)
+14 PINS
+14 PINS
+14 PINS
+14 PINS
+14 PINS
+16 PINS
+20 PINS
+14 PINS
+14 PINS
+RθJA (2) (3)
+Junction-to- ambient thermal resistance
+99.3
+106.5
+83.5
+90.4
+124.7
+64.9
+74.5
+84.7
+153.4
+°C/W
+RθJC(top) (4)
+Junction-to-case
+(top) thermal resistance
+60.4
+55.5
+62.0
+48.0
+57.9
+68.8
+49.9
+37.5
+72.7
+°C/W
+RθJB
+Junction-to-board thermal resistance
+57.5
+56.8
+57.7
+49.2
+80.7
+40.2
+49.0
+72.2
+146.5
+°C/W ψJT
+Junction-to-top characterization parameter
+19.8
+18.2
+40.5
+14.4
+8.4
+4.9
+42.9
+31.0
+48.3
+°C/W ψJB
+Junction-to-board characterization parameter
+57.0
+55.8
+57.1
+48.8
+79.8
+40.0
+48.9
+67.3
+129.2
+°C/W
+RθJC(bot)
+Junction-to-case
+(bottom) thermal resistance
+—
+—
+—
+—
+—
+23.6
+7.3
+18.8
+10.1
+°C/W
+(1)
+For more information about traditional and new thermal metrics, see the Semiconductor and IC Package Thermal Metrics application note.
+(2)
+Short circuits from outputs to VCC can cause excessive heating and eventual destruction.
+(3)
+Maximum power dissipation is a function of TJ(max), RθJA, and TA. The maximum allowable power dissipation at any allowable ambient temperature is PD = (TJ(max) – TA) / RθJA. Operating at the absolute maximum TJ of 150°C can affect reliability.
+(4)
+Maximum power dissipation is a function of TJ(max), RθJA, and TC. The maximum allowable power dissipation at any allowable case temperature is PD = (TJ(max) – TC) / RθJC. Operating at the absolute maximum TJ of 150°C can affect reliability.
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+
+6
+Submit Document Feedback
+Copyright © 2025 Texas Instruments Incorporated
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+6.5 Electrical Characteristics for LM324B and LM324BA for VS = (V+) – (V–) = 5V to 36V (±2.5V to ±18V), at TA = 25°C, VCM = VOUT = VS / 2, and RL = 10k connected to VS / 2
+(unless otherwise noted)
+PARAMETER
+TEST CONDITIONS
+MIN
+TYP
+MAX
+UNIT
+OFFSET VOLTAGE
+VOS
+Input offset voltage
+LM324B
+±0.6
+±3.0 mV
+TA = –40°C to +85°C
+±4.0
+LM324BA
+±0.3
+±2
+TA = –40°C to +85°C
+2.5 dVOS/dT
+Input offset voltage drift
+RS = 0Ohm
+TA = –40°C to +85°C
+±7 μV/°C
+PSRR
+Input offset voltage versus power supply
+65
+100 dB
+Channel separation f = 1kHz to 20kHz
+120 dB
+INPUT VOLTAGE RANGE
+VCM
+Common-mode voltage
+VS = 3V to 36V
+V–
+(V+) – 1.5
+V
+VS = 5V to 36V, TA = –40°C to +85°C
+V–
+(V+) – 2
+CMRR
+Common-mode rejection ratio
+VS = 3V to 36V, (V–) ≤ VCM ≤ (V+) – 1.5V
+70
+80 dB
+VS = 5V to 36V, (V–) ≤ VCM ≤ (V+) – 2V, TA = –40°C to +85°C
+65
+80
+INPUT BIAS CURRENT
+IB
+Input bias current
+–10
+–35 nA
+TA = –40°C to +85°C
+–60 dIOS/dT
+Input offset current drift
+TA = –40°C to +85°C
+10 pA/°C
+IOS
+Input offset current
+±0.5
+±4 nA
+TA = –40°C to +85°C
+±5 dIOS/dT
+Input offset current drift
+TA = –40°C to +85°C
+10 pA/°C
+NOISE
+EN
+Input voltage noise f = 0.1Hz to 10Hz
+
+3 μVPP eN
+Input voltage noise density
+RS = 100Ohm, VI = 0V, f = 1kHz (see Figure 6-2 for test circuit)
+
+35
+
+nV/√Hz
+INPUT CAPACITANCE
+ZID
+Differential
+10 || 0.1
+MΩ || pF
+ZICM
+Common-mode
+4 || 1.5
+GΩ || pF
+OPEN-LOOP GAIN
+AOL
+Open-loop voltage gain
+VS = 15V, VO = 1V to 11V, RL ≥ 10kOhm, connected to (V–)
+50
+100
+V/mV
+TA = –40°C to +85°C
+25
+FREQUENCY RESPONSE
+GBW
+Gain-bandwidth product
+RL = 1MOhm, CL = 20pF (see Figure 6-1 for test circuit)
+1.2
+MHz
+SR
+Slew rate
+RL = 1MOhm, CL = 30pF, VI = ±10V (see Figure 6-1 for test circuit)
+0.5
+V/μs
+Θm
+Phase margin
+G = +1, RL = 10kΩ, CL = 20pF
+56
+° tS
+Settling time
+To 0.1%, VS = 5V, 2V step, G = +1, CL = 100pF
+4 μs
+Overload recovery time
+VIN × gain > VS
+10 μs
+THD+N
+Total harmonic distortion + noise
+G = +1, f = 1kHz, VO = 3.53VRMS, VS = 36V, RL = 100kΩ, IOUT ≤ 50uA, BW = 80kHz
+0.001%
+
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+Copyright © 2025 Texas Instruments Incorporated
+Submit Document Feedback
+7
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+6.5 Electrical Characteristics for LM324B and LM324BA (continued) for VS = (V+) – (V–) = 5V to 36V (±2.5V to ±18V), at TA = 25°C, VCM = VOUT = VS / 2, and RL = 10k connected to VS / 2
+(unless otherwise noted)
+PARAMETER
+TEST CONDITIONS
+MIN
+TYP
+MAX
+UNIT
+OUTPUT
+VO
+Voltage output swing from rail
+Positive rail (V+)
+IOUT = –50uA
+1.35
+1.5
+V
+IOUT = –1mA
+1.4
+1.6
+IOUT = –5mA
+1.5
+1.75
+Negative rail (V–)
+IOUT = 50uA
+100
+150 mV
+IOUT = 1mA
+0.75
+1
+V
+VS = 5V, RL ≤ 10kOhm connected to (V–),
+TA = –40°C to +85°C
+5
+20 mV
+IO
+Output current
+Source, VS = 15V, VO = V–, VID = 1V
+–20(1)
+–30 mA
+TA = –40°C to +85°C
+–10(1)
+Sink, VS = 15V, VO = V+, VID = –1V
+10(1)
+20
+TA = –40°C to +85°C
+5(1)
+VID = –1V, VO = (V–) + 200mV
+50
+85 μA
+ISC
+Short-circuit current
+VS = 20V, (V+) = 10V, (V–) = –10V, VO = 0V
+±40
+±60 mA
+CLOAD
+Capacitive load drive
+100 pF
+RO
+Open-loop output impedance f = 1MHz, IO = 0A
+300
+Ohm
+POWER SUPPLY
+IQ
+Quiescent current per amplifier
+VS = 5V, IO = 0A, TA = –40°C to +85°C
+240
+300 μA
+VS = 36V, IO = 0A, TA = –40°C to +85°C
+350
+750
+(1)
+Specified by design and characterization only.
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+
+8
+Submit Document Feedback
+Copyright © 2025 Texas Instruments Incorporated
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+6.6 Electrical Characteristics for LM2902B and LM2902BA for VS = (V+) – (V–) = 5V to 36V (±2.5V to ±18V), at TA = 25°C, VCM = VOUT = VS / 2, and RL = 10k connected to VS / 2
+(unless otherwise noted)
+PARAMETER
+TEST CONDITIONS
+MIN
+TYP
+MAX
+UNIT
+OFFSET VOLTAGE
+VOS
+Input offset voltage
+LM2902B
+±0.6
+±3.0 mV
+TA = –40°C to +125°C
+±4.0
+LM2902BA
+±0.3
+±2
+TA = –40°C to +125°C
+2.5 dVOS/dT
+Input offset voltage drift
+RS = 0Ohm, TA = –40°C to +125°C
+±7 μV/°C
+PSRR
+Input offset voltage versus power supply
+65
+100 dB
+Channel separation f = 1kHz to 20kHz
+
+120 dB
+INPUT VOLTAGE RANGE
+VCM
+Common-mode voltage range
+VS = 3V to 36V
+V–
+(V+) – 1.5
+V
+VS = 5V to 36V, TA = –40°C to +125°C
+V–
+(V+) – 2
+CMRR
+Common-mode rejection ratio
+VS = 3V to 36V, (V–) ≤ VCM ≤ (V+) – 1.5V
+70
+80 dB
+VS = 5V to 36V, (V–) ≤ VCM ≤ (V+) – 2V, TA = –40°C to +125°C
+65
+80
+INPUT BIAS CURRENT
+IB
+Input bias current
+–10
+–35 nA
+TA = –40°C to +125°C
+–60 dIOS/dT
+Input offset current drift
+TA = –40°C to +125°C
+10 pA/°C
+IOS
+Input offset current
+±0.5
+±4 nA
+TA = –40°C to +125°C
+±5 dIOS/dT
+Input offset current drift
+TA = –40°C to +125°C
+10 pA/°C
+NOISE
+EN
+Input voltage noise f = 0.1Hz to 10Hz
+
+3 μVPP eN
+Input voltage noise density
+RS = 100Ohm, VI = 0V, f = 1kHz (see Figure 6-2 for test circuit)
+
+35
+
+nV/√Hz
+INPUT CAPACITANCE
+ZID
+Differential
+10 || 0.1
+MΩ || pF
+ZICM
+Common-mode
+4 || 1.5
+GΩ || pF
+OPEN-LOOP GAIN
+AOL
+Open-loop voltage gain
+VS = 15V, VO = 1V to 11V, RL ≥ 10kOhm, connected to (V–)
+50
+100
+V/mV
+TA = –40°C to +125°C
+25
+FREQUENCY RESPONSE
+GBW
+Gain-bandwidth product
+RL = 1MOhm, CL = 20pF (see Figure 6-1 for test circuit)
+1.2
+MHz
+SR
+Slew rate
+RL = 1MOhm, CL = 30pF, VI = ±10V (see Figure 6-1 for test circuit)
+0.5
+V/μs
+Θm
+Phase margin
+G = +1, RL = 10kΩ, CL = 20pF
+56
+° tS
+Settling time
+To 0.1%, VS = 5V, 2V step , G = +1, CL = 100pF
+4 μs
+Overload recovery time
+VIN × gain > VS
+10 μs
+THD+N
+Total harmonic distortion + noise
+G = +1, f = 1kHz, VO = 3.53VRMS, VS = 36V, RL = 100k, IOUT ≤ 50uA, BW = 80kHz
+0.001%
+
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+Copyright © 2025 Texas Instruments Incorporated
+Submit Document Feedback
+9
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+6.6 Electrical Characteristics for LM2902B and LM2902BA (continued) for VS = (V+) – (V–) = 5V to 36V (±2.5V to ±18V), at TA = 25°C, VCM = VOUT = VS / 2, and RL = 10k connected to VS / 2
+(unless otherwise noted)
+PARAMETER
+TEST CONDITIONS
+MIN
+TYP
+MAX
+UNIT
+OUTPUT
+VO
+Voltage output swing from rail
+Positive Rail (V+)
+IOUT = –50uA
+1.35
+1.5
+V
+IOUT = –1mA
+1.4
+1.6
+IOUT = –5mA
+1.5
+1.75
+Negative Rail (V–)
+IOUT = 50uA
+100
+150 mV
+IOUT = 1mA
+0.75
+1
+V
+VS = 5V, RL ≤ 10kOhm connected to (V–),
+TA = –40°C to +125°C
+5
+20 mV
+IO
+Output current
+Source, VS = 15V, VO = V–, VID = 1V
+–20(1)
+–30 mA
+TA = –40°C to +125°C
+–10(1)
+Sink, VS = 15V, VO = V+, VID = –1V
+10(1)
+20
+TA = –40°C to +125°C
+5(1)
+VID = –1V, VO = (V–) + 200mV
+50
+85 μA
+ISC
+Short-circuit current
+VS = 20V, (V+) = 10V, (V–) = –10V, VO = 0V
+±40
+±60 mA
+CLOAD
+Capacitive load drive
+100 pF
+RO
+Open-loop output impedance f = 1MHz, IO = 0A
+300
+Ohm
+POWER SUPPLY
+IQ
+Quiescent current per amplifier
+VS = 5V, IO = 0A, TA = –40°C to +125°C
+240
+300 μA
+VS = 36V, IO = 0A, TA = –40°C to +125°C
+750
+(1)
+Specified by design and characterization only.
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+
+10
+Submit Document Feedback
+Copyright © 2025 Texas Instruments Incorporated
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+6.7 Electrical Characteristics for LM324, LM324K, LM224, LM224K, and LM124 at specified free-air temperature, VCC = 5V (unless otherwise noted)
+PARAMETER
+TEST CONDITIONS(1)
+TA (2)
+LM124, LM224, LM224K
+LM324, LM324K
+UNIT
+MIN
+TYP(3)
+MAX
+MIN
+TYP(3)
+MAX
+VIO
+Input offset voltage
+VCC = 5V to MAX, VIC = VICRmin,
+VO = 1.4V
+25°C
+3
+5
+3
+7 mV
+Full range
+7
+9
+IIO
+Input offset current
+VO = 1.4V
+25°C
+2
+30
+2
+50 nA
+Full range
+100
+150
+IIB
+Input bias current
+VO = 1.4V
+25°C
+–20
+–150
+–20
+–250 nA
+Full range
+–300
+–500
+VICR
+Common-mode input voltage range
+VCC = 5V to MAX
+25°C
+0 to
+VCC – 1.5
+0 to
+VCC – 1.5
+V
+Full range
+0 to
+VCC – 2
+0 to
+VCC – 2
+VOH
+High-level output voltage
+RL = 2kΩ
+25°C
+VCC – 1.5
+VCC – 1.5
+V
+VCC = MAX
+RL = 2kΩ
+Full range
+26
+26
+RL ≥ 10kΩ
+Full range
+27
+28
+27
+28
+VOL
+Low-level output voltage
+RL ≤ 10kΩ
+Full range
+5
+20
+5
+20 mV
+AVD
+Large-signal differential voltage amplification
+VCC+ = 15V, VO = 1V to 11V,
+RL ≥ 2kΩ
+25°C
+50
+100
+25
+100
+V/mV
+Full range
+25
+15
+CMRR
+Common-mode rejection ratio
+VIC = VICRmin
+25°C
+70
+80
+65
+80 dB kSVR
+Supply-voltage rejection ratio
+(ΔVCC /ΔVIO)
+25°C
+65
+100
+65
+100 dB
+VO1/ VO2
+Crosstalk attenuation f = 1kHz to 20kHz
+25°C
+120
+120 dB
+IO
+Output current
+Source, VCC = 15V, VID = 1V,
+VO = 0V
+25°C
+–20
+–30
+–60
+–20
+–30
+–60 mA
+Full range
+–10
+–10
+VCC = 15V, VID = –1V, VO = 15V
+25°C
+10
+20
+10
+20
+Full range
+5
+5
+VID = –1V, VO = 200mV
+25°C
+12
+30
+12
+30 μA
+IOS
+Short-circuit output current
+VCC at 5V, VO = 0V, VCC– at –5V
+25°C
+±40
+±60
+±40
+±60 mA
+ICC
+Supply current (four amplifiers)
+VO = 2.5V, no load
+Full range
+0.7
+1.2
+0.7
+1.2 mA
+VCC = MAX, VO = 0.5VCC, no load
+Full range
+1.4
+3
+1.4
+3
+(1)
+All characteristics are measured under open-loop conditions, with zero common-mode input voltage, unless otherwise specified. MAX
+VCC for testing purposes is 26V for LM2902 and 30V for the others.
+(2)
+Full range is –55°C to +125°C for LM124, –25°C to +85°C for LM224, and 0°C to 70°C for LM324.
+(3)
+All typical values are at TA = 25°C.
+
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+Copyright © 2025 Texas Instruments Incorporated
+Submit Document Feedback
+11
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+6.8 Electrical Characteristics for LM2902, LM2902K, LM2902KV and LM2902KAV at specified free-air temperature, VCC = 5V (unless otherwise noted)
+PARAMETER
+TEST CONDITIONS(1)
+TA (2)
+LM2902, LM2902K
+LM2902KV, LM2902KAV
+UNIT
+MIN
+TYP(3)
+MAX
+MIN
+TYP(3)
+MAX
+VIO
+Input offset voltage
+VCC = 5V to MAX,
+VIC = VICRmin,
+VO = 1.4V
+Non-A-suffix devices
+25°C
+3
+7
+3
+7 mV
+Full range
+10
+10
+A-suffix devices
+25°C
+1
+2
+Full range
+4
+ΔVIO/ΔT
+Input offset voltage temperature drift
+RS = 0Ω
+Full range
+7 μV/°C
+IIO
+Input offset current
+VO = 1.4V
+25°C
+2
+50
+2
+50 nA
+Full range
+300
+150
+ΔIIO/ΔT
+Input offset voltage temperature drift
+Full range
+10 pA/°C
+IIB
+Input bias current
+VO = 1.4V
+25°C
+–20
+–250
+–20
+–250 nA
+Full range
+–500
+–500
+VICR
+Common-mode input voltage range
+VCC = 5V to MAX
+25°C
+0 to
+VCC – 1.5
+0 to
+VCC – 1.5
+V
+Full range
+0 to
+VCC – 2
+0 to
+VCC – 2
+VOH
+High-level output voltage
+RL = 10kΩ
+25°C
+VCC – 1.5
+VCC – 1.5
+V
+VCC = MAX
+RL = 2kΩ
+Full range
+22
+26
+RL ≥ 10kΩ
+Full range
+23
+24
+27
+VOL
+Low-level output voltage
+RL ≤ 10kΩ
+Full range
+5
+20
+5
+20 mV
+AVD
+Large-signal differential voltage amplification
+VCC = 15V, VO = 1V to 11V,
+RL ≥ 2kΩ
+25°C
+25
+100
+25
+100
+V/mV
+Full range
+15
+15
+CMRR
+Common-mode rejection ratio
+VIC = VICRmin
+25°C
+50
+80
+60
+80 dB kSVR
+Supply-voltage rejection ratio
+(ΔVCC /ΔVIO)
+25°C
+50
+100
+60
+100 dB
+VO1/ VO2
+Crosstalk attenuation f = 1kHz to 20kHz
+25°C
+120
+120 dB
+IO
+Output current
+Source, VCC = 15V, VID = 1V,
+VO = 0V
+25°C
+–20
+–30
+–60
+–20
+–30
+–60 mA
+Full range
+–10
+–10
+Sink, VCC = 15V, VID = –1V,
+VO = 15V
+25°C
+10
+20
+10
+20
+Full range
+5
+5
+VID = –1V, VO = 200mV
+25°C
+30
+12
+40 μA
+IOS
+Short-circuit output current
+VCC at 5V, VO = 0V, VCC- at –5V
+25°C
+±40
+±60
+±40
+±60 mA
+ICC
+Supply current (four amplifiers)
+VO = 2.5V, no load
+Full range
+0.7
+1.2
+0.7
+1.2 mA
+VCC = MAX, VO = 0.5VCC, no load
+Full range
+1.4
+3
+1.4
+3
+(1)
+All characteristics are measured under open-loop conditions, with zero common-mode input voltage, unless otherwise specified. MAX
+VCC for testing purposes is 26V for LM2902 and 32V for LM2902V.
+(2)
+Full range is –40°C to +125°C for LM2902.
+(3)
+All typical values are at TA = 25°C.
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+
+12
+Submit Document Feedback
+Copyright © 2025 Texas Instruments Incorporated
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+6.9 Electrical Characteristics for LM324A, LM324KA, LM224A, LM224KA, and LM124A at specified free-air temperature, VCC = 5V (unless otherwise noted)
+PARAMETER
+TEST CONDITIONS(1)
+TA (2)
+LM124A
+LM224A, LM224KA
+LM324A, LM324KA
+UNIT
+MIN
+TYP(3)
+MAX
+MIN
+TYP(3)
+MAX
+MIN
+TYP(3)
+MAX
+VIO
+Input offset voltage
+VCC = 5V to 30V,
+VIC = VICRmin, VO = 1.4V
+25°C
+2
+2
+3
+2
+3 mV
+Full range
+4
+4
+5
+IIO
+Input offset current
+VO = 1.4V
+25°C
+10
+2
+15
+2
+30 nA
+Full range
+30
+30
+75
+IIB
+Input bias current
+VO = 1.4V
+25°C
+–50
+–15
+–80
+–15
+–100 nA
+Full range
+–100
+–100
+–200
+VICR
+Common-mode input voltage range
+VCC = 30V
+25°C
+0 to
+VCC − 1.5
+0 to
+VCC – 1.5
+0 to
+VCC – 1.5
+V
+Full range
+0 to
+VCC − 2
+0 to
+VCC – 2
+0 to
+VCC – 2
+VOH
+High-level output voltage
+RL = 2kΩ
+25°C
+VCC − 1.5
+VCC – 1.5
+VCC – 1.5
+V
+VCC = 30V
+RL= 2kΩ
+Full range
+26
+26
+26
+RL≥ 10kΩ
+Full range
+27
+27
+28
+27
+28
+VOL
+Low-level output voltage
+RL ≤ 10kΩ
+Full range
+20
+5
+20
+5
+20 mV
+AVD
+Large-signal differential voltage amplification
+VCC = 15V, VO = 1V to 11V,
+RL ≥ 2kΩ
+25°C
+50
+100
+50
+100
+25
+100
+V/mV
+Full range
+25
+25
+15
+CMRR
+Common-mode rejection ratio
+VIC = VICRmin
+25°C
+70
+70
+80
+65
+80 dB kSVR
+Supply-voltage rejection ratio
+(ΔVCC /ΔVIO)
+25°C
+65
+65
+100
+65
+100 dB
+VO1/ VO2
+Crosstalk attenuation f = 1kHz to 20kHz
+25°C
+120
+120
+120 dB
+IO
+Output current
+Source, VCC = 15V, VID =
+1V,
+VO = 0V
+25°C
+–20
+–20
+–30
+–60
+–20
+–30
+–60 mA
+Full range
+–10
+–10
+–10
+Sink, VCC = 15V, VID = –
+1V,
+VO = 15V
+25°C
+10
+10
+20
+1
+20
+Full range
+5
+5
+5
+VID = −1V, VO = 200mV
+25°C
+12
+12
+30
+12
+30 μA
+IOS
+Short-circuit output current
+VCC at 5V, VCC- at –5V,
+VO = 0V
+25°C
+±40
+±60
+±40
+±60
+±40
+±60 mA
+ICC
+Supply current
+(four amplifiers)
+VO = 2.5V, no load
+Full range
+0.7
+1.2
+0.7
+1.2
+0.7
+1.2 mA
+VCC = 30V, VO = 15V, no load
+Full range
+1.4
+3.
+1.4
+3
+1.4
+3
+(1)
+All characteristics are measured under open-loop conditions, with zero common-mode input voltage, unless otherwise specified.
+(2)
+Full range is –55°C to +125°C for LM124A, –25°C to +85°C for LM224A, and 0°C to 70°C for LM324A.
+(3)
+All typical values are at TA = 25°C.
+6.10 Operating Conditions at VCC = ±15V and TA = 25°C (unless otherwise noted)
+PARAMETER
+TEST CONDITIONS
+MIN
+TYP
+MAX
+UNIT
+SR
+Slew rate at unity gain
+RL = 1MΩ, CL = 30pF, VI = ±10V (see Figure 7-1)
+0.5
+V/μs
+B1
+Unity-gain bandwidth
+RL = 1MΩ, CL = 20pF (see Figure 7-1)
+1.2
+MHz
+Vn
+Equivalent input noise voltage
+RS = 100Ω, VI = 0V, f = 1kHz (see Figure 7-2)
+35 nV/√Hz
+
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+Copyright © 2025 Texas Instruments Incorporated
+Submit Document Feedback
+13
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+6.11 Typical Characteristics: LM324B and LM2902B at TA = 25°C, VS = 36V (±18V), VCM = VS / 2, and RLOAD = 10kΩ connected to VS / 2 (unless otherwise noted)
+Offset Voltage (uV)
+Amplifiers (%)
+-3000
+-1800
+-600
+600
+1800
+3000
+0
+2.5
+5
+7.5
+10
+12.5
+15
+17.5
+20
+
+Figure 6-1. Offset Voltage Production Distribution
+
+Figure 6-2. Offset Voltage Drift Distribution
+
+Figure 6-3. Offset Voltage vs Temperature
+VCM (V)
+VOS (uV)
+-18
+-14
+-10
+-6
+-2
+2
+6
+10
+14
+-3000
+-2400
+-1800
+-1200
+-600
+0
+600
+1200
+1800
+2400
+3000
+
+Figure 6-4. Offset Voltage vs Common-Mode Voltage
+Frequency (Hz)
+Gain (dB)
+Phase (degree)
+-20
+-30
+-10
+-15
+0
+0
+10
+15
+20
+30
+30
+45
+40
+60
+50
+75
+60
+90
+70
+105
+80
+120
+90
+135
+100
+150
+100
+1k
+10k
+100k
+1M
+Gain, VS = 36V
+Phase, VS = 36V
+Gain, VS = 5V
+Phase, VS = 5V
+
+Figure 6-5. Open-Loop Gain and Phase vs Frequency
+
+Figure 6-6. Closed-Loop Gain vs Frequency
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+
+14
+Submit Document Feedback
+Copyright © 2025 Texas Instruments Incorporated
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+6.11 Typical Characteristics: LM324B and LM2902B (continued) at TA = 25°C, VS = 36V (±18V), VCM = VS / 2, and RLOAD = 10kΩ connected to VS / 2 (unless otherwise noted)
+
+Figure 6-7. Output Voltage Swing vs Output Current (Sourcing)
+
+Figure 6-8. CMRR vs Frequency
+Frequency (Hz)
+PSRR (dB)
+20
+30
+40
+50
+60
+70
+80
+90
+100
+100
+1k
+10k
+100k
+1M
+10M
+PSRR+ (dB)
+PSRR−(dB)
+
+Figure 6-9. PSRR vs Frequency
+Temperature (°C)
+Common-Mode Rejection Ratio (uV/V)
+-40
+-20
+0
+20
+40
+60
+80
+100
+120
+10
+15
+20
+25
+30
+35
+VS = 5V
+VS = 36V
+
+Figure 6-10. Common-Mode Rejection Ratio vs
+Temperature
+Temperature (°C)
+Power-Supply Rejection Ratio (uV/V)
+-40
+-20
+0
+20
+40
+60
+80
+100
+120
+0
+4
+8
+12
+16
+20
+VS = 5V to 36V
+Figure 6-11. Power Supply Rejection Ratio vs Temperature
+Time (1s/div)
+Amplitude (500nV/div)
+
+Figure 6-12. 0.1Hz to 10Hz Noise
+
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+Copyright © 2025 Texas Instruments Incorporated
+Submit Document Feedback
+15
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+6.11 Typical Characteristics: LM324B and LM2902B (continued) at TA = 25°C, VS = 36V (±18V), VCM = VS / 2, and RLOAD = 10kΩ connected to VS / 2 (unless otherwise noted)
+
+Figure 6-13. Input Voltage Noise Spectral Density vs Frequency
+G = 1, f = 1kHz, BW = 80kHz,
+VOUT = 10VPP, RL connected to V–
+Figure 6-14. THD+N Ratio vs Frequency, G = 1
+Frequency (Hz)
+THD+N (dB)
+-110
+-100
+-90
+-80
+-70
+-60
+-50
+-40
+-30
+-20
+-10
+0
+100
+1k
+10k
+RL = 2k
+RL = 10k
+G = –1, f = 1kHz, BW = 80kHz,
+VOUT = 10VPP, RL connected to V–, see Section 7
+Figure 6-15. THD+N Ratio vs Frequency, G = –1
+G = 1, f = 1kHz, BW = 80kHz,
+RL connected to V–
+Figure 6-16. THD+N vs Output Amplitude, G = 1
+Amplitude (VRMS)
+THD+N (dB)
+-100
+-90
+-80
+-70
+-60
+-50
+-40
+-30
+-20
+1m
+10m
+100m
+1
+10
+RL = 2k
+RL = 10k
+G = –1, f = 1kHz, BW = 80kHz,
+RL connected to V–, see Section 7
+Figure 6-17. THD+N vs Output Amplitude, G = –1
+Supply Voltage (V)
+IQ (uA)
+3
+6
+9
+12
+15
+18
+21
+24
+27
+30
+33
+36
+100
+200
+300
+400
+500
+600
+-40°C
+25°C
+125°C
+
+Figure 6-18. Quiescent Current vs Supply Voltage
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+
+16
+Submit Document Feedback
+Copyright © 2025 Texas Instruments Incorporated
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+6.11 Typical Characteristics: LM324B and LM2902B (continued) at TA = 25°C, VS = 36V (±18V), VCM = VS / 2, and RLOAD = 10kΩ connected to VS / 2 (unless otherwise noted)
+
+Figure 6-19. Quiescent Current vs Temperature
+Frequency (Hz)
+Open-Loop Output Impedance ()
+10
+20
+30
+50
+70
+100
+200
+300
+500
+700
+1000
+1k
+10k
+100k
+1M
+10M
+IOUT = 0mA
+IOUT = 5mA
+
+Figure 6-20. Open-Loop Output Impedance vs Frequency
+Capacitive Load (pF)
+Overshoot (%)
+0
+50
+100
+150
+200
+250
+300
+350
+0
+5
+10
+15
+20
+25
+30
+RISO = 0, overshoot (+)
+RISO = 0, overshoot (−)
+G = 1, 100mV output step, RL = open
+Figure 6-21. Small-Signal Overshoot vs Capacitive Load
+Capacitive Load (pF)
+Overshoot (%)
+0
+40
+80
+120
+160
+200
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+RISO = 0, overshoot (+)
+RISO = 0, overshoot (−)
+G = –1, 100mV output step, RL = open
+Figure 6-22. Small-Signal Overshoot vs Capacitive Load
+G = +1, RL = 10kΩ, CL = 20pF
+Figure 6-23. Phase Margin vs Capacitive Load
+Time (1s/div)
+Amplitude (1V/div)
+Input
+Output
+G = –10
+Figure 6-24. Overload Recovery (Positive Rail)
+
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+Copyright © 2025 Texas Instruments Incorporated
+Submit Document Feedback
+17
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+6.11 Typical Characteristics: LM324B and LM2902B (continued) at TA = 25°C, VS = 36V (±18V), VCM = VS / 2, and RLOAD = 10kΩ connected to VS / 2 (unless otherwise noted)
+Time (1s/div)
+Amplitude (1V/div)
+Input
+Output
+G = –10
+Figure 6-25. Overload Recovery (Negative Rail)
+Time (20us/div)
+Amplitude (2mV/div)
+Input
+Output
+G = 1, RL = open
+Figure 6-26. Small-Signal Step Response, G = 1
+Time (20us/div)
+Amplitude (2mV/div)
+Input
+Output
+G = –1, RL = open, RFB = 10kOhm
+See Section 7
+Figure 6-27. Small-Signal Step Response, G = –1
+Time (1s/div)
+Amplitude (5mV/div)
+-15
+-10
+-5
+0
+5
+10
+15
+G = 1, RL = open
+
+Figure 6-28. Large-Signal Step Response (Falling)
+Time (20us/div)
+Amplitude (1V/div)
+Input
+Output
+G = 1, RL = open
+Figure 6-29. Large-Signal Step Response, G = 1
+Time (20us/div)
+Amplitude (1V/div)
+Input
+Output
+G = –1, RL = open
+Figure 6-30. Large-Signal Step Response, G = –1
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+
+18
+Submit Document Feedback
+Copyright © 2025 Texas Instruments Incorporated
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+6.11 Typical Characteristics: LM324B and LM2902B (continued) at TA = 25°C, VS = 36V (±18V), VCM = VS / 2, and RLOAD = 10kΩ connected to VS / 2 (unless otherwise noted)
+
+Figure 6-31. Short-Circuit Current vs Temperature
+Frequency (Hz)
+Maximum Output Voltage (V)
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+100
+1k
+10k
+100k
+1M
+VS = 15V
+Figure 6-32. Maximum Output Voltage vs Frequency
+Frequency (Hz)
+Crosstalk (dB)
+-140
+-130
+-120
+-110
+-100
+-90
+-80
+-70
+1k
+10k
+100k
+1M
+10M
+
+Figure 6-33. Channel Separation vs Frequency
+Frequency (Hz)
+EMIRR (dB)
+30
+40
+50
+60
+70
+80
+90
+1M
+10M
+100M
+1G
+
+Figure 6-34. EMIRR (Electromagnetic Interference Rejection
+Ratio) vs Frequency
+
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+Copyright © 2025 Texas Instruments Incorporated
+Submit Document Feedback
+19
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+6.12 Typical Characteristics: All Devices Except B and BA Versions
+Output Sink Current (mA)
+Output Voltage (V)
+0.001
+0.01
+0.1 0.2
+0.5 1
+2 3 5 710 20
+50 100
+0.01
+0.02
+0.03
+0.05
+0.1
+0.2
+0.3
+0.5
+1
+2
+3
+5
+10
+D001
+V
+= 15V
+CC
+V
+= 5V
+CC
+V
+= 30V
+CC
+
+Figure 6-35. Output Sinking Characteristics
+Output Source Current (mA)
+Output Voltage Referenced to +VCC (V)
+0.001
+0.01
+0.1 0.2
+0.5 1
+2 3 5 710 20
+50 100
+1
+2
+3
+4
+5
+6
+7
+8
+D002
+V
+= 15
+CC
+V
+
+Figure 6-36. Output Sourcing Characteristics
+I
+(A)
+OUT
+-55
+-40
+-25
+-10
+5
+20
+35
+50
+65
+80
+95
+110 125
+Temperature (°C)
+0
+0.01
+0.02
+0.03
+0.04
+0.05
+0.06
+0.07
+0.08
+0.09
+D003
+
+Figure 6-37. Source Current Limiting
+Output Voltage (V)
+Time (μs)
+0
+5
+10
+15
+20
+25
+30
+35
+40
+45
+50
+0.25
+0.5
+0.75
+1
+1.25
+1.5
+1.75
+2
+2.25
+2.5
+2.75
+3
+3.25
+D004
+Input
+Output
+
+Figure 6-38. Voltage Follower Large-Signal Response (50pF)
+Frequency (Hz)
+Common-Mode Rejection Ratio (dB)
+100 200
+5001000
+10000
+100000
+1000000
+0
+10
+20
+30
+40
+50
+60
+70
+80
+90
+D006
+
+Figure 6-39. Common-Mode Rejection Ratio
+Frequency (Hz)
+Output Swing (V
+)
+PP
+0
+1000 2000
+5000 10000
+100000
+1000000
+2.5
+5
+7.5
+10
+12.5
+15
+17.5
+20
+D007
+VCC = 15V
+Figure 6-40. Maximum Output Swing vs Frequency
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+
+20
+Submit Document Feedback
+Copyright © 2025 Texas Instruments Incorporated
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+7 Parameter Measurement Information
+VO
+−
++
+RL
+CL
+VI
+VCC+
+VCC−
+Figure 7-1. Unity-Gain Amplifier
+VO
+−
++
+100 Ohm
+VCC+
+VCC−
+RS
+900 Ohm
+VI = 0 V
+Figure 7-2. Noise-Test Circuit
+8 Detailed Description
+8.1 Overview
+These devices consist of four independent high-gain frequency-compensated operational amplifiers that are designed specifically to operate from a single supply over a wide range of voltages. Operation from split supplies is also possible if the difference between the two supplies is 3V to 36V (B and BA versions), 3V to 26V (for
+LM2902 devices), or 3V to 30V (for all other devices), and VCC is at least 1.5V more positive than the input common-mode voltage. The low supply-current drain is independent of the magnitude of the supply voltage.
+Applications include transducer amplifiers, DC amplification blocks, and all the conventional operational-amplifier circuits that can be more easily implemented in single-supply-voltage systems. For example, the LM324B and
+LM2902B devices can be operated directly from the standard 5V supply that is used in digital systems and provides the required interface electronics, without requiring additional ±15V supplies.
+
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+Copyright © 2025 Texas Instruments Incorporated
+Submit Document Feedback
+21
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+8.2 Functional Block Diagram
+ESD protection cells - available on B, BA, and K versions only
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+
+22
+Submit Document Feedback
+Copyright © 2025 Texas Instruments Incorporated
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+8.3 Feature Description
+8.3.1 Unity-Gain Bandwidth
+To calculate the gain bandwidth product, multiply the measured bandwidth of an amplifier by the measured bandwidth gain. These devices have a high gain bandwidth of 1.2MHz.
+8.3.2 Slew Rate
+The slew rate is the rate at which an operational amplifier changes the output when there is a change on the input. These devices have a 0.5V/μs slew rate.
+8.3.3 Input Common-Mode Voltage Range
+The valid common-mode voltage range is from device ground to VCC – 1.5V (VCC – 2V across temperature).
+Inputs are able to exceed VCC up to the maximum VCC without device damage. Ensure that at least one input is in the valid input common-mode voltage range for the output to be in the correct phase. If both inputs exceed the valid range, then the output phase is undefined. If either input is less than –0.3V, limit the input current to 1mA, and the output phase is undefined.
+8.4 Device Functional Modes
+These devices are powered on when the supply is connected. This device operates as a single-supply operational amplifier or dual-supply amplifier depending on the application.
+
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+Copyright © 2025 Texas Instruments Incorporated
+Submit Document Feedback
+23
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+9 Application and Implementation
+Note
+Information in the following applications sections is not part of the TI component specification, and TI does not warrant its accuracy or completeness. TI’s customers are responsible for determining suitability of components for their purposes, as well as validating and testing their design implementation to confirm system functionality.
+9.1 Application Information
+The LMx24 and LM2902 operational amplifiers are useful in a wide range of signal conditioning applications.
+Inputs are able to be powered before VCC for flexibility in multiple supply circuits.
+9.2 Typical Application
+A common application for an operational amplifier is an inverting amplifier. This amplifier takes a positive voltage on the input, and produces a negative voltage with the same magnitude. In the same manner, the amplifier also makes negative voltages positive. A linear gain can be achieved by changing the resistor ratio in the feedback path.
+Vsup+
++
+VOUT
+RF
+VIN
+RI
+Vsup-
+Figure 9-1. Application Schematic
+9.2.1 Design Requirements
+The supply voltage must be chosen such that the supply voltage is larger than the input voltage range and output range. For instance, this application scales a signal of ±0.5V to ±1.8V. Setting the supply at ±12V is sufficient to accommodate this application.
+9.2.2 Detailed Design Procedure
+Determine the gain required by the inverting amplifier using Equation 1 and Equation 2:
+AV = VOUT
+VIN
+(1)
+AV = 1.8
+−0.5 = −3.6
+(2)
+After the desired gain is determined, choose a value for RI or RF. Choosing a value in the kΩ range is desirable because the amplifier circuit uses currents in the mA range. This choice does not draw too much current. This example chooses 10kΩ for RI, which means 36kΩ is used for RF. These values are determined by Equation 3.
+AV = RF
+RI
+(3)
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+
+24
+Submit Document Feedback
+Copyright © 2025 Texas Instruments Incorporated
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+9.2.3 Application Curve
+Figure 9-2. Input and Output Voltages of the Inverting Amplifier
+9.3 Power Supply Recommendations
+CAUTION
+Supply voltages greater than 32V for a single supply, or outside the range of ±16V for a dual supply, are able to permanently damage the device. Do not exceed the absolute maximum ratings listed in
+Section 6.1.
+Place 0.1μF bypass capacitors close to the power-supply pins to reduce errors coupling in from noisy or high-impedance power supplies. For more detailed information on bypass capacitor placement, see Section 9.4.
+
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+Copyright © 2025 Texas Instruments Incorporated
+Submit Document Feedback
+25
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+9.4 Layout
+9.4.1 Layout Guidelines
+For best operational performance of the device, use good PCB layout practices, including:
+•
+Noise is able to propagate into analog circuitry through the power pins of the circuit as a whole, as well as the operational amplifier. Use bypass capacitors to reduce the coupled noise by providing low-impedance power sources local to the analog circuitry.
+–
+Connect low-ESR, 0.1μF ceramic bypass capacitors between each supply pin and ground, placed as close to the device as possible. A single bypass capacitor from V+ to ground is applicable for single supply applications.
+•
+Separate grounding for analog and digital portions of circuitry is one of the simplest and most-effective methods of noise suppression. One or more layers on multilayer PCBs are typically devoted to ground planes. A ground plane helps distribute heat and reduces EMI noise pickup. Physically separate digital and analog grounds, paying attention to the flow of the ground current.
+•
+To reduce parasitic coupling, run the input traces as far away from the supply or output traces as possible. If keeping the traces separate is not possible, cross the sensitive trace perpendicular as opposed to in parallel with the noisy trace.
+•
+Place the external components as close to the device as possible. Keep RF and RG close to the inverting input to minimize parasitic capacitance (see also Section 9.4.2).
+•
+Keep the length of input traces as short as possible. Always remember that the input traces are the most sensitive part of the circuit.
+•
+Consider a driven, low-impedance guard ring around the critical traces. A guard ring helps significantly reduce leakage currents from nearby traces that are at different potentials.
+9.4.2 Layout Examples
+NC
+VCC+
+IN1í
+IN1+
+VCCí
+NC
+OUT
+NC
+RG
+RIN
+RF
+GND
+VIN
+VS-
+GND
+VS+
+GND
+Run the input traces as far away from the supply lines as possible
+Only needed for dual-supply operation
+Place components close to device and to each other to reduce parasitic errors
+Use low-ESR, ceramic bypass capacitor
+(or GND for single supply)
+Ground (GND) plane on another layer
+VOUT
+Figure 9-3. Operational Amplifier Board Layout for Noninverting Configuration
++
+–
+RIN
+RF
+VOUT
+RG
+VIN
+Figure 9-4. Operational Amplifier Schematic for Noninverting Configuration
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+
+26
+Submit Document Feedback
+Copyright © 2025 Texas Instruments Incorporated
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+10 Device and Documentation Support
+10.1 Receiving Notification of Documentation Updates
+To receive notification of documentation updates, navigate to the device product folder on ti.com. Click on
+Notifications to register and receive a weekly digest of any product information that has changed. For change details, review the revision history included in any revised document.
+10.2 Support Resources
+TI E2E™ support forums are an engineer's go-to source for fast, verified answers and design help — straight from the experts. Search existing answers or ask your own question to get the quick design help you need.
+Linked content is provided "AS IS" by the respective contributors. They do not constitute TI specifications and do not necessarily reflect TI's views; see TI's Terms of Use.
+10.3 Trademarks
+TI E2E™ is a trademark of Texas Instruments.
+All trademarks are the property of their respective owners.
+10.4 Electrostatic Discharge Caution
+This integrated circuit can be damaged by ESD. Texas Instruments recommends that all integrated circuits be handled with appropriate precautions. Failure to observe proper handling and installation procedures can cause damage.
+ESD damage can range from subtle performance degradation to complete device failure. Precision integrated circuits may be more susceptible to damage because very small parametric changes could cause the device not to meet its published specifications.
+10.5 Glossary
+TI Glossary
+This glossary lists and explains terms, acronyms, and definitions.
+11 Revision History
+NOTE: Page numbers for previous revisions may differ from page numbers in the current version.
+Changes from Revision AD (October 2024) to Revision AE (September 2025)
+Page
+•
+Changed LM324B and LM2902B RTE (WQFN, 16) package from preview to production data (active)............1
+•
+Added note 2 to ESD Ratings ........................................................................................................................... 5
+•
+Changed human body model (HBM) from ±2000V to ±1000V in ESD Ratings .................................................5
+•
+Updated Typical Application description...........................................................................................................24
+Changes from Revision AC (March 2024) to Revision AD (October 2024)
+Page
+•
+Deleted the D (SOIC, 14) package preview note from the B and BA devices....................................................1
+Changes from Revision AB (November 2023) to Revision AC (March 2024)
+Page
+•
+Added preview note to the WQFN-16 package pinout....................................................................................... 3
+•
+Added LM324BIRTER and LM2902BIRTER preview information to the Mechanical, Packaging, and
+Orderable Information section.......................................................................................................................... 29
+Changes from Revision AA (September 2023) to Revision AB (November 2023)
+Page
+•
+Changed the status of LM324BA and LM2902BA from: preview to: active........................................................1
+
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+Copyright © 2025 Texas Instruments Incorporated
+Submit Document Feedback
+27
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+Changes from Revision Z (April 2023) to Revision AA (September 2023)
+Page
+•
+Deleted preview note from TSSOP-14 BA devices in Device Information table.................................................1
+•
+Changed the format of the Package Information table to include package lead size.........................................1
+Changes from Revision Y (October 2022) to Revision Z (April 2023)
+Page
+•
+Added WQFN-16 package in the Package Information table.............................................................................1
+•
+Added WQFN-16 package details to Pin Configuration and Functions section................................................. 3
+•
+Added additional graphs for LM324Bx and LM2902Bx to Typical Characteristics .......................................... 14
+Changes from Revision X (May 2022) to Revision Y (October 2022)
+Page
+•
+Deleted preview note from TSSOP-14 B devices in Device Information table...................................................1
+•
+Updated Description information........................................................................................................................ 1
+•
+Updated LM324B and LM324BA Electrical Characteristics table for RTM revision........................................... 7
+•
+Updated LM2902B and LM2902BA Electrical Characteriscs table for RTM revision......................................... 9
+•
+Added graphs for LM324Bx and LM2902Bx to Typical Characteristics ...........................................................14
+Changes from Revision W (March 2015) to Revision X (May 2022)
+Page
+•
+Updated Features to include the B and BA versions..........................................................................................1
+•
+Added application links to Applications section..................................................................................................1
+•
+Corrected available packages in the Device Information table...........................................................................1
+•
+Added B and BA versions to Device Information table.......................................................................................1
+•
+Updated package images in the Pin Configuration and Functions section to new format - no specification changes......................................................................................................................................... 3
+•
+Changed GND and Vcc to Vcc- and Vcc+, respectively, in the Pin Functions table ......................................... 3
+•
+Added B and BA versions to Absolute Maximum Ratings table ........................................................................5
+•
+Added B and BA versions to Recommended Operating Conditions table .........................................................6
+•
+Added the Electrical Characteristics - LM324B and LM324BA table .................................................................7
+•
+Added the Electrical Characteristics - LM2902B and LM2902BA table..............................................................9
+•
+Removed Documentation Support and Related Links in the Device and Documentation Support section......27
+Changes from Revision V (January 2014) to Revision W (March 2014)
+Page
+•
+Added Applications ............................................................................................................................................1
+•
+Added Device Information table......................................................................................................................... 1
+•
+Added Mechanical, Packaging, and Orderable Information section.................................................................29
+Changes from Revision U (August 2010) to Revision V (January 2014)
+Page
+•
+Updated document to new TI data sheet format - no specification changes......................................................1
+•
+Updated Features ..............................................................................................................................................1
+•
+Updated Features ..............................................................................................................................................1
+•
+Deleted Ordering Information table.................................................................................................................... 3
+•
+Added Pin Functions table .................................................................................................................................3
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+
+28
+Submit Document Feedback
+Copyright © 2025 Texas Instruments Incorporated
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+12 Mechanical, Packaging, and Orderable Information
+The following pages include mechanical packaging and orderable information. This information is the most current data available for the designated devices. This data is subject to change without notice and revision of this document. For browser based versions of this data sheet, refer to the left hand navigation.
+
+LM124, LM124A, LM224, LM224A, LM224K, LM224KA
+LM324, LM324A, LM324B, LM324BA, LM324K, LM324KA
+LM2902, LM2902B, LM2902BA, LM2902K, LM2902KAV, LM2902KV
+SLOS066AE – AUGUST 1975 – REVISED SEPTEMBER 2025
+Copyright © 2025 Texas Instruments Incorporated
+Submit Document Feedback
+29
+Product Folder Links: LM124 LM124A LM224 LM224A LM224K LM224KA LM324 LM324A LM324B LM324BA LM324K LM324KA LM2902
+LM2902B LM2902BA LM2902K LM2902KAV LM2902KV
+
+PACKAGE OPTION ADDENDUM
+
+6-Feb-2026
+PACKAGING INFORMATION
+Orderable part number
+Status
+(1)
+Material type
+(2)
+Package | Pins
+Package qty | Carrier
+RoHS
+(3)
+Lead finish/
+Ball material
+(4)
+MSL rating/
+Peak reflow
+(5)
+Op temp (°C)
+Part marking
+(6)
+77043012A
+Active
+Production
+LCCC (FK) | 20
+55 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+77043012A
+LM124FKB
+7704301CA
+Active
+Production
+CDIP (J) | 14
+25 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+7704301CA
+LM124JB
+7704301DA
+Active
+Production
+CFP (W) | 14
+25 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+7704301DA
+LM124WB
+77043022A
+Active
+Production
+LCCC (FK) | 20
+55 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+77043022A
+LM124AFKB
+7704302CA
+Active
+Production
+CDIP (J) | 14
+25 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+7704302CA
+LM124AJB
+7704302DA
+Active
+Production
+CFP (W) | 14
+25 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+7704302DA
+LM124AWB
+JM38510/11005BCA
+Active
+Production
+CDIP (J) | 14
+25 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+JM38510
+/11005BCA
+JM38510/11005BCA.A
+Active
+Production
+CDIP (J) | 14
+25 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+JM38510
+/11005BCA
+LM124AFKB
+Active
+Production
+LCCC (FK) | 20
+55 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+77043022A
+LM124AFKB
+LM124AFKB.A
+Active
+Production
+LCCC (FK) | 20
+55 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+77043022A
+LM124AFKB
+LM124AJ
+Active
+Production
+CDIP (J) | 14
+25 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+LM124AJ
+LM124AJ.A
+Active
+Production
+CDIP (J) | 14
+25 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+LM124AJ
+LM124AJB
+Active
+Production
+CDIP (J) | 14
+25 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+7704302CA
+LM124AJB
+LM124AJB.A
+Active
+Production
+CDIP (J) | 14
+25 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+7704302CA
+LM124AJB
+LM124AWB
+Active
+Production
+CFP (W) | 14
+25 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+7704302DA
+LM124AWB
+LM124AWB.A
+Active
+Production
+CFP (W) | 14
+25 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+7704302DA
+LM124AWB
+LM124D
+Obsolete
+Production
+SOIC (D) | 14
+-
+-
+Call TI
+Call TI
+-55 to 125
+LM124
+LM124DR
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-55 to 125
+LM124
+LM124DR.A
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-55 to 125
+LM124
+Addendum-Page 1
+
+PACKAGE OPTION ADDENDUM
+
+6-Feb-2026
+Orderable part number
+Status
+(1)
+Material type
+(2)
+Package | Pins
+Package qty | Carrier
+RoHS
+(3)
+Lead finish/
+Ball material
+(4)
+MSL rating/
+Peak reflow
+(5)
+Op temp (°C)
+Part marking
+(6)
+LM124DRG4
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-55 to 125
+LM124
+LM124DRG4.A
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-55 to 125
+LM124
+LM124FKB
+Active
+Production
+LCCC (FK) | 20
+55 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+77043012A
+LM124FKB
+LM124FKB.A
+Active
+Production
+LCCC (FK) | 20
+55 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+77043012A
+LM124FKB
+LM124J
+Active
+Production
+CDIP (J) | 14
+25 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+LM124J
+LM124J.A
+Active
+Production
+CDIP (J) | 14
+25 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+LM124J
+LM124JB
+Active
+Production
+CDIP (J) | 14
+25 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+7704301CA
+LM124JB
+LM124JB.A
+Active
+Production
+CDIP (J) | 14
+25 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+7704301CA
+LM124JB
+LM124W
+Active
+Production
+CFP (W) | 14
+25 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+LM124W
+LM124W.A
+Active
+Production
+CFP (W) | 14
+25 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+LM124W
+LM124WB
+Active
+Production
+CFP (W) | 14
+25 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+7704301DA
+LM124WB
+LM124WB.A
+Active
+Production
+CFP (W) | 14
+25 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+7704301DA
+LM124WB
+LM224AD
+Obsolete
+Production
+SOIC (D) | 14
+-
+-
+Call TI
+Call TI
+-25 to 85
+LM224A
+LM224ADR
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-25 to 85
+LM224A
+LM224ADR.A
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-25 to 85
+LM224A
+LM224ADRE4
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-25 to 85
+LM224A
+LM224ADRG4
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-25 to 85
+LM224A
+LM224ADRG4.A
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-25 to 85
+LM224A
+LM224AN
+Active
+Production
+PDIP (N) | 14
+25 | TUBE
+Yes
+NIPDAU
+N/A for Pkg Type
+-25 to 85
+LM224AN
+LM224AN.A
+Active
+Production
+PDIP (N) | 14
+25 | TUBE
+Yes
+NIPDAU
+N/A for Pkg Type
+-25 to 85
+LM224AN
+LM224D
+Obsolete
+Production
+SOIC (D) | 14
+-
+-
+Call TI
+Call TI
+-25 to 85
+LM224
+LM224DR
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-25 to 85
+LM224
+LM224DR.A
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-25 to 85
+LM224
+LM224DRG3
+Obsolete
+Production
+SOIC (D) | 14
+-
+-
+Call TI
+Call TI
+-25 to 85
+LM224
+LM224DRG4
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-25 to 85
+LM224
+LM224DRG4.A
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-25 to 85
+LM224
+Addendum-Page 2
+
+PACKAGE OPTION ADDENDUM
+
+6-Feb-2026
+Orderable part number
+Status
+(1)
+Material type
+(2)
+Package | Pins
+Package qty | Carrier
+RoHS
+(3)
+Lead finish/
+Ball material
+(4)
+MSL rating/
+Peak reflow
+(5)
+Op temp (°C)
+Part marking
+(6)
+LM224KAD
+Obsolete
+Production
+SOIC (D) | 14
+-
+-
+Call TI
+Call TI
+-25 to 85
+LM224KA
+LM224KADR
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-25 to 85
+LM224KA
+LM224KADR.A
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-25 to 85
+LM224KA
+LM224KADRG4
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+-
+Call TI
+Call TI
+-25 to 85
+LM224KAN
+Active
+Production
+PDIP (N) | 14
+25 | TUBE
+Yes
+NIPDAU
+N/A for Pkg Type
+-25 to 85
+LM224KAN
+LM224KAN.A
+Active
+Production
+PDIP (N) | 14
+25 | TUBE
+Yes
+NIPDAU
+N/A for Pkg Type
+-25 to 85
+LM224KAN
+LM224KDR
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-25 to 85
+LM224K
+LM224KDR.A
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-25 to 85
+LM224K
+LM224KN
+Active
+Production
+PDIP (N) | 14
+25 | TUBE
+Yes
+NIPDAU
+N/A for Pkg Type
+-25 to 85
+LM224KN
+LM224KN.A
+Active
+Production
+PDIP (N) | 14
+25 | TUBE
+Yes
+NIPDAU
+N/A for Pkg Type
+-25 to 85
+LM224KN
+LM224N
+Active
+Production
+PDIP (N) | 14
+25 | TUBE
+Yes
+NIPDAU
+N/A for Pkg Type
+-25 to 85
+LM224N
+LM224N.A
+Active
+Production
+PDIP (N) | 14
+25 | TUBE
+Yes
+NIPDAU
+N/A for Pkg Type
+-25 to 85
+LM224N
+LM224NE4
+Active
+Production
+PDIP (N) | 14
+25 | TUBE
+-
+Call TI
+Call TI
+-25 to 85
+LM2902BAIDR
+Active
+Production
+SOIC (D) | 14
+3000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+LM2902BA
+LM2902BAIDR.A
+Active
+Production
+SOIC (D) | 14
+3000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+LM2902BA
+LM2902BAIPWR
+Active
+Production
+TSSOP (PW) | 14
+3000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+L2902BA
+LM2902BAIPWR.A
+Active
+Production
+TSSOP (PW) | 14
+3000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+L2902BA
+LM2902BIDR
+Active
+Production
+SOIC (D) | 14
+3000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+LM2902B
+LM2902BIDR.A
+Active
+Production
+SOIC (D) | 14
+3000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+LM2902B
+LM2902BIPWR
+Active
+Production
+TSSOP (PW) | 14
+3000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+LM2902B
+LM2902BIPWR.A
+Active
+Production
+TSSOP (PW) | 14
+3000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+LM2902B
+LM2902BIRTER
+Active
+Production
+WQFN (RTE) | 16
+5000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+L2902B
+LM2902D
+Obsolete
+Production
+SOIC (D) | 14
+-
+-
+Call TI
+Call TI
+-40 to 125
+LM2902
+LM2902DR
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+LM2902
+LM2902DR.A
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+LM2902
+LM2902DRE4
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+LM2902
+LM2902DRG3
+Obsolete
+Production
+SOIC (D) | 14
+-
+-
+Call TI
+Call TI
+-40 to 125
+LM2902
+LM2902DRG4
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+LM2902
+LM2902DRG4.A
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+LM2902
+LM2902KAVQDR
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+L2902KA
+LM2902KAVQDR.A
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+L2902KA
+Addendum-Page 3
+
+PACKAGE OPTION ADDENDUM
+
+6-Feb-2026
+Orderable part number
+Status
+(1)
+Material type
+(2)
+Package | Pins
+Package qty | Carrier
+RoHS
+(3)
+Lead finish/
+Ball material
+(4)
+MSL rating/
+Peak reflow
+(5)
+Op temp (°C)
+Part marking
+(6)
+LM2902KAVQDRG4
+Obsolete
+Production
+SOIC (D) | 14
+-
+-
+Call TI
+Call TI
+-40 to 125
+L2902KA
+LM2902KAVQPWR
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+L2902KA
+LM2902KAVQPWR.A
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+L2902KA
+LM2902KAVQPWRG4
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+L2902KA
+LM2902KAVQPWRG4.A
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+L2902KA
+LM2902KD
+Obsolete
+Production
+SOIC (D) | 14
+-
+-
+Call TI
+Call TI
+-40 to 125
+LM2902K
+LM2902KDB
+Active
+Production
+SSOP (DB) | 14
+80 | TUBE
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+L2902K
+LM2902KDB.A
+Active
+Production
+SSOP (DB) | 14
+80 | TUBE
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+L2902K
+LM2902KDR
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+LM2902K
+LM2902KDR.A
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+LM2902K
+LM2902KN
+Active
+Production
+PDIP (N) | 14
+25 | TUBE
+Yes
+NIPDAU
+N/A for Pkg Type
+-40 to 125
+LM2902KN
+LM2902KN.A
+Active
+Production
+PDIP (N) | 14
+25 | TUBE
+Yes
+NIPDAU
+N/A for Pkg Type
+-40 to 125
+LM2902KN
+LM2902KNSR
+Active
+Production
+SOP (NS) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+LM2902K
+LM2902KNSR.A
+Active
+Production
+SOP (NS) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+LM2902K
+LM2902KNSRG4
+Active
+Production
+SOP (NS) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+LM2902K
+LM2902KPW
+Obsolete
+Production
+TSSOP (PW) | 14
+-
+-
+Call TI
+Call TI
+-40 to 125
+L2902K
+LM2902KPWR
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+L2902K
+LM2902KPWR.A
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+L2902K
+LM2902KVQDR
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+L2902KV
+LM2902KVQDR.A
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+L2902KV
+LM2902KVQDRG4
+Obsolete
+Production
+SOIC (D) | 14
+-
+-
+Call TI
+Call TI
+-40 to 125
+L2902KV
+LM2902KVQPWR
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+L2902KV
+LM2902KVQPWR.A
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+L2902KV
+LM2902KVQPWRG4
+Obsolete
+Production
+TSSOP (PW) | 14
+-
+-
+Call TI
+Call TI
+-40 to 125
+L2902KV
+LM2902N
+Active
+Production
+PDIP (N) | 14
+25 | TUBE
+Yes
+NIPDAU
+N/A for Pkg Type
+-40 to 125
+LM2902N
+LM2902N.A
+Active
+Production
+PDIP (N) | 14
+25 | TUBE
+Yes
+NIPDAU
+N/A for Pkg Type
+-40 to 125
+LM2902N
+LM2902NE4
+Obsolete
+Production
+PDIP (N) | 14
+-
+-
+Call TI
+Call TI
+-40 to 125
+LM2902N
+LM2902NSR
+Active
+Production
+SOP (NS) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+LM2902
+LM2902NSR.A
+Active
+Production
+SOP (NS) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+LM2902
+LM2902PW
+Obsolete
+Production
+TSSOP (PW) | 14
+-
+-
+Call TI
+Call TI
+-40 to 125
+L2902
+LM2902PWR
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+L2902
+Addendum-Page 4
+
+PACKAGE OPTION ADDENDUM
+
+6-Feb-2026
+Orderable part number
+Status
+(1)
+Material type
+(2)
+Package | Pins
+Package qty | Carrier
+RoHS
+(3)
+Lead finish/
+Ball material
+(4)
+MSL rating/
+Peak reflow
+(5)
+Op temp (°C)
+Part marking
+(6)
+LM2902PWR.A
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+L2902
+LM2902PWRE4
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+L2902
+LM2902PWRG3
+Obsolete
+Production
+TSSOP (PW) | 14
+-
+-
+Call TI
+Call TI
+-40 to 125
+L2902
+LM2902PWRG4
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+L2902
+LM2902PWRG4.A
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 125
+L2902
+LM324AD
+Obsolete
+Production
+SOIC (D) | 14
+-
+-
+Call TI
+Call TI
+0 to 70
+LM324A
+LM324ADBR
+Active
+Production
+SSOP (DB) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+LM324A
+LM324ADBR.A
+Active
+Production
+SSOP (DB) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+LM324A
+LM324ADR
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+LM324A
+LM324ADR.A
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+LM324A
+LM324ADRG4
+Obsolete
+Production
+SOIC (D) | 14
+-
+-
+Call TI
+Call TI
+0 to 70
+LM324A
+LM324AN
+Active
+Production
+PDIP (N) | 14
+25 | TUBE
+Yes
+NIPDAU
+N/A for Pkg Type
+0 to 70
+LM324AN
+LM324AN.A
+Active
+Production
+PDIP (N) | 14
+25 | TUBE
+Yes
+NIPDAU
+N/A for Pkg Type
+0 to 70
+LM324AN
+LM324ANSR
+Active
+Production
+SOP (NS) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+LM324A
+LM324ANSR.A
+Active
+Production
+SOP (NS) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+LM324A
+LM324ANSRG4
+Active
+Production
+SOP (NS) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+LM324A
+LM324APWR
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+L324A
+LM324APWR.A
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+L324A
+LM324APWRG4
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+L324A
+LM324APWRG4.A
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+L324A
+LM324BAIDR
+Active
+Production
+SOIC (D) | 14
+3000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 85
+LM324BA
+LM324BAIDR.A
+Active
+Production
+SOIC (D) | 14
+3000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 85
+LM324BA
+LM324BAIPWR
+Active
+Production
+TSSOP (PW) | 14
+3000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 85
+L324BA
+LM324BAIPWR.A
+Active
+Production
+TSSOP (PW) | 14
+3000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 85
+L324BA
+LM324BIDR
+Active
+Production
+SOIC (D) | 14
+3000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 85
+LM324B
+LM324BIDR.A
+Active
+Production
+SOIC (D) | 14
+3000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 85
+LM324B
+LM324BIPWR
+Active
+Production
+TSSOP (PW) | 14
+3000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 85
+LM324B
+LM324BIPWR.A
+Active
+Production
+TSSOP (PW) | 14
+3000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 85
+LM324B
+LM324BIRTER
+Active
+Production
+WQFN (RTE) | 16
+5000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+-40 to 85
+LM324B
+LM324D
+Obsolete
+Production
+SOIC (D) | 14
+-
+-
+Call TI
+Call TI
+0 to 70
+LM324
+LM324DR
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+LM324
+Addendum-Page 5
+
+PACKAGE OPTION ADDENDUM
+
+6-Feb-2026
+Orderable part number
+Status
+(1)
+Material type
+(2)
+Package | Pins
+Package qty | Carrier
+RoHS
+(3)
+Lead finish/
+Ball material
+(4)
+MSL rating/
+Peak reflow
+(5)
+Op temp (°C)
+Part marking
+(6)
+LM324DR.A
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+LM324
+LM324DRE4
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+LM324
+LM324DRG3
+Obsolete
+Production
+SOIC (D) | 14
+-
+-
+Call TI
+Call TI
+0 to 70
+LM324
+LM324DRG4
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+LM324
+LM324DRG4.A
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+LM324
+LM324KAD
+Obsolete
+Production
+SOIC (D) | 14
+-
+-
+Call TI
+Call TI
+0 to 70
+LM324KA
+LM324KADR
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+LM324KA
+LM324KADR.A
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+LM324KA
+LM324KADRG4
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+-
+Call TI
+Call TI
+0 to 70
+LM324KAN
+Active
+Production
+PDIP (N) | 14
+25 | TUBE
+Yes
+NIPDAU
+N/A for Pkg Type
+0 to 70
+LM324KAN
+LM324KAN.A
+Active
+Production
+PDIP (N) | 14
+25 | TUBE
+Yes
+NIPDAU
+N/A for Pkg Type
+0 to 70
+LM324KAN
+LM324KANSR
+Active
+Production
+SOP (NS) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+LM324KA
+LM324KANSR.A
+Active
+Production
+SOP (NS) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+LM324KA
+LM324KAPW
+Obsolete
+Production
+TSSOP (PW) | 14
+-
+-
+Call TI
+Call TI
+0 to 70
+L324KA
+LM324KAPWR
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+L324KA
+LM324KAPWR.A
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+L324KA
+LM324KDR
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+LM324K
+LM324KDR.A
+Active
+Production
+SOIC (D) | 14
+2500 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+LM324K
+LM324KN
+Active
+Production
+PDIP (N) | 14
+25 | TUBE
+Yes
+NIPDAU
+N/A for Pkg Type
+0 to 70
+LM324KN
+LM324KN.A
+Active
+Production
+PDIP (N) | 14
+25 | TUBE
+Yes
+NIPDAU
+N/A for Pkg Type
+0 to 70
+LM324KN
+LM324KNSR
+Active
+Production
+SOP (NS) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+LM324K
+LM324KNSR.A
+Active
+Production
+SOP (NS) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+LM324K
+LM324KPW
+Obsolete
+Production
+TSSOP (PW) | 14
+-
+-
+Call TI
+Call TI
+0 to 70
+L324K
+LM324KPWR
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+L324K
+LM324KPWR.A
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+L324K
+LM324N
+Active
+Production
+PDIP (N) | 14
+25 | TUBE
+Yes
+NIPDAU
+N/A for Pkg Type
+0 to 70
+LM324N
+LM324N.A
+Active
+Production
+PDIP (N) | 14
+25 | TUBE
+Yes
+NIPDAU
+N/A for Pkg Type
+0 to 70
+LM324N
+LM324NE3
+Obsolete
+Production
+PDIP (N) | 14
+-
+-
+Call TI
+Call TI
+0 to 70
+LM324N
+LM324NE4
+Obsolete
+Production
+PDIP (N) | 14
+-
+-
+Call TI
+Call TI
+0 to 70
+LM324N
+LM324NSR
+Active
+Production
+SOP (NS) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+LM324
+LM324NSR.A
+Active
+Production
+SOP (NS) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+LM324
+Addendum-Page 6
+
+PACKAGE OPTION ADDENDUM
+
+6-Feb-2026
+Orderable part number
+Status
+(1)
+Material type
+(2)
+Package | Pins
+Package qty | Carrier
+RoHS
+(3)
+Lead finish/
+Ball material
+(4)
+MSL rating/
+Peak reflow
+(5)
+Op temp (°C)
+Part marking
+(6)
+LM324NSRE4
+Active
+Production
+SOP (NS) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+LM324
+LM324NSRG4
+Active
+Production
+SOP (NS) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+LM324
+LM324PW
+Obsolete
+Production
+TSSOP (PW) | 14
+-
+-
+Call TI
+Call TI
+0 to 70
+L324
+LM324PWR
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+L324
+LM324PWR.A
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+L324
+LM324PWRE4
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+L324
+LM324PWRG3
+Obsolete
+Production
+TSSOP (PW) | 14
+-
+-
+Call TI
+Call TI
+0 to 70
+L324
+LM324PWRG4
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+L324
+LM324PWRG4.A
+Active
+Production
+TSSOP (PW) | 14
+2000 | LARGE T&R
+Yes
+NIPDAU
+Level-1-260C-UNLIM
+0 to 70
+L324
+M38510/11005BCA
+Active
+Production
+CDIP (J) | 14
+25 | TUBE
+No
+SNPB
+N/A for Pkg Type
+-55 to 125
+JM38510
+/11005BCA
+
+(1) Status: For more details on status, see our product life cycle.
+
+(2) Material type: When designated, preproduction parts are prototypes/experimental devices, and are not yet approved or released for full production. Testing and final process, including without limitation quality assurance, reliability performance testing, and/or process qualification, may not yet be complete, and this item is subject to further changes or possible discontinuation. If available for ordering, purchases will be subject to an additional waiver at checkout, and are intended for early internal evaluation purposes only. These items are sold without warranties of any kind.
+
+(3) RoHS values: Yes, No, RoHS Exempt. See the TI RoHS Statement for additional information and value definition.
+
+(4) Lead finish/Ball material: Parts may have multiple material finish options. Finish options are separated by a vertical ruled line. Lead finish/Ball material values may wrap to two lines if the finish value exceeds the maximum column width.
+
+(5) MSL rating/Peak reflow: The moisture sensitivity level ratings and peak solder (reflow) temperatures. In the event that a part has multiple moisture sensitivity ratings, only the lowest level per JEDEC standards is shown.
+Refer to the shipping label for the actual reflow temperature that will be used to mount the part to the printed circuit board.
+
+(6) Part marking: There may be an additional marking, which relates to the logo, the lot trace code information, or the environmental category of the part.
+
+Multiple part markings will be inside parentheses. Only one part marking contained in parentheses and separated by a "~" will appear on a part. If a line is indented then it is a continuation of the previous line and the two combined represent the entire part marking for that device.
+
+Important Information and Disclaimer:The information provided on this page represents TI's knowledge and belief as of the date that it is provided. TI bases its knowledge and belief on information provided by third parties, and makes no representation or warranty as to the accuracy of such information. Efforts are underway to better integrate information from third parties. TI has taken and continues to take reasonable steps to provide representative
+Addendum-Page 7
+
+PACKAGE OPTION ADDENDUM
+
+6-Feb-2026 and accurate information but may not have conducted destructive testing or chemical analysis on incoming materials and chemicals. TI and TI suppliers consider certain information to be proprietary, and thus CAS numbers and other limited information may not be available for release.
+
+In no event shall TI's liability arising out of such information exceed the total purchase price of the TI part(s) at issue in this document sold by TI to Customer on an annual basis.
+
+OTHER QUALIFIED VERSIONS OF LM124, LM124M, LM2902, LM2902B, LM2902BA :
+• Catalog : LM124
+• Automotive : LM2902-Q1, LM2902B-Q1, LM2902BA-Q1
+• Enhanced Product : LM2902-EP
+• Military : LM124M
+• Space : LM124-SP, LM124-SP
+NOTE: Qualified Version Definitions:
+• Catalog - TI's standard catalog product
+• Automotive - Q100 devices qualified for high-reliability automotive applications targeting zero defects
+• Enhanced Product - Supports Defense, Aerospace and Medical Applications
+• Military - QML certified for Military and Defense Applications
+• Space - Radiation tolerant, ceramic packaging and qualified for use in Space-based application
+Addendum-Page 8
+
+PACKAGE MATERIALS INFORMATION
+
+26-Nov-2025
+TAPE AND REEL INFORMATION
+Reel Width (W1)
+REEL DIMENSIONS
+A0
+B0
+K0
+W
+Dimension designed to accommodate the component length
+Dimension designed to accommodate the component thickness
+Overall width of the carrier tape
+Pitch between successive cavity centers
+Dimension designed to accommodate the component width
+TAPE DIMENSIONS
+K0
+P1
+B0 W
+A0
+Cavity
+QUADRANT ASSIGNMENTS FOR PIN 1 ORIENTATION IN TAPE
+Pocket Quadrants
+Sprocket Holes
+Q1
+Q1
+Q2
+Q2
+Q3
+Q3
+Q4
+Q4
+User Direction of Feed
+P1
+Reel
+Diameter
+
+*All dimensions are nominal
+Device
+Package
+Type
+Package
+Drawing
+Pins
+SPQ
+Reel
+Diameter
+(mm)
+Reel
+Width
+W1 (mm)
+A0
+(mm)
+B0
+(mm)
+K0
+(mm)
+P1
+(mm)
+W
+(mm)
+Pin1
+Quadrant
+LM124DR
+SOIC
+D
+14
+2500
+330.0
+16.4
+6.5
+9.0
+2.1
+8.0
+16.0
+Q1
+LM124DRG4
+SOIC
+D
+14
+2500
+330.0
+16.4
+6.5
+9.0
+2.1
+8.0
+16.0
+Q1
+LM224ADR
+SOIC
+D
+14
+2500
+330.0
+16.4
+6.5
+9.0
+2.1
+8.0
+16.0
+Q1
+LM224ADR
+SOIC
+D
+14
+2500
+330.0
+12.4
+6.4
+5.2
+2.1
+8.0
+12.0
+Q1
+LM224ADRG4
+SOIC
+D
+14
+2500
+330.0
+16.4
+6.5
+9.0
+2.1
+8.0
+16.0
+Q1
+LM224DR
+SOIC
+D
+14
+2500
+330.0
+12.4
+6.4
+5.2
+2.1
+8.0
+12.0
+Q1
+LM224KADR
+SOIC
+D
+14
+2500
+330.0
+12.4
+6.4
+5.2
+2.1
+8.0
+12.0
+Q1
+LM224KDR
+SOIC
+D
+14
+2500
+330.0
+12.4
+6.4
+5.2
+2.1
+8.0
+12.0
+Q1
+LM2902BAIDR
+SOIC
+D
+14
+3000
+330.0
+12.4
+6.4
+5.2
+2.1
+8.0
+12.0
+Q1
+LM2902BAIPWR
+TSSOP
+PW
+14
+3000
+330.0
+12.4
+6.9
+5.6
+1.6
+8.0
+12.0
+Q1
+LM2902BIDR
+SOIC
+D
+14
+3000
+330.0
+12.4
+6.4
+5.2
+2.1
+8.0
+12.0
+Q1
+LM2902BIPWR
+TSSOP
+PW
+14
+3000
+330.0
+12.4
+6.9
+5.6
+1.6
+8.0
+12.0
+Q1
+LM2902BIRTER
+WQFN
+RTE
+16
+5000
+330.0
+12.4
+3.3
+3.3
+1.1
+8.0
+12.0
+Q2
+LM2902DR
+SOIC
+D
+14
+2500
+330.0
+12.4
+6.4
+5.2
+2.1
+8.0
+12.0
+Q1
+LM2902DR
+SOIC
+D
+14
+2500
+330.0
+16.4
+6.5
+9.0
+2.1
+8.0
+16.0
+Q1
+LM2902DRG4
+SOIC
+D
+14
+2500
+330.0
+16.4
+6.5
+9.0
+2.1
+8.0
+16.0
+Q1
+Pack Materials-Page 1
+
+PACKAGE MATERIALS INFORMATION
+
+26-Nov-2025
+Device
+Package
+Type
+Package
+Drawing
+Pins
+SPQ
+Reel
+Diameter
+(mm)
+Reel
+Width
+W1 (mm)
+A0
+(mm)
+B0
+(mm)
+K0
+(mm)
+P1
+(mm)
+W
+(mm)
+Pin1
+Quadrant
+LM2902KAVQDR
+SOIC
+D
+14
+2500
+330.0
+12.4
+6.4
+5.2
+2.1
+8.0
+12.0
+Q1
+LM2902KAVQPWR
+TSSOP
+PW
+14
+2000
+330.0
+12.4
+6.9
+5.6
+1.6
+8.0
+12.0
+Q1
+LM2902KAVQPWR
+TSSOP
+PW
+14
+2000
+330.0
+12.4
+6.9
+5.6
+1.6
+8.0
+12.0
+Q1
+LM2902KAVQPWRG4
+TSSOP
+PW
+14
+2000
+330.0
+12.4
+6.9
+5.6
+1.6
+8.0
+12.0
+Q1
+LM2902KDR
+SOIC
+D
+14
+2500
+330.0
+12.4
+6.4
+5.2
+2.1
+8.0
+12.0
+Q1
+LM2902KNSR
+SOP
+NS
+14
+2000
+330.0
+16.4
+8.1
+10.4
+2.5
+12.0
+16.0
+Q1
+LM2902KPWR
+TSSOP
+PW
+14
+2000
+330.0
+12.4
+6.9
+5.6
+1.6
+8.0
+12.0
+Q1
+LM2902KPWR
+TSSOP
+PW
+14
+2000
+330.0
+12.4
+6.9
+5.6
+1.6
+8.0
+12.0
+Q1
+LM2902KVQDR
+SOIC
+D
+14
+2500
+330.0
+12.4
+6.4
+5.2
+2.1
+8.0
+12.0
+Q1
+LM2902KVQPWR
+TSSOP
+PW
+14
+2000
+330.0
+12.4
+6.9
+5.6
+1.6
+8.0
+12.0
+Q1
+LM2902KVQPWR
+TSSOP
+PW
+14
+2000
+330.0
+12.4
+6.9
+5.6
+1.6
+8.0
+12.0
+Q1
+LM2902NSR
+SOP
+NS
+14
+2000
+330.0
+16.4
+8.1
+10.4
+2.5
+12.0
+16.0
+Q1
+LM2902PWR
+TSSOP
+PW
+14
+2000
+330.0
+12.4
+6.9
+5.6
+1.6
+8.0
+12.0
+Q1
+LM2902PWRG4
+TSSOP
+PW
+14
+2000
+330.0
+12.4
+6.9
+5.6
+1.6
+8.0
+12.0
+Q1
+LM324ADBR
+SSOP
+DB
+14
+2000
+330.0
+16.4
+8.35
+6.6
+2.4
+12.0
+16.0
+Q1
+LM324ADR
+SOIC
+D
+14
+2500
+330.0
+16.4
+6.5
+9.0
+2.1
+8.0
+16.0
+Q1
+LM324ADR
+SOIC
+D
+14
+2500
+330.0
+12.4
+6.4
+5.2
+2.1
+8.0
+12.0
+Q1
+LM324ANSR
+SOP
+NS
+14
+2000
+330.0
+16.4
+8.1
+10.4
+2.5
+12.0
+16.0
+Q1
+LM324APWR
+TSSOP
+PW
+14
+2000
+330.0
+12.4
+6.9
+5.6
+1.6
+8.0
+12.0
+Q1
+LM324APWR
+TSSOP
+PW
+14
+2000
+330.0
+12.4
+6.9
+5.6
+1.6
+8.0
+12.0
+Q1
+LM324APWRG4
+TSSOP
+PW
+14
+2000
+330.0
+12.4
+6.9
+5.6
+1.6
+8.0
+12.0
+Q1
+LM324APWRG4
+TSSOP
+PW
+14
+2000
+330.0
+12.4
+6.9
+5.6
+1.6
+8.0
+12.0
+Q1
+LM324BAIDR
+SOIC
+D
+14
+3000
+330.0
+12.4
+6.4
+5.2
+2.1
+8.0
+12.0
+Q1
+LM324BAIPWR
+TSSOP
+PW
+14
+3000
+330.0
+12.4
+6.9
+5.6
+1.6
+8.0
+12.0
+Q1
+LM324BIDR
+SOIC
+D
+14
+3000
+330.0
+12.4
+6.4
+5.2
+2.1
+8.0
+12.0
+Q1
+LM324BIPWR
+TSSOP
+PW
+14
+3000
+330.0
+12.4
+6.9
+5.6
+1.6
+8.0
+12.0
+Q1
+LM324BIRTER
+WQFN
+RTE
+16
+5000
+330.0
+12.4
+3.3
+3.3
+1.1
+8.0
+12.0
+Q2
+LM324DR
+SOIC
+D
+14
+2500
+330.0
+16.4
+6.5
+9.0
+2.1
+8.0
+16.0
+Q1
+LM324DRG4
+SOIC
+D
+14
+2500
+330.0
+16.4
+6.5
+9.0
+2.1
+8.0
+16.0
+Q1
+LM324DRG4
+SOIC
+D
+14
+2500
+330.0
+16.4
+6.5
+9.0
+2.1
+8.0
+16.0
+Q1
+LM324KADR
+SOIC
+D
+14
+2500
+330.0
+12.4
+6.4
+5.2
+2.1
+8.0
+12.0
+Q1
+LM324KANSR
+SOP
+NS
+14
+2000
+330.0
+16.4
+8.1
+10.4
+2.5
+12.0
+16.0
+Q1
+LM324KAPWR
+TSSOP
+PW
+14
+2000
+330.0
+12.4
+6.9
+5.6
+1.6
+8.0
+12.0
+Q1
+LM324KAPWR
+TSSOP
+PW
+14
+2000
+330.0
+12.4
+6.9
+5.6
+1.6
+8.0
+12.0
+Q1
+LM324KDR
+SOIC
+D
+14
+2500
+330.0
+12.4
+6.4
+5.2
+2.1
+8.0
+12.0
+Q1
+LM324KNSR
+SOP
+NS
+14
+2000
+330.0
+16.4
+8.1
+10.4
+2.5
+12.0
+16.0
+Q1
+LM324KPWR
+TSSOP
+PW
+14
+2000
+330.0
+12.4
+6.9
+5.6
+1.6
+8.0
+12.0
+Q1
+LM324KPWR
+TSSOP
+PW
+14
+2000
+330.0
+12.4
+6.9
+5.6
+1.6
+8.0
+12.0
+Q1
+LM324NSR
+SOP
+NS
+14
+2000
+330.0
+16.4
+8.1
+10.4
+2.5
+12.0
+16.0
+Q1
+LM324PWR
+TSSOP
+PW
+14
+2000
+330.0
+12.4
+6.9
+5.6
+1.6
+8.0
+12.0
+Q1
+LM324PWRG4
+TSSOP
+PW
+14
+2000
+330.0
+12.4
+6.9
+5.6
+1.6
+8.0
+12.0
+Q1
+Pack Materials-Page 2
+
+PACKAGE MATERIALS INFORMATION
+
+26-Nov-2025
+Device
+Package
+Type
+Package
+Drawing
+Pins
+SPQ
+Reel
+Diameter
+(mm)
+Reel
+Width
+W1 (mm)
+A0
+(mm)
+B0
+(mm)
+K0
+(mm)
+P1
+(mm)
+W
+(mm)
+Pin1
+Quadrant
+LM324PWRG4
+TSSOP
+PW
+14
+2000
+330.0
+12.4
+6.9
+5.6
+1.6
+8.0
+12.0
+Q1
+Pack Materials-Page 3
+
+PACKAGE MATERIALS INFORMATION
+
+26-Nov-2025
+TAPE AND REEL BOX DIMENSIONS
+Width (mm)
+W
+L
+H
+
+*All dimensions are nominal
+Device
+Package Type
+Package Drawing
+Pins
+SPQ
+Length (mm)
+Width (mm)
+Height (mm)
+LM124DR
+SOIC
+D
+14
+2500
+353.0
+353.0
+32.0
+LM124DRG4
+SOIC
+D
+14
+2500
+353.0
+353.0
+32.0
+LM224ADR
+SOIC
+D
+14
+2500
+340.5
+336.1
+32.0
+LM224ADR
+SOIC
+D
+14
+2500
+340.5
+336.1
+25.0
+LM224ADRG4
+SOIC
+D
+14
+2500
+340.5
+336.1
+32.0
+LM224DR
+SOIC
+D
+14
+2500
+340.5
+336.1
+25.0
+LM224KADR
+SOIC
+D
+14
+2500
+340.5
+336.1
+25.0
+LM224KDR
+SOIC
+D
+14
+2500
+340.5
+336.1
+25.0
+LM2902BAIDR
+SOIC
+D
+14
+3000
+353.0
+353.0
+32.0
+LM2902BAIPWR
+TSSOP
+PW
+14
+3000
+353.0
+353.0
+32.0
+LM2902BIDR
+SOIC
+D
+14
+3000
+340.5
+336.1
+25.0
+LM2902BIPWR
+TSSOP
+PW
+14
+3000
+353.0
+353.0
+32.0
+LM2902BIRTER
+WQFN
+RTE
+16
+5000
+367.0
+367.0
+35.0
+LM2902DR
+SOIC
+D
+14
+2500
+340.5
+336.1
+25.0
+LM2902DR
+SOIC
+D
+14
+2500
+353.0
+353.0
+32.0
+LM2902DRG4
+SOIC
+D
+14
+2500
+353.0
+353.0
+32.0
+LM2902KAVQDR
+SOIC
+D
+14
+2500
+340.5
+336.1
+25.0
+LM2902KAVQPWR
+TSSOP
+PW
+14
+2000
+353.0
+353.0
+32.0
+Pack Materials-Page 4
+
+PACKAGE MATERIALS INFORMATION
+
+26-Nov-2025
+Device
+Package Type
+Package Drawing
+Pins
+SPQ
+Length (mm)
+Width (mm)
+Height (mm)
+LM2902KAVQPWR
+TSSOP
+PW
+14
+2000
+353.0
+353.0
+32.0
+LM2902KAVQPWRG4
+TSSOP
+PW
+14
+2000
+353.0
+353.0
+32.0
+LM2902KDR
+SOIC
+D
+14
+2500
+340.5
+336.1
+25.0
+LM2902KNSR
+SOP
+NS
+14
+2000
+353.0
+353.0
+32.0
+LM2902KPWR
+TSSOP
+PW
+14
+2000
+353.0
+353.0
+32.0
+LM2902KPWR
+TSSOP
+PW
+14
+2000
+353.0
+353.0
+32.0
+LM2902KVQDR
+SOIC
+D
+14
+2500
+340.5
+336.1
+25.0
+LM2902KVQPWR
+TSSOP
+PW
+14
+2000
+353.0
+353.0
+32.0
+LM2902KVQPWR
+TSSOP
+PW
+14
+2000
+353.0
+353.0
+32.0
+LM2902NSR
+SOP
+NS
+14
+2000
+353.0
+353.0
+32.0
+LM2902PWR
+TSSOP
+PW
+14
+2000
+353.0
+353.0
+32.0
+LM2902PWRG4
+TSSOP
+PW
+14
+2000
+353.0
+353.0
+32.0
+LM324ADBR
+SSOP
+DB
+14
+2000
+353.0
+353.0
+32.0
+LM324ADR
+SOIC
+D
+14
+2500
+333.2
+345.9
+28.6
+LM324ADR
+SOIC
+D
+14
+2500
+340.5
+336.1
+25.0
+LM324ANSR
+SOP
+NS
+14
+2000
+353.0
+353.0
+32.0
+LM324APWR
+TSSOP
+PW
+14
+2000
+353.0
+353.0
+32.0
+LM324APWR
+TSSOP
+PW
+14
+2000
+353.0
+353.0
+32.0
+LM324APWRG4
+TSSOP
+PW
+14
+2000
+353.0
+353.0
+32.0
+LM324APWRG4
+TSSOP
+PW
+14
+2000
+353.0
+353.0
+32.0
+LM324BAIDR
+SOIC
+D
+14
+3000
+340.5
+336.1
+25.0
+LM324BAIPWR
+TSSOP
+PW
+14
+3000
+353.0
+353.0
+32.0
+LM324BIDR
+SOIC
+D
+14
+3000
+340.5
+336.1
+25.0
+LM324BIPWR
+TSSOP
+PW
+14
+3000
+353.0
+353.0
+32.0
+LM324BIRTER
+WQFN
+RTE
+16
+5000
+367.0
+367.0
+35.0
+LM324DR
+SOIC
+D
+14
+2500
+353.0
+353.0
+32.0
+LM324DRG4
+SOIC
+D
+14
+2500
+353.0
+353.0
+32.0
+LM324DRG4
+SOIC
+D
+14
+2500
+353.0
+353.0
+32.0
+LM324KADR
+SOIC
+D
+14
+2500
+340.5
+336.1
+25.0
+LM324KANSR
+SOP
+NS
+14
+2000
+353.0
+353.0
+32.0
+LM324KAPWR
+TSSOP
+PW
+14
+2000
+353.0
+353.0
+32.0
+LM324KAPWR
+TSSOP
+PW
+14
+2000
+353.0
+353.0
+32.0
+LM324KDR
+SOIC
+D
+14
+2500
+340.5
+336.1
+25.0
+LM324KNSR
+SOP
+NS
+14
+2000
+353.0
+353.0
+32.0
+LM324KPWR
+TSSOP
+PW
+14
+2000
+353.0
+353.0
+32.0
+LM324KPWR
+TSSOP
+PW
+14
+2000
+353.0
+353.0
+32.0
+LM324NSR
+SOP
+NS
+14
+2000
+353.0
+353.0
+32.0
+LM324PWR
+TSSOP
+PW
+14
+2000
+353.0
+353.0
+32.0
+LM324PWRG4
+TSSOP
+PW
+14
+2000
+353.0
+353.0
+32.0
+LM324PWRG4
+TSSOP
+PW
+14
+2000
+353.0
+353.0
+32.0
+Pack Materials-Page 5
+
+PACKAGE MATERIALS INFORMATION
+
+26-Nov-2025
+TUBE
+
+L - Tube length
+T - Tube height
+W - Tube width
+B - Alignment groove width
+
+*All dimensions are nominal
+Device
+Package Name
+Package Type
+Pins
+SPQ
+L (mm)
+W (mm)
+T (um)
+B (mm)
+77043012A
+FK
+LCCC
+20
+55
+506.98
+12.06
+2030
+NA
+7704301DA
+W
+CFP
+14
+25
+506.98
+26.16
+6220
+NA
+77043022A
+FK
+LCCC
+20
+55
+506.98
+12.06
+2030
+NA
+7704302DA
+W
+CFP
+14
+25
+506.98
+26.16
+6220
+NA
+LM124AFKB
+FK
+LCCC
+20
+55
+506.98
+12.06
+2030
+NA
+LM124AFKB.A
+FK
+LCCC
+20
+55
+506.98
+12.06
+2030
+NA
+LM124AWB
+W
+CFP
+14
+25
+506.98
+26.16
+6220
+NA
+LM124AWB.A
+W
+CFP
+14
+25
+506.98
+26.16
+6220
+NA
+LM124FKB
+FK
+LCCC
+20
+55
+506.98
+12.06
+2030
+NA
+LM124FKB.A
+FK
+LCCC
+20
+55
+506.98
+12.06
+2030
+NA
+LM124W
+W
+CFP
+14
+25
+506.98
+26.16
+6220
+NA
+LM124W.A
+W
+CFP
+14
+25
+506.98
+26.16
+6220
+NA
+LM124WB
+W
+CFP
+14
+25
+506.98
+26.16
+6220
+NA
+LM124WB.A
+W
+CFP
+14
+25
+506.98
+26.16
+6220
+NA
+LM224AN
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM224AN
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM224AN.A
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM224AN.A
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM224KAN
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM224KAN
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM224KAN.A
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM224KAN.A
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM224KN
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM224KN
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM224KN.A
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM224KN.A
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM224N
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM224N
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM224N.A
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+Pack Materials-Page 6
+
+PACKAGE MATERIALS INFORMATION
+
+26-Nov-2025
+Device
+Package Name
+Package Type
+Pins
+SPQ
+L (mm)
+W (mm)
+T (um)
+B (mm)
+LM224N.A
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM2902KDB
+DB
+SSOP
+14
+80
+530
+10.5
+4000
+4.1
+LM2902KDB.A
+DB
+SSOP
+14
+80
+530
+10.5
+4000
+4.1
+LM2902KN
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM2902KN
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM2902KN.A
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM2902KN.A
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM2902N
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM2902N
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM2902N.A
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM2902N.A
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM324AN
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM324AN.A
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM324KAN
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM324KAN.A
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM324KN
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM324KN.A
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM324N
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM324N
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM324N.A
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+LM324N.A
+N
+PDIP
+14
+25
+506
+13.97
+11230
+4.32
+Pack Materials-Page 7
+
+GENERIC PACKAGE VIEW
+This image is a representation of the package family, actual package may vary.
+Refer to the product data sheet for package details.
+WQFN - 0.8 mm max height
+RTE 16
+PLASTIC QUAD FLATPACK - NO LEAD
+3 x 3, 0.5 mm pitch
+4225944/A
+
+PACKAGE OUTLINE
+C
+16X 0.30
+0.18
+1.68
+0.07
+16X 0.5
+0.3
+0.8 MAX
+(DIM A) TYP
+0.05
+0.00
+12X 0.5
+4X
+1.5
+A
+3.1
+2.9
+B
+3.1
+2.9
+WQFN - 0.8 mm max height
+RTE0016C
+PLASTIC QUAD FLATPACK - NO LEAD
+4219117/B 04/2022
+SIDE WALL
+METAL THICKNESS
+DIM A
+OPTION 1
+OPTION 2
+0.1
+0.2
+PIN 1 INDEX AREA
+0.08
+SEATING PLANE
+1
+4
+9
+12
+5
+8
+16
+13
+(OPTIONAL)
+PIN 1 ID
+0.1
+C A B
+0.05
+EXPOSED
+THERMAL PAD
+17
+SYMM
+SYMM
+NOTES:
+
+1. All linear dimensions are in millimeters. Any dimensions in parenthesis are for reference only. Dimensioning and tolerancing per ASME Y14.5M.
+2. This drawing is subject to change without notice.
+3. The package thermal pad must be soldered to the printed circuit board for thermal and mechanical performance.
+SCALE 3.600
+
+EXAMPLE BOARD LAYOUT
+0.07 MIN
+ALL AROUND
+0.07 MAX
+ALL AROUND
+16X (0.24)
+16X (0.6)
+(
+0.2) TYP
+VIA
+12X (0.5)
+(2.8)
+(2.8)
+(0.58)
+TYP
+(
+1.68)
+(R0.05)
+ALL PAD CORNERS
+(0.58) TYP
+WQFN - 0.8 mm max height
+RTE0016C
+PLASTIC QUAD FLATPACK - NO LEAD
+4219117/B 04/2022
+SYMM
+1
+4
+5
+8
+9
+12
+13
+16
+SYMM
+LAND PATTERN EXAMPLE
+EXPOSED METAL SHOWN
+SCALE:20X
+17
+NOTES: (continued)
+
+4. This package is designed to be soldered to a thermal pad on the board. For more information, see Texas Instruments literature number SLUA271 (
+5. Vias are optional depending on application, refer to device data sheet. If any vias are implemented, refer to their locations shown on this view. It is recommended that vias under paste be filled, plugged or tented.
+SOLDER MASK
+OPENING
+METAL UNDER
+SOLDER MASK
+SOLDER MASK
+DEFINED
+EXPOSED
+METAL
+METAL
+SOLDER MASK
+OPENING
+SOLDER MASK DETAILS
+NON SOLDER MASK
+DEFINED
+(PREFERRED)
+EXPOSED
+METAL
+
+EXAMPLE STENCIL DESIGN
+16X (0.6)
+16X (0.24)
+12X (0.5)
+(2.8)
+(2.8)
+(
+1.55)
+(R0.05) TYP
+WQFN - 0.8 mm max height
+RTE0016C
+PLASTIC QUAD FLATPACK - NO LEAD
+4219117/B 04/2022
+NOTES: (continued)
+
+6. Laser cutting apertures with trapezoidal walls and rounded corners may offer better paste release. IPC-7525 may have alternate design recommendations.
+
+SYMM
+ALL AROUND
+METAL
+SOLDER PASTE EXAMPLE
+BASED ON 0.125 mm THICK STENCIL
+
+EXPOSED PAD 17:
+85% PRINTED SOLDER COVERAGE BY AREA UNDER PACKAGE
+SCALE:25X
+SYMM
+1
+4
+5
+8
+9
+12
+13
+16
+17
+
+PACKAGE OUTLINE
+C
+TYP
+6.2
+5.8
+1.75 MAX
+12X 1.27
+14X 0.51
+0.31
+2X
+7.62
+TYP
+0.25
+0.13
+0 - 8
+0.25
+0.10
+0.25
+GAGE PLANE
+1.27
+0.40
+A
+NOTE 3
+8.75
+8.55
+B
+NOTE 4
+4.0
+3.8
+4220718/A 09/2016
+SOIC - 1.75 mm max height
+D0014A
+SMALL OUTLINE INTEGRATED CIRCUIT
+NOTES:
+
+1. All linear dimensions are in millimeters. Dimensions in parenthesis are for reference only. Dimensioning and tolerancing per ASME Y14.5M.
+2. This drawing is subject to change without notice.
+3. This dimension does not include mold flash, protrusions, or gate burrs. Mold flash, protrusions, or gate burrs shall not exceed 0.15 mm, per side.
+4. This dimension does not include interlead flash. Interlead flash shall not exceed 0.43 mm, per side.
+5. Reference JEDEC registration MS-012, variation AB.
+
+1
+14
+0.25
+C A B
+8
+7
+PIN 1 ID
+AREA
+SEATING PLANE
+0.1 C
+SEE DETAIL A
+DETAIL A
+TYPICAL
+SCALE 1.800
+
+EXAMPLE BOARD LAYOUT
+(5.4)
+0.07 MAX
+ALL AROUND
+0.07 MIN
+ALL AROUND
+14X (1.55)
+14X (0.6)
+12X (1.27)
+(R0.05)
+TYP
+4220718/A 09/2016
+SOIC - 1.75 mm max height
+D0014A
+SMALL OUTLINE INTEGRATED CIRCUIT
+SYMM
+SYMM
+LAND PATTERN EXAMPLE
+SCALE:8X
+1
+7
+8
+14
+NOTES: (continued)
+
+6. Publication IPC-7351 may have alternate designs.
+7. Solder mask tolerances between and around signal pads can vary based on board fabrication site.
+
+METAL
+SOLDER MASK
+OPENING
+NON SOLDER MASK
+DEFINED
+SOLDER MASK DETAILS
+SOLDER MASK
+OPENING
+METAL UNDER
+SOLDER MASK
+SOLDER MASK
+DEFINED
+
+EXAMPLE STENCIL DESIGN
+(5.4)
+12X (1.27)
+14X (0.6)
+14X (1.55)
+4220718/A 09/2016
+SOIC - 1.75 mm max height
+D0014A
+SMALL OUTLINE INTEGRATED CIRCUIT
+NOTES: (continued)
+
+8. Laser cutting apertures with trapezoidal walls and rounded corners may offer better paste release. IPC-7525 may have alternate design recommendations.
+9. Board assembly site may have different recommendations for stencil design.
+
+SYMM
+SYMM
+1
+7
+8
+14
+SOLDER PASTE EXAMPLE
+BASED ON 0.125 mm THICK STENCIL
+SCALE:8X
+
+PACKAGE OUTLINE
+C
+12X 0.65
+2X
+3.9
+14X 0.38
+0.22
+8.2
+7.4 TYP
+SEATING
+PLANE
+0.05 MIN
+0.25
+GAGE PLANE
+0 -8
+2 MAX
+0.25
+0.09
+B
+5.6
+5.0
+NOTE 4
+A
+6.5
+5.9
+NOTE 3
+0.95
+0.55
+SSOP - 2 mm max height
+DB0014A
+SMALL OUTLINE PACKAGE
+4220762/A 05/2024
+1
+7
+8
+14
+0.15
+C A B
+PIN 1 INDEX AREA
+SEE DETAIL A
+0.1 C
+NOTES:
+
+1. All linear dimensions are in millimeters. Any dimensions in parenthesis are for reference only. Dimensioning and tolerancing per ASME Y14.5M.
+2. This drawing is subject to change without notice.
+3. This dimension does not include mold flash, protrusions, or gate burrs. Mold flash, protrusions, or gate burrs shall not exceed 0.15 mm per side.
+4. Reference JEDEC registration MO-150.
+
+A 15
+DETAIL A
+TYPICAL
+SCALE 2.000
+
+EXAMPLE BOARD LAYOUT
+0.05 MAX
+ALL AROUND
+0.05 MIN
+ALL AROUND
+14X (1.85)
+14X (0.45)
+12X (0.65)
+(7)
+(R0.05) TYP
+SSOP - 2 mm max height
+DB0014A
+SMALL OUTLINE PACKAGE
+4220762/A 05/2024
+NOTES: (continued)
+
+5. Publication IPC-7351 may have alternate designs.
+6. Solder mask tolerances between and around signal pads can vary based on board fabrication site.
+
+LAND PATTERN EXAMPLE
+EXPOSED METAL SHOWN
+SCALE: 10X
+SYMM
+SYMM
+1
+7
+8
+14
+15.000
+METAL
+SOLDER MASK
+OPENING
+METAL UNDER
+SOLDER MASK
+SOLDER MASK
+OPENING
+EXPOSED METAL
+EXPOSED METAL
+SOLDER MASK DETAILS
+NON-SOLDER MASK
+DEFINED
+(PREFERRED)
+SOLDER MASK
+DEFINED
+
+EXAMPLE STENCIL DESIGN
+14X (1.85)
+14X (0.45)
+12X (0.65)
+(7)
+(R0.05) TYP
+SSOP - 2 mm max height
+DB0014A
+SMALL OUTLINE PACKAGE
+4220762/A 05/2024
+NOTES: (continued)
+
+7. Laser cutting apertures with trapezoidal walls and rounded corners may offer better paste release. IPC-7525 may have alternate design recommendations.
+8. Board assembly site may have different recommendations for stencil design.
+
+SOLDER PASTE EXAMPLE
+BASED ON 0.125 mm THICK STENCIL
+SCALE: 10X
+SYMM
+SYMM
+1
+7
+8
+14
+
+GENERIC PACKAGE VIEW
+This image is a representation of the package family, actual package may vary.
+Refer to the product data sheet for package details.
+LCCC - 2.03 mm max height
+FK 20
+LEADLESS CERAMIC CHIP CARRIER
+8.89 x 8.89, 1.27 mm pitch
+4229370\/A\
+
+PACKAGE OUTLINE
+C
+14X .008-.014
+[0.2-0.36]
+TYP
+-15
+0
+AT GAGE PLANE
+-.314
+.308
+-7.97
+7.83
+[
+]
+14X
+-.026
+.014
+-0.66
+0.36
+[
+]
+14X
+-.065
+.045
+-1.65
+1.15
+[
+]
+.2 MAX TYP
+[5.08]
+.13 MIN TYP
+[3.3]
+TYP
+-.060
+.015
+-1.52
+0.38
+[
+]
+4X .005 MIN
+[0.13]
+12X .100
+[2.54]
+.015
+GAGE PLANE
+[0.38]
+A
+-.785
+.754
+-19.94
+19.15
+[
+]
+B
+-.283
+.245
+-7.19
+6.22
+[
+]
+CDIP - 5.08 mm max height
+J0014A
+CERAMIC DUAL IN LINE PACKAGE
+4214771/A 05/2017
+NOTES:
+
+1. All controlling linear dimensions are in inches. Dimensions in brackets are in millimeters. Any dimension in brackets or parenthesis are for reference only. Dimensioning and tolerancing per ASME Y14.5M.
+2. This drawing is subject to change without notice.
+3. This package is hermitically sealed with a ceramic lid using glass frit.
+4. Index point is provided on cap for terminal identification only and on press ceramic glass frit seal only.
+5. Falls within MIL-STD-1835 and GDIP1-T14.
+7
+8
+14
+1
+PIN 1 ID
+(OPTIONAL)
+SCALE 0.900
+SEATING PLANE
+.010 [0.25] C A B
+
+EXAMPLE BOARD LAYOUT
+ALL AROUND
+[0.05]
+MAX
+.002
+.002 MAX
+[0.05]
+ALL AROUND
+SOLDER MASK
+OPENING
+METAL
+(.063)
+[1.6]
+(R.002 ) TYP
+[0.05]
+14X (
+.039)
+[1]
+(
+.063)
+[1.6]
+12X (.100 )
+[2.54]
+(.300 ) TYP
+[7.62]
+CDIP - 5.08 mm max height
+J0014A
+CERAMIC DUAL IN LINE PACKAGE
+4214771/A 05/2017
+LAND PATTERN EXAMPLE
+NON-SOLDER MASK DEFINED
+SCALE: 5X
+SEE DETAIL A
+SEE DETAIL B
+SYMM
+SYMM
+1
+7
+8
+14
+DETAIL A
+SCALE: 15X
+SOLDER MASK
+OPENING
+METAL
+DETAIL B
+13X, SCALE: 15X
+
+PACKAGE OUTLINE
+C
+12X 0.65
+2X
+3.9
+14X 0.30
+0.17
+6.6
+6.2 TYP
+1.2 MAX
+0.15
+0.05
+0.25
+GAGE PLANE
+0 -8
+4X (0 -12 )
+B
+4.5
+4.3
+NOTE 4
+A
+5.1
+4.9
+NOTE 3
+0.75
+0.50
+(0.15) TYP
+TSSOP - 1.2 mm max height
+PW0014A
+SMALL OUTLINE PACKAGE
+4220202/B 12/2023
+1
+7
+8
+14
+0.1
+C A B
+PIN 1 INDEX AREA
+SEE DETAIL A
+0.1 C
+NOTES:
+
+1. All linear dimensions are in millimeters. Any dimensions in parenthesis are for reference only. Dimensioning and tolerancing per ASME Y14.5M.
+2. This drawing is subject to change without notice.
+3. This dimension does not include mold flash, protrusions, or gate burrs. Mold flash, protrusions, or gate burrs shall not exceed 0.15 mm per side.
+4. This dimension does not include interlead flash. Interlead flash shall not exceed 0.25 mm per side.
+5. Reference JEDEC registration MO-153.
+
+SEATING
+PLANE
+A 20
+DETAIL A
+TYPICAL
+SCALE 2.500
+
+EXAMPLE BOARD LAYOUT
+0.05 MAX
+ALL AROUND
+0.05 MIN
+ALL AROUND
+14X (1.5)
+14X (0.45)
+12X (0.65)
+(5.8)
+(R0.05) TYP
+TSSOP - 1.2 mm max height
+PW0014A
+SMALL OUTLINE PACKAGE
+4220202/B 12/2023
+NOTES: (continued)
+
+6. Publication IPC-7351 may have alternate designs.
+7. Solder mask tolerances between and around signal pads can vary based on board fabrication site.
+
+LAND PATTERN EXAMPLE
+EXPOSED METAL SHOWN
+SCALE: 10X
+SYMM
+SYMM
+1
+7
+8
+14
+15.000
+METAL
+SOLDER MASK
+OPENING
+METAL UNDER
+SOLDER MASK
+SOLDER MASK
+OPENING
+EXPOSED METAL
+EXPOSED METAL
+SOLDER MASK DETAILS
+NON-SOLDER MASK
+DEFINED
+(PREFERRED)
+SOLDER MASK
+DEFINED
+
+EXAMPLE STENCIL DESIGN
+14X (1.5)
+14X (0.45)
+12X (0.65)
+(5.8)
+(R0.05) TYP
+TSSOP - 1.2 mm max height
+PW0014A
+SMALL OUTLINE PACKAGE
+4220202/B 12/2023
+NOTES: (continued)
+
+8. Laser cutting apertures with trapezoidal walls and rounded corners may offer better paste release. IPC-7525 may have alternate design recommendations.
+9. Board assembly site may have different recommendations for stencil design.
+
+SOLDER PASTE EXAMPLE
+BASED ON 0.125 mm THICK STENCIL
+SCALE: 10X
+SYMM
+SYMM
+1
+7
+8
+14
+
+IMPORTANT NOTICE AND DISCLAIMER
+TI PROVIDES TECHNICAL AND RELIABILITY DATA (INCLUDING DATASHEETS), DESIGN RESOURCES (INCLUDING REFERENCE
+DESIGNS), APPLICATION OR OTHER DESIGN ADVICE, WEB TOOLS, SAFETY INFORMATION, AND OTHER RESOURCES “AS IS”
+AND WITH ALL FAULTS, AND DISCLAIMS ALL WARRANTIES, EXPRESS AND IMPLIED, INCLUDING WITHOUT LIMITATION ANY
+IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE OR NON-INFRINGEMENT OF THIRD
+PARTY INTELLECTUAL PROPERTY RIGHTS.
+These resources are intended for skilled developers designing with TI products. You are solely responsible for (1) selecting the appropriate
+TI products for your application, (2) designing, validating and testing your application, and (3) ensuring your application meets applicable standards, and any other safety, security, regulatory or other requirements.
+These resources are subject to change without notice. TI grants you permission to use these resources only for development of an application that uses the TI products described in the resource. Other reproduction and display of these resources is prohibited. No license is granted to any other TI intellectual property right or to any third party intellectual property right. TI disclaims responsibility for, and you fully indemnify TI and its representatives against any claims, damages, costs, losses, and liabilities arising out of your use of these resources.
+TI’s products are provided subject to TI’s Terms of Sale, TI’s General Quality Guidelines, or other applicable terms available either on ti.com or provided in conjunction with such TI products. TI’s provision of these resources does not expand or otherwise alter TI’s applicable warranties or warranty disclaimers for TI products. Unless TI explicitly designates a product as custom or customer-specified, TI products are standard, catalog, general purpose devices.
+TI objects to and rejects any additional or different terms you may propose.
+IMPORTANT NOTICE
+Copyright © 2026, Texas Instruments Incorporated
+Last updated 10/2025
