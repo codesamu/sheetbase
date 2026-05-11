@@ -1,0 +1,5 @@
+INSERT INTO bjt (name, bjt_type, dc_current_gain_hfe, collector_emitter_voltage, collector_base_voltage, emitter_base_voltage, base_emitter_on_voltage) VALUES ('BC546', 'NPN', '110–800', '65 V', '80 V', '6 V', '660 mV');
+INSERT INTO bjt (name, bjt_type, dc_current_gain_hfe, collector_emitter_voltage, collector_base_voltage, emitter_base_voltage, base_emitter_on_voltage) VALUES ('BC547', 'NPN', '110–800', '45 V', '50 V', '6 V', '660 mV');
+INSERT INTO bjt (name, bjt_type, dc_current_gain_hfe, collector_emitter_voltage, collector_base_voltage, emitter_base_voltage, base_emitter_on_voltage) VALUES ('BC548', 'NPN', '110–800', '30 V', '30 V', '5 V', '660 mV');
+INSERT INTO bjt (name, bjt_type, dc_current_gain_hfe, collector_emitter_voltage, collector_base_voltage, emitter_base_voltage, base_emitter_on_voltage) VALUES ('BC549', 'NPN', '110–800', '30 V', '30 V', '5 V', '660 mV');
+INSERT INTO bjt (name, bjt_type, dc_current_gain_hfe, collector_emitter_voltage, collector_base_voltage, emitter_base_voltage, base_emitter_on_voltage) VALUES ('BC550', 'NPN', '110–800', '45 V', '50 V', '5 V', '660 mV');
