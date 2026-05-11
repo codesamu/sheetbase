@@ -62,7 +62,7 @@ def run_test_insert():
             # 1. Insert OPV (Full Parameters)
             new_opv = OPV(
                 name="OPA2134",
-                power_supply_voltage="±2.5V to ±18V",
+                power_supply_voltage="+/-2.5V to +/-18V",
                 input_offset_voltage="0.5mV",
                 input_offset_current="5pA",
                 input_common_mode_voltage_range="(V-) + 2.5V to (V+) - 2.5V",
@@ -93,7 +93,7 @@ def run_test_insert():
                 name="IRFZ44N",
                 mosfet_type="N-Kanal",
                 drain_source_voltage="55V",
-                gate_source_voltage="±20V",
+                gate_source_voltage="+/-20V",
                 continuous_drain_current="49A",
                 gate_threshold_voltage="2.0V to 4.0V"
             )
