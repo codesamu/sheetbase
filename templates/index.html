@@ -140,10 +140,6 @@
                                 System will automatically detect if component is an **OPV**, **BJT**, or **MOSFET**.
                             </p>
                         </div>
-                        <div class="glass p-4 rounded-2xl text-left bg-white/2">
-                            <p class="text-xs text-slate-500 uppercase font-bold tracking-widest mb-1">Current View</p>
-                            <p id="active-category-name" class="font-semibold text-white">Operational Amplifiers</p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -238,7 +234,6 @@
             // Update UI
             document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('tab-active'));
             document.getElementById(`btn-${cat}`).classList.add('tab-active');
-            document.getElementById('active-category-name').innerText = document.getElementById(`btn-${cat}`).innerText.trim();
             document.getElementById('table-title').innerText = SCHEMAS[cat].title;
 
             renderHeaders();
