@@ -5,38 +5,107 @@ Your task is to extract parameters strictly from a semiconductor datasheet and g
 GENERAL RULES (STRICT)
 
 * ONLY extract values explicitly stated in the datasheet.
-* DO NOT guess, infer, or calculate values.
+* DO NOT guess, infer, calculate, interpolate, or estimate values.
 * If a value is missing, unclear, graph-based, or condition-dependent → set it to NULL.
-* Prefer TYPICAL values.
-* If no typical value exists → use MIN value.
-* If neither is clearly defined → NULL.
 * Always use the EXACT part number as the name (e.g., LM324B, not LM324 family).
 * Each variant must result in its own INSERT statement.
 * If multiple families exist → treat them separately.
+* ALWAYS preserve ranges whenever available.
+* NEVER collapse ranges into a single value if MIN/MAX/TYP values exist.
+* The ENTIRE datasheet must be considered during extraction, not only the main electrical characteristics table.
+
+VARIANT HANDLING
+
+* If a datasheet contains multiple graded, binned, classified, grouped, or variant versions
+  (for example A/B/C gain groups, voltage grades, suffix variants,
+  package variants, industrial versions, automotive versions, etc.),
+  create a SEPARATE INSERT statement for EACH exact part number.
+
+* Never merge multiple variants into one row.
+
+* Even if only one parameter differs between variants,
+  each variant must have its own independent SQL INSERT statement.
+
+Examples:
+- BC547A
+- BC547B
+- BC547C
+
+must generate three separate INSERT statements.
+
+VARIANT PRIORITY RULES
+
+* If the datasheet contains dedicated classification tables,
+  grading tables, gain group tables, suffix tables,
+  or characteristic tables specifically for variants
+  (for example A/B/C hFE classification tables),
+  those values MUST take priority over generic device values.
+
+* Example:
+  If the datasheet contains:
+
+  A → hFE = 110–220
+  B → hFE = 200–450
+  C → hFE = 420–800
+
+  then:
+  - BC547A must use "110–220"
+  - BC547B must use "200–450"
+  - BC547C must use "420–800"
+
+* Variant-specific characteristics MUST override generic family values.
+
+* The model must search the FULL datasheet for:
+  - classification tables
+  - suffix tables
+  - ordering information
+  - gain group sections
+  - package-specific characteristics
+  - variant-specific notes
+  - footnotes
+  - separate electrical characteristic sections
 
 VALUE EXTRACTION RULES
 
 * If datasheet provides MIN / TYP / MAX values:
-  * Prefer TYPICAL value.
-  * If TYPICAL does not exist → use MIN value.
-  * If multiple values are important specifications (such as hFE ranges) → preserve full range as RAW TEXT.
-* For parameters commonly specified as ranges (for example hFE, voltage ranges, current ranges):
-  * Preserve the complete range using:
-    * "min–max"
-    * or "min / typ / max"
-  * Examples:
-    * "100–300"
-    * "100 / 200 / 300"
-    * "3–36 V"
-* If conditions significantly change values and no standard condition is obvious → NULL.
+  * Preserve the FULL specification range.
+  * Use format:
+    * "min / typ / max"
+    * Example:
+      * "100 / 200 / 300"
+      * "2 / 5 / 10 mA"
+  * If only MIN and MAX exist:
+    * Use:
+      * "min–max"
+      * Example:
+        * "100–300"
+        * "3–36 V"
+  * If only TYP exists:
+    * Use the TYP value directly.
+  * If only MIN exists:
+    * Use the MIN value directly.
+* Parameters commonly specified as ranges MUST preserve ranges exactly.
+* This rule especially applies to:
+  * hFE
+  * voltage ranges
+  * current ranges
+  * gain ranges
+  * threshold voltages
+  * operating ranges
 * Ignore graph-only values completely.
+* If multiple conditions produce different values and no standard condition is obvious → NULL.
 
 VALUE FORMATTING
 
-* Keep values as RAW TEXT (e.g., "3–36 V", "50 nA", "0.5 V/µs")
-* Normalize ranges using format:
+* Keep values as RAW TEXT.
+* Normalize ranges using:
   * "min–max unit"
-  * or "min / typ / max unit"
+  * or
+  * "min / typ / max unit"
+* Examples:
+  * "3–36 V"
+  * "100 / 200 / 300"
+  * "50–250 nA"
 * Do NOT convert units.
 * Do NOT simplify values.
 * Keep engineering notation exactly as in datasheet where possible.
@@ -59,7 +128,8 @@ BJT:
 
 * type → must detect "NPN" or "PNP"
 * dc_current_gain_hfe → "hFE", "DC Current Gain"
-  * Preserve full hFE ranges if available
+  * ALWAYS preserve complete hFE ranges.
+  * ALWAYS prioritize variant-specific hFE classification tables.
   * Examples:
     * "100–300"
     * "100 / 200 / 300"
@@ -136,5 +206,7 @@ IMPORTANT
 * Never invent values.
 * Never estimate values from graphs.
 * Never merge multiple variants into one row.
+* ALWAYS preserve ranges exactly as specified in datasheet tables.
+* ALWAYS prioritize variant-specific classification tables over generic values.
 
 Start now.
