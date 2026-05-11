@@ -90,8 +90,12 @@ def get_data(category):
 
 @app.route("/upload-pdf", methods=["POST"])
 def upload_pdf():
-    # Placeholder for PDF processing logic
-    return jsonify({"message": "PDF received (placeholder action)", "status": "success"})
+    # Placeholder for PDF processing + AI Classification logic
+    return jsonify({
+        "message": "Analyzing datasheet and routing to correct category...",
+        "status": "success",
+        "action": "classification_started"
+    })
 
 @app.route("/test-db")
 def test_db():
