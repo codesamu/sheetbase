@@ -179,6 +179,96 @@
         </div>
     </div>
 
+    <!-- Processing/Debug Modal -->
+    <div id="debug-modal" class="fixed inset-0 bg-[#020617]/85 backdrop-blur-md flex items-center justify-center p-4 z-50 hidden">
+        <div class="glass max-w-2xl w-full rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[85vh]">
+            <!-- Modal Header -->
+            <div id="modal-header-bg" class="p-6 border-b border-white/10 flex justify-between items-center bg-gradient-to-r from-blue-500/10 to-emerald-500/10">
+                <div class="flex items-center gap-3">
+                    <div id="modal-header-icon" class="w-8 h-8 rounded-full flex items-center justify-center bg-blue-500/20 text-blue-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                    </div>
+                    <div>
+                        <h3 id="modal-title" class="font-bold text-xl text-white">Ingesting Datasheet...</h3>
+                        <p id="modal-subtitle" class="text-xs text-slate-400">AI Routing and Parameter Extraction</p>
+                    </div>
+                </div>
+                <button onclick="closeDebugModal()" class="p-2 hover:bg-white/10 rounded-full transition-all text-slate-400 hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+
+            <!-- Modal Content (Scrollable) -->
+            <div class="p-6 overflow-y-auto space-y-6 custom-scrollbar flex-1 text-sm">
+                <!-- Status List / Pipeline -->
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="font-semibold text-slate-300">Pipeline Progress</span>
+                        <span id="pipeline-percent" class="text-xs text-blue-400 font-mono">25%</span>
+                    </div>
+                    <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden">
+                        <div id="pipeline-bar" class="bg-gradient-to-r from-blue-500 to-emerald-500 h-full rounded-full transition-all duration-500" style="width: 25%"></div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4 pt-2">
+                        <div id="step-upload" class="flex items-center gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5">
+                            <span class="step-dot w-2 h-2 rounded-full bg-emerald-500"></span>
+                            <span class="text-slate-300 font-medium">1. PDF File Upload</span>
+                        </div>
+                        <div id="step-extract" class="flex items-center gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5">
+                            <span class="step-dot w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                            <span class="text-slate-300 font-medium">2. Text Extraction</span>
+                        </div>
+                        <div id="step-ai" class="flex items-center gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5">
+                            <span class="step-dot w-2 h-2 rounded-full bg-slate-500"></span>
+                            <span class="text-slate-400">3. AI Classify & Extract</span>
+                        </div>
+                        <div id="step-db" class="flex items-center gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5">
+                            <span class="step-dot w-2 h-2 rounded-full bg-slate-500"></span>
+                            <span class="text-slate-400">4. DB Ingestion</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Debug Console -->
+                <div class="space-y-2">
+                    <h4 class="font-semibold text-slate-300">Detailed Logs & Diagnostics</h4>
+                    <div id="debug-console" class="bg-[#020617] border border-white/10 rounded-2xl p-4 font-mono text-xs text-slate-300 space-y-2 max-h-[250px] overflow-y-auto custom-scrollbar">
+                        <div class="text-emerald-400">[INFO] Starting upload...</div>
+                    </div>
+                </div>
+
+                <!-- API Error Helper Guide -->
+                <div id="api-helper-card" class="hidden glass p-4 rounded-2xl border-yellow-500/20 bg-gradient-to-br from-yellow-500/10 to-transparent">
+                    <div class="flex items-start gap-3">
+                        <div class="p-2 bg-yellow-500/20 rounded-xl text-yellow-400 shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        </div>
+                        <div class="space-y-1">
+                            <h5 class="font-semibold text-yellow-300">How to Fix OpenRouter API Key Issues</h5>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                The system requires an OpenRouter API key. You can fix this by setting the <code class="bg-[#020617] px-1.5 py-0.5 rounded text-yellow-400 font-mono">OPENROUTER_API_KEY</code> environment variable before launching the Flask server, or by replacing the <code class="bg-[#020617] px-1.5 py-0.5 rounded text-yellow-400 font-mono">API_KEY</code> placeholder at the top of <code class="bg-[#020617] px-1.5 py-0.5 rounded text-yellow-400 font-mono">app.py</code>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SQL Output View -->
+                <div id="sql-view-container" class="hidden space-y-2">
+                    <h4 class="font-semibold text-slate-300">Generated SQL Code</h4>
+                    <pre id="sql-code" class="bg-[#020617] border border-white/10 rounded-2xl p-4 font-mono text-xs text-blue-300 overflow-x-auto custom-scrollbar max-h-[150px]"></pre>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div id="modal-footer" class="p-4 border-t border-white/10 bg-white/5 flex justify-end gap-3">
+                <button onclick="closeDebugModal()" class="px-5 py-2 glass rounded-xl text-slate-300 hover:bg-white/10 hover:text-white transition-all text-sm font-medium">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Notification Toast -->
     <div id="toast" class="fixed bottom-8 right-8 glass px-6 py-4 rounded-2xl translate-y-24 opacity-0 transition-all duration-300 flex items-center gap-3 z-50">
         <div id="toast-icon" class="w-8 h-8 rounded-full flex items-center justify-center"></div>
@@ -308,24 +398,221 @@
             if (!input.files.length) return;
             
             const file = input.files[0];
-            showToast(`Uploading ${file.name}...`, 'success');
-
-            // Placeholder for PDF upload API
+            const filename = file.name;
+            input.value = ''; // clear input immediately to allow uploading again
+            
+            // Open Modal and reset state
+            openDebugModal(filename);
+            
             try {
+                // Step 1: Upload & Extract Text
+                updateStep('step-upload', 'success');
+                updateStep('step-extract', 'active');
+                logConsole(`[INFO] Uploaded ${filename}. Reading PDF and extracting text (max 10 pages)...`);
+                
                 const formData = new FormData();
                 formData.append('file', file);
                 
+                // Transition to AI routing
+                setTimeout(() => {
+                    updateStep('step-extract', 'success');
+                    updateStep('step-ai', 'active');
+                    logConsole(`[INFO] PDF text successfully extracted. Calling OpenRouter AI to classify and extract parameters...`);
+                    logConsole(`[INFO] Retrying fallbacks if a model fails: openai/gpt-oss-120b:free, meta-llama/llama-3.3-70b-instruct:free, qwen/qwen3-next-80b-a3b-instruct:free`);
+                }, 1500);
+
                 const response = await fetch('/upload-pdf', {
                     method: 'POST',
                     body: formData
                 });
                 
                 const result = await response.json();
-                showToast(result.message, 'success');
-                input.value = ''; // clear input
-            } catch (error) {
-                showToast('Upload failed (placeholder)', 'error');
+                
+                if (response.status === 200) {
+                    // Success!
+                    updateStep('step-ai', 'success');
+                    updateStep('step-db', 'success');
+                    updateProgressBar(100);
+                    
+                    // Show success state in modal
+                    setModalSuccess(`Successfully processed datasheet!`);
+                    
+                    logConsole(`[SUCCESS] AI processing complete!`);
+                    logConsole(`[SUCCESS] Extracted component data from datasheet.`);
+                    logConsole(`[INFO] Model used: ${result.message.match(/using (.*)\./)?.[1] || 'OpenRouter Model'}`);
+                    logConsole(`[INFO] DB Statements executed: ${result.statements_executed}`);
+                    
+                    // Show SQL code block
+                    showSQLBlock(result.sql);
+                    
+                    showToast('Datasheet processed successfully!', 'success');
+                    
+                    // Refresh data in current category
+                    fetchData();
+                } else {
+                    // Error response (e.g. 500)
+                    throw { status: response.status, data: result };
+                }
+                
+            } catch (err) {
+                // Handle detailed errors
+                updateProgressBar(100, true);
+                
+                const status = err.status || 500;
+                const data = err.data || { error: 'Unknown Error', details: 'Check your Flask logs or network connection.' };
+                
+                // Highlight where it failed
+                if (data.errors && data.errors.length > 0) {
+                    updateStep('step-ai', 'error');
+                    updateStep('step-db', 'pending');
+                } else if (data.error && data.error.includes("Database")) {
+                    updateStep('step-ai', 'success');
+                    updateStep('step-db', 'error');
+                } else {
+                    updateStep('step-extract', 'error');
+                    updateStep('step-ai', 'pending');
+                    updateStep('step-db', 'pending');
+                }
+                
+                setModalError(`Processing Failed (${status})`, data.error || 'Check details below.');
+                
+                logConsole(`[ERROR] Processing failed with status code ${status}`);
+                if (data.error) logConsole(`[ERROR] Main message: ${data.error}`);
+                if (data.details) logConsole(`[ERROR] Details: ${data.details}`);
+                
+                if (data.errors && Array.isArray(data.errors)) {
+                    data.errors.forEach(e => {
+                        logConsole(`[ERROR] OpenRouter attempt: ${e}`);
+                    });
+                }
+                
+                // Show API helper guide if OpenRouter unauthorized
+                if (data.api_key_used === 'API-KEY (placeholder)' || (data.errors && data.errors.some(e => e.includes('401') || e.includes('Key')))) {
+                    document.getElementById('api-helper-card').classList.remove('hidden');
+                }
+                
+                // Show SQL if there was a DB insertion error but SQL was generated
+                if (data.sql) {
+                    showSQLBlock(data.sql);
+                }
+                
+                showToast(data.error || 'Upload failed', 'error');
             }
+        }
+
+        function openDebugModal(filename) {
+            const modal = document.getElementById('debug-modal');
+            modal.classList.remove('hidden');
+            
+            // Reset modal styles and text
+            document.getElementById('modal-header-bg').className = "p-6 border-b border-white/10 flex justify-between items-center bg-gradient-to-r from-blue-500/10 to-emerald-500/10";
+            document.getElementById('modal-header-icon').className = "w-8 h-8 rounded-full flex items-center justify-center bg-blue-500/20 text-blue-400";
+            document.getElementById('modal-header-icon').innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>`;
+            
+            document.getElementById('modal-title').innerText = "Ingesting Datasheet...";
+            document.getElementById('modal-subtitle').innerText = `AI Routing and Parameter Extraction: ${filename}`;
+            
+            // Reset pipeline progress
+            updateProgressBar(25);
+            resetSteps();
+            
+            // Clear debug console
+            document.getElementById('debug-console').innerHTML = '';
+            document.getElementById('api-helper-card').classList.add('hidden');
+            document.getElementById('sql-view-container').classList.add('hidden');
+        }
+
+        function closeDebugModal() {
+            document.getElementById('debug-modal').classList.add('hidden');
+        }
+
+        function updateProgressBar(percent, isError = false) {
+            const bar = document.getElementById('pipeline-bar');
+            const percentLabel = document.getElementById('pipeline-percent');
+            
+            percentLabel.innerText = `${percent}%`;
+            bar.style.width = `${percent}%`;
+            
+            if (isError) {
+                bar.className = "bg-red-500 h-full rounded-full transition-all duration-500";
+                percentLabel.className = "text-xs text-red-400 font-mono";
+            } else {
+                bar.className = "bg-gradient-to-r from-blue-500 to-emerald-500 h-full rounded-full transition-all duration-500";
+                percentLabel.className = "text-xs text-blue-400 font-mono";
+            }
+        }
+
+        function resetSteps() {
+            const steps = ['step-upload', 'step-extract', 'step-ai', 'step-db'];
+            steps.forEach(id => {
+                const el = document.getElementById(id);
+                el.className = "flex items-center gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5";
+                el.querySelector('.step-dot').className = "step-dot w-2 h-2 rounded-full bg-slate-500";
+            });
+            updateStep('step-upload', 'active');
+        }
+
+        function updateStep(id, status) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            
+            const dot = el.querySelector('.step-dot');
+            
+            if (status === 'active') {
+                el.className = "flex items-center gap-2.5 p-3 rounded-xl bg-blue-500/10 border border-blue-500/20";
+                dot.className = "step-dot w-2 h-2 rounded-full bg-blue-500 animate-pulse";
+            } else if (status === 'success') {
+                el.className = "flex items-center gap-2.5 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20";
+                dot.className = "step-dot w-2 h-2 rounded-full bg-emerald-500";
+            } else if (status === 'error') {
+                el.className = "flex items-center gap-2.5 p-3 rounded-xl bg-red-500/10 border border-red-500/20";
+                dot.className = "step-dot w-2 h-2 rounded-full bg-red-500";
+            } else {
+                el.className = "flex items-center gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5";
+                dot.className = "step-dot w-2 h-2 rounded-full bg-slate-500";
+            }
+        }
+
+        function logConsole(message) {
+            const consoleEl = document.getElementById('debug-console');
+            const div = document.createElement('div');
+            
+            if (message.includes('[SUCCESS]')) {
+                div.className = "text-emerald-400 font-semibold";
+            } else if (message.includes('[ERROR]')) {
+                div.className = "text-red-400 font-semibold";
+            } else if (message.includes('[WARNING]')) {
+                div.className = "text-yellow-400 font-semibold";
+            } else {
+                div.className = "text-slate-300";
+            }
+            
+            div.innerText = message;
+            consoleEl.appendChild(div);
+            consoleEl.scrollTop = consoleEl.scrollHeight;
+        }
+
+        function showSQLBlock(sql) {
+            const container = document.getElementById('sql-view-container');
+            const codeEl = document.getElementById('sql-code');
+            container.classList.remove('hidden');
+            codeEl.innerText = sql;
+        }
+
+        function setModalSuccess(msg) {
+            document.getElementById('modal-header-bg').className = "p-6 border-b border-white/10 flex justify-between items-center bg-gradient-to-r from-emerald-500/20 to-teal-500/20";
+            document.getElementById('modal-header-icon').className = "w-8 h-8 rounded-full flex items-center justify-center bg-emerald-500/20 text-emerald-400";
+            document.getElementById('modal-header-icon').innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>`;
+            document.getElementById('modal-title').innerText = "Ingestion Complete!";
+            document.getElementById('modal-subtitle').innerText = msg;
+        }
+
+        function setModalError(title, subtitle) {
+            document.getElementById('modal-header-bg').className = "p-6 border-b border-white/10 flex justify-between items-center bg-gradient-to-r from-red-500/20 to-rose-500/20";
+            document.getElementById('modal-header-icon').className = "w-8 h-8 rounded-full flex items-center justify-center bg-red-500/20 text-red-400";
+            document.getElementById('modal-header-icon').innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-subtitle').innerText = subtitle;
         }
 
         async function testConnection() {
