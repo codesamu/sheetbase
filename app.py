@@ -1,5 +1,20 @@
 from flask import Flask, render_template, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
+import os
+import requests
+from pdf_extractor import extract_text_from_pdf
+
+# =========================
+# OPENROUTER CONFIG
+# =========================
+API_KEY = "API-KEY"
+API_URL = "https://openrouter.ai/api/v1/chat/completions"
+
+MODELS = [
+    "openai/gpt-oss-120b:free",
+    "meta-llama/llama-3.3-70b-instruct:free",
+    "qwen/qwen3-next-80b-a3b-instruct:free"
+]
 
 # =========================
 # FLASK APP
@@ -94,12 +109,142 @@ def get_data(category):
 
 @app.route("/upload-pdf", methods=["POST"])
 def upload_pdf():
-    # Placeholder for PDF processing + AI Classification logic
-    return jsonify({
-        "message": "Analyzing datasheet and routing to correct category...",
-        "status": "success",
-        "action": "classification_started"
-    })
+    # 1. Determine PDF path (use the uploaded pdf, comment out the datenblatt.pdf)
+    # pdf_path = "datenblatt.pdf"
+    temp_path = None
+    
+    if "file" not in request.files:
+        return jsonify({"error": "No file part in the request"}), 400
+        
+    file = request.files["file"]
+    if file.filename == "":
+        return jsonify({"error": "No selected file"}), 400
+        
+    temp_path = "temp_uploaded.pdf"
+    file.save(temp_path)
+    pdf_path = temp_path
+            
+    # 2. Extract text from PDF
+    try:
+        pdf_text = extract_text_from_pdf(pdf_path)
+    except Exception as e:
+        if temp_path and os.path.exists(temp_path):
+            try:
+                os.remove(temp_path)
+            except Exception:
+                pass
+        return jsonify({"error": f"Failed to extract text from PDF: {str(e)}"}), 500
+        
+    # 3. Read prompt
+    prompt_path = "prompt.txt"
+    try:
+        with open(prompt_path, "r", encoding="utf-8") as f:
+            base_prompt = f.read()
+    except Exception as e:
+        if temp_path and os.path.exists(temp_path):
+            try:
+                os.remove(temp_path)
+            except Exception:
+                pass
+        return jsonify({"error": f"Failed to read prompt file: {str(e)}"}), 500
+        
+    if not pdf_text or not base_prompt:
+        if temp_path and os.path.exists(temp_path):
+            try:
+                os.remove(temp_path)
+            except Exception:
+                pass
+        return jsonify({"error": "Empty PDF text or prompt"}), 400
+        
+    prompt = f"""
+{base_prompt}
+
+---------------- PDF INHALT ----------------
+
+{pdf_text}
+"""
+
+    # 4. Call OpenRouter
+    api_key = os.environ.get("OPENROUTER_API_KEY", API_KEY)
+    sql = ""
+    success_model = None
+    
+    for model in MODELS:
+        print(f"Testing model: {model}")
+        try:
+            response = requests.post(
+                API_URL,
+                headers={
+                    "Authorization": f"Bearer {api_key}",
+                    "Content-Type": "application/json"
+                },
+                json={
+                    "model": model,
+                    "messages": [{"role": "user", "content": prompt}],
+                    "temperature": 0.2,
+                    "max_tokens": 4000
+                },
+                timeout=180
+            )
+            
+            if response.status_code == 200:
+                content = response.json()["choices"][0]["message"]["content"]
+                if content:
+                    sql = content
+                    success_model = model
+                    break
+            else:
+                print(f"Model {model} returned status {response.status_code}: {response.text}")
+        except Exception as e:
+            print(f"Error with model {model}: {e}")
+            
+    # Clean up temp file
+    if temp_path and os.path.exists(temp_path):
+        try:
+            os.remove(temp_path)
+        except Exception:
+            pass
+        
+    if not sql:
+        return jsonify({"error": "Failed to generate SQL from LLM models"}), 500
+        
+    # 5. Write to DB like in test-post.py (try, execute, commit, rollback)
+    try:
+        # Clean the SQL
+        sql_clean = sql.strip()
+        if sql_clean.startswith("```"):
+            first_newline = sql_clean.find("\n")
+            if first_newline != -1:
+                sql_clean = sql_clean[first_newline:].strip()
+            if sql_clean.endswith("```"):
+                sql_clean = sql_clean[:-3].strip()
+                
+        # Split by semicolon to execute separate statements safely
+        statements = sql_clean.split(";")
+        executed_count = 0
+        
+        for statement in statements:
+            statement = statement.strip()
+            if not statement:
+                continue
+            db.session.execute(db.text(statement))
+            executed_count += 1
+            
+        db.session.commit()
+        
+        return jsonify({
+            "message": f"Successfully processed datasheet using {success_model}.",
+            "status": "success",
+            "statements_executed": executed_count,
+            "sql": sql_clean
+        })
+        
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            "error": f"Database insertion failed: {str(e)}",
+            "sql": sql
+        }), 500
 
 @app.route("/test-db")
 def test_db():
