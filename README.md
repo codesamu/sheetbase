@@ -109,4 +109,3 @@ flask run
 
 ## Documentation
 http://sheetbase.samudev.xyz/docs
-https://www.notion.so/Sheetbase-34962c2b0df980a6aa36cc3a143a7f23?source=copy_link
