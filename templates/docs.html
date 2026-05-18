@@ -1,247 +1,610 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SheetBase | Documentation</title>
+    <title>SheetBase | Developer & System Documentation</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Outfit', sans-serif;
-            background: #0f172a;
+            background: #020617;
             overflow-x: hidden;
         }
 
         .glass {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
             background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateY(-2px);
         }
 
         .blob {
-            position: absolute;
+            position: fixed;
             width: 600px;
             height: 600px;
-            background: linear-gradient(180deg, rgba(47, 184, 255, 0.3) 0%, rgba(158, 236, 217, 0) 100%);
-            mix-blend-mode: color-dodge;
-            animation: move 30s infinite alternate;
-            filter: blur(100px);
+            background: linear-gradient(180deg, rgba(37, 99, 235, 0.15) 0%, rgba(158, 236, 217, 0) 100%);
+            mix-blend-mode: plus-lighter;
+            filter: blur(120px);
             border-radius: 50%;
             z-index: -1;
+            pointer-events: none;
+        }
+
+        .blob-1 {
+            top: -200px;
+            left: -200px;
+            animation: pulse-slow 20s infinite alternate;
         }
 
         .blob-2 {
-            background: linear-gradient(180deg, rgba(147, 47, 255, 0.2) 0%, rgba(217, 158, 255, 0) 100%);
-            animation-delay: -10s;
-            right: -10%;
-            top: 20%;
+            bottom: -200px;
+            right: -200px;
+            background: linear-gradient(180deg, rgba(16, 185, 129, 0.1) 0%, rgba(217, 158, 255, 0) 100%);
+            animation: pulse-slow 25s infinite alternate-reverse;
         }
 
-        @keyframes move {
-            from { transform: translate(-5%, -5%) rotate(0deg); }
-            to { transform: translate(5%, 5%) rotate(360deg); }
+        @keyframes pulse-slow {
+            0% { transform: scale(1) translate(0px, 0px); }
+            100% { transform: scale(1.1) translate(50px, 50px); }
         }
 
         .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-        }
-        
-        pre {
-            background: rgba(0, 0, 0, 0.3) !important;
-            border-radius: 12px;
-            padding: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            overflow-x: auto;
+            width: 5px;
+            height: 5px;
         }
 
-        code {
-            font-family: 'Fira Code', 'Courier New', monospace;
-            color: #93c5fd;
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 99px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        code, pre {
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* Sidebar Navigation Active State */
+        .nav-item.active {
+            color: #3b82f6;
+            background: rgba(59, 130, 246, 0.08);
+            border-right: 3px solid #3b82f6;
         }
     </style>
 </head>
-<body class="min-h-screen text-slate-200 p-4 md:p-8 relative custom-scrollbar">
-    <!-- Background Blobs -->
-    <div class="blob"></div>
+
+<body class="min-h-screen text-slate-300 relative custom-scrollbar">
+    <!-- Premium Ambient Lighting -->
+    <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
 
-    <div class="max-w-5xl mx-auto">
-        <!-- Navigation -->
-        <nav class="flex justify-between items-center mb-16">
-            <a href="/" class="flex items-center gap-2 group">
-                <div class="w-10 h-10 glass rounded-xl flex items-center justify-center group-hover:bg-white/10 transition-all">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+    <div class="flex min-h-screen">
+        <!-- ======================================= -->
+        <!-- LEFT SIDEBAR (STICKY NAVBAR)            -->
+        <!-- ======================================= -->
+        <aside class="w-80 border-r border-white/5 bg-[#020617]/40 backdrop-blur-xl fixed h-screen top-0 left-0 z-40 flex flex-col justify-between p-6">
+            <div class="space-y-8">
+                <!-- Branding -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 to-emerald-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M8 7h6"/><path d="M8 11h8"/></svg>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-xl text-white tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">SheetBase</h2>
+                        <span class="text-[10px] text-emerald-400 font-mono tracking-widest uppercase font-semibold">Docs & Architecture</span>
+                    </div>
                 </div>
-                <span class="font-semibold text-slate-400 group-hover:text-white transition-colors">Back to Dashboard</span>
-            </a>
-            <div class="glass px-4 py-2 rounded-full text-xs font-bold text-blue-400 tracking-widest uppercase">
-                v1.2.0 Stable
+
+                <!-- Navigation Links -->
+                <nav class="space-y-1.5" id="docs-sidebar-nav">
+                    <p class="text-[10px] uppercase font-bold text-slate-500 tracking-widest px-3 mb-2">Documentation</p>
+                    
+                    <a href="#system-overview" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all text-sm font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg>
+                        System Overview
+                    </a>
+                    <a href="#tech-stack" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all text-sm font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                        Technology Stack
+                    </a>
+                    <a href="#ai-pipeline" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all text-sm font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                        Ingestion Pipeline
+                    </a>
+                    <a href="#api-reference" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all text-sm font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M12 2v9M8 5h8"/></svg>
+                        API Reference
+                    </a>
+                    <a href="#db-schema" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all text-sm font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                        Database Schema
+                    </a>
+                    <a href="#diagnostics" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all text-sm font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        Diagnostics & Test
+                    </a>
+                    <a href="#security-risks" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all text-sm font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        Security & Risk Audit
+                    </a>
+                    <a href="#upgrades" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all text-sm font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                        Recommended Upgrades
+                    </a>
+                </nav>
             </div>
-        </nav>
 
-        <!-- Header -->
-        <header class="mb-20">
-            <h1 class="text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-emerald-400 to-purple-400 mb-6">
-                Documentation
-            </h1>
-            <p class="text-xl text-slate-400 max-w-2xl leading-relaxed">
-                Welcome to the SheetBase technical overview. This guide covers the architecture, intelligent routing systems, and database schemas powering the platform.
-            </p>
-        </header>
+            <!-- Sidebar Footer -->
+            <div class="space-y-4">
+                <div class="glass p-4 rounded-2xl border-white/5 text-center">
+                    <p class="text-xs text-slate-400 mb-1">Current Version</p>
+                    <span class="text-xs font-mono font-bold text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-full uppercase tracking-wider">v1.2.0 Stable</span>
+                </div>
+                <a href="/" class="glass px-6 py-3 rounded-2xl hover:bg-white/5 transition-all flex items-center justify-center gap-2 group text-sm font-semibold text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-blue-400 group-hover:-translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+                    Back to Dashboard
+                </a>
+            </div>
+        </aside>
 
-        <!-- Main Content -->
-        <div class="space-y-12">
-            
-            <!-- Section: Overview -->
-            <section class="glass p-10 rounded-[2.5rem]">
-                <h2 class="text-3xl font-bold mb-6 flex items-center gap-4">
-                    <span class="w-1.5 h-8 bg-blue-500 rounded-full"></span>
-                    System Overview
-                </h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-slate-400 leading-relaxed">
-                    <p>
-                        SheetBase is a hybrid data management system designed specifically for electronic components. It bridges the gap between static PDF datasheets and structured SQL databases using AI-driven classification and extraction.
+        <!-- ======================================= -->
+        <!-- RIGHT MAIN CONTENT                      -->
+        <!-- ======================================= -->
+        <main class="flex-1 pl-80 min-h-screen">
+            <div class="max-w-4xl mx-auto px-8 py-16 space-y-24">
+                <!-- Header -->
+                <header class="border-b border-white/5 pb-10">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <p class="text-xs font-bold text-emerald-400 uppercase tracking-widest font-mono">Systems Documentation</p>
+                    </div>
+                    <h1 class="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-300 to-slate-500 mb-6">
+                        System Architecture & Guides
+                    </h1>
+                    <p class="text-lg text-slate-400 leading-relaxed font-light">
+                        Full technical blueprint of SheetBase. Discover how the platform ingests, processes, and stores complex electrical component specifications using artificial intelligence.
                     </p>
-                    <p>
-                        The primary goal is to automate the tedious process of manual parameter entry, allowing engineers to simply upload a datasheet and have the system intelligently route the data to the correct inventory table.
+                </header>
+
+                <!-- SECTION: System Overview -->
+                <section id="system-overview" class="scroll-mt-10 space-y-6">
+                    <h2 class="text-3xl font-bold text-white flex items-center gap-3">
+                        <span class="w-1 h-6 bg-blue-500 rounded-full"></span>
+                        System Overview
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-slate-400 leading-relaxed text-sm">
+                        <p>
+                            SheetBase is a hybrid database management utility designed for electronic engineers. It resolves a crucial engineering bottleneck: manually extracting and parsing multi-page component datasheets into inventory lists. 
+                        </p>
+                        <p>
+                            By leveraging state-of-the-art Large Language Models (LLMs) paired with targeted parsing pipelines, SheetBase allows developers and engineers to upload raw PDF datasheets and automatically populate PostgreSQL tables with strict schema mapping.
+                        </p>
+                    </div>
+                    <!-- Flow Diagram -->
+                    <div class="glass p-6 rounded-3xl mt-4 border-white/5">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-4 font-mono">System Workflow Map</h4>
+                        <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-semibold text-slate-300 text-center">
+                            <div class="glass-card px-4 py-3 rounded-2xl w-full">📄 PDF Ingestion</div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-600 rotate-90 md:rotate-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            <div class="glass-card px-4 py-3 rounded-2xl w-full border-blue-500/20 bg-blue-500/5">⚡ PyMuPDF Parse</div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-600 rotate-90 md:rotate-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            <div class="glass-card px-4 py-3 rounded-2xl w-full border-purple-500/20 bg-purple-500/5">🤖 LLM Extraction</div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-600 rotate-90 md:rotate-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            <div class="glass-card px-4 py-3 rounded-2xl w-full border-emerald-500/20 bg-emerald-500/5">🗄 SQL Ingestion</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION: Technology Stack -->
+                <section id="tech-stack" class="scroll-mt-10 space-y-6">
+                    <h2 class="text-3xl font-bold text-white flex items-center gap-3">
+                        <span class="w-1 h-6 bg-blue-500 rounded-full"></span>
+                        Technology Stack
+                    </h2>
+                    <p class="text-slate-400 text-sm">
+                        SheetBase relies on highly robust, performant layers designed to integrate seamlessly on lightweight Unix infrastructures.
                     </p>
-                </div>
-            </section>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Layer 1 -->
+                        <div class="glass-card p-6 rounded-3xl">
+                            <div class="w-10 h-10 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                            </div>
+                            <h3 class="font-bold text-white mb-2">Backend & Engine</h3>
+                            <ul class="text-xs text-slate-400 space-y-1.5 list-disc pl-4">
+                                <li>Python 3.11+ Core</li>
+                                <li>Flask micro-framework</li>
+                                <li>SQLAlchemy ORM layer</li>
+                                <li>psycopg2-binary engine</li>
+                            </ul>
+                        </div>
+                        <!-- Layer 2 -->
+                        <div class="glass-card p-6 rounded-3xl">
+                            <div class="w-10 h-10 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                            </div>
+                            <h3 class="font-bold text-white mb-2">Data Warehousing</h3>
+                            <ul class="text-xs text-slate-400 space-y-1.5 list-disc pl-4">
+                                <li>PostgreSQL 15 Database</li>
+                                <li>ACID transaction safety</li>
+                                <li>Custom indices for parts</li>
+                                <li>JSON-B capabilities</li>
+                            </ul>
+                        </div>
+                        <!-- Layer 3 -->
+                        <div class="glass-card p-6 rounded-3xl">
+                            <div class="w-10 h-10 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                            </div>
+                            <h3 class="font-bold text-white mb-2">Intelligence Layer</h3>
+                            <ul class="text-xs text-slate-400 space-y-1.5 list-disc pl-4">
+                                <li>OpenRouter LLM Interface</li>
+                                <li>Dynamic fallback queue</li>
+                                <li>PyMuPDF (fitz) text parsing</li>
+                                <li>Smart token limit checks</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
 
-            <!-- Section: Technology Stack -->
-            <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="glass p-8 rounded-3xl text-center">
-                    <div class="w-12 h-12 bg-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                    </div>
-                    <h3 class="font-bold mb-2">Backend</h3>
-                    <p class="text-sm text-slate-500">Python 3.11+<br>Flask Framework<br>SQLAlchemy ORM</p>
-                </div>
-                <div class="glass p-8 rounded-3xl text-center">
-                    <div class="w-12 h-12 bg-emerald-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-                    </div>
-                    <h3 class="font-bold mb-2">Storage</h3>
-                    <p class="text-sm text-slate-500">PostgreSQL<br>psycopg2 Driver<br>Structured Schemas</p>
-                </div>
-                <div class="glass p-8 rounded-3xl text-center">
-                    <div class="w-12 h-12 bg-purple-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10H12V2z"/><path d="M12 12L2.7 7.3"/><path d="M12 12V21"/></svg>
-                    </div>
-                    <h3 class="font-bold mb-2">Intelligence</h3>
-                    <p class="text-sm text-slate-500">OpenRouter API<br>PyMuPDF<br>Automated Routing</p>
-                </div>
-            </section>
-
-            <!-- Section: Smart Upload & Routing -->
-            <section class="glass p-10 rounded-[2.5rem] border-blue-500/20 bg-gradient-to-br from-blue-500/5 to-transparent">
-                <h2 class="text-3xl font-bold mb-6 flex items-center gap-4">
-                    <span class="w-1.5 h-8 bg-blue-500 rounded-full"></span>
-                    Smart Upload & AI Routing
-                </h2>
-                <div class="space-y-6 text-slate-400">
-                    <p>
-                        The core innovation of SheetBase is the <span class="text-blue-400 font-semibold">AI Router</span>. Unlike traditional systems that require you to specify a category before uploading, SheetBase analyzes the PDF content in real-time.
+                <!-- SECTION: Ingestion Pipeline -->
+                <section id="ai-pipeline" class="scroll-mt-10 space-y-6">
+                    <h2 class="text-3xl font-bold text-white flex items-center gap-3">
+                        <span class="w-1 h-6 bg-blue-500 rounded-full"></span>
+                        Ingestion Pipeline
+                    </h2>
+                    <p class="text-slate-400 text-sm">
+                        SheetBase implements a strict pipeline to translate unstructured PDF pages into safe SQL entries.
                     </p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-                        <div class="bg-white/5 p-6 rounded-2xl border border-white/5">
-                            <h4 class="text-white font-semibold mb-2">1. Classification</h4>
-                            <p class="text-sm">The AI identifies the component type (OPV, BJT, or MOSFET) based on header information and parameter patterns.</p>
+                    <div class="relative pl-8 border-l border-white/5 space-y-12">
+                        <!-- Step 1 -->
+                        <div class="relative">
+                            <div class="absolute -left-[41px] top-0.5 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500 flex items-center justify-center text-blue-400 text-[10px] font-bold font-mono">1</div>
+                            <h3 class="font-bold text-white mb-1">Temporary PDF Upload</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed mb-2">
+                                Clients POST a raw PDF to `/upload-pdf`. The backend saves the document as a secure file named `temp_uploaded.pdf`.
+                            </p>
                         </div>
-                        <div class="bg-white/5 p-6 rounded-2xl border border-white/5">
-                            <h4 class="text-white font-semibold mb-2">2. Parameter Extraction</h4>
-                            <p class="text-sm">Technical parameters are extracted and mapped to the specific SQL schema for that component type.</p>
+                        <!-- Step 2 -->
+                        <div class="relative">
+                            <div class="absolute -left-[41px] top-0.5 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500 flex items-center justify-center text-blue-400 text-[10px] font-bold font-mono">2</div>
+                            <h3 class="font-bold text-white mb-1">Text Parsing & Page Limiting (PyMuPDF)</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed mb-2">
+                                `fitz` opens the document and extracts the text contents. For safety under LLM token boundaries, we configure the extraction to limit to the **first 100 pages** (datasheet parameter tables and maximum ratings are always at the beginning, typically first 1-5 pages).
+                            </p>
+                            <pre class="bg-[#090d16] p-4 rounded-2xl border border-white/5 text-[11px] text-blue-300 font-mono">pdf_text = extract_text_from_pdf(pdf_path, max_pages=100)</pre>
                         </div>
-                        <div class="bg-white/5 p-6 rounded-2xl border border-white/5">
-                            <h4 class="text-white font-semibold mb-2">3. Routing</h4>
-                            <p class="text-sm">The data is inserted into the correct table independently of the user's current dashboard view.</p>
+                        <!-- Step 3 -->
+                        <div class="relative">
+                            <div class="absolute -left-[41px] top-0.5 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500 flex items-center justify-center text-blue-400 text-[10px] font-bold font-mono">3</div>
+                            <h3 class="font-bold text-white mb-1">OpenRouter Prompt Assembly & LLM Routing</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed mb-2">
+                                The text is injected into `prompt.txt`. The backend queries OpenRouter models sequentially, using a dynamic fallback mechanism to guarantee responses.
+                            </p>
+                            <pre class="bg-[#090d16] p-4 rounded-2xl border border-white/5 text-[11px] text-blue-300 font-mono"># Dynamic model fallback chain
+MODELS = [
+    "openai/gpt-oss-120b:free",
+    "meta-llama/llama-3.3-70b-instruct:free",
+    "qwen/qwen3-next-80b-a3b-instruct:free"
+]</pre>
                         </div>
-                        <div class="bg-white/5 p-6 rounded-2xl border border-white/5">
-                            <h4 class="text-white font-semibold mb-2">4. Validation</h4>
-                            <p class="text-sm">The system provides a toast notification confirming the routing status and any extracted metadata.</p>
+                        <!-- Step 4 -->
+                        <div class="relative">
+                            <div class="absolute -left-[41px] top-0.5 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500 flex items-center justify-center text-blue-400 text-[10px] font-bold font-mono">4</div>
+                            <h3 class="font-bold text-white mb-1">SQL Sanitization & Transaction Ingestion</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed mb-2">
+                                The returned SQL statement is stripped of markdown fences (` ```sql `). It is split by semicolons to execute separate statements sequentially inside an isolated database transaction, ensuring `rollback` if any error is encountered.
+                            </p>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- Section: API Reference -->
-            <section class="glass p-10 rounded-[2.5rem]">
-                <h2 class="text-3xl font-bold mb-8 flex items-center gap-4">
-                    <span class="w-1.5 h-8 bg-emerald-500 rounded-full"></span>
-                    API Reference
-                </h2>
-                <div class="space-y-8">
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-3">
-                            <span class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-lg text-xs font-bold uppercase">GET</span>
-                            <code class="text-white">/data/&lt;category&gt;</code>
+                <!-- SECTION: API Reference -->
+                <section id="api-reference" class="scroll-mt-10 space-y-6">
+                    <h2 class="text-3xl font-bold text-white flex items-center gap-3">
+                        <span class="w-1 h-6 bg-blue-500 rounded-full"></span>
+                        API Reference
+                    </h2>
+                    <p class="text-slate-400 text-sm">
+                        SheetBase exposes three RESTful endpoints for frontend interactions and DB connectivity.
+                    </p>
+                    <div class="space-y-6">
+                        <!-- Endpoint 1 -->
+                        <div class="glass p-6 rounded-3xl border-white/5 space-y-4">
+                            <div class="flex flex-wrap items-center justify-between gap-2">
+                                <div class="flex items-center gap-3">
+                                    <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-3 py-1 rounded-xl text-[10px] font-mono font-bold uppercase">GET</span>
+                                    <code class="text-white text-sm font-semibold">/data/&lt;category&gt;</code>
+                                </div>
+                                <span class="text-slate-500 text-xs font-mono">Content-Type: application/json</span>
+                            </div>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Fetches all database entries for the requested category (`opv`, `bjt`, or `mosfet`).
+                            </p>
                         </div>
-                        <p class="text-sm text-slate-400 ml-16">Fetches all records for a specific category (opv, bjt, or mosfet).</p>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-3">
-                            <span class="bg-emerald-500/20 text-emerald-400 px-3 py-1 rounded-lg text-xs font-bold uppercase">POST</span>
-                            <code class="text-white">/upload-pdf</code>
+                        <!-- Endpoint 2 -->
+                        <div class="glass p-6 rounded-3xl border-white/5 space-y-4">
+                            <div class="flex flex-wrap items-center justify-between gap-2">
+                                <div class="flex items-center gap-3">
+                                    <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-xl text-[10px] font-mono font-bold uppercase">POST</span>
+                                    <code class="text-white text-sm font-semibold">/upload-pdf</code>
+                                </div>
+                                <span class="text-slate-500 text-xs font-mono">Content-Type: multipart/form-data</span>
+                            </div>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Main entrypoint. Expects a PDF file under the name <code class="bg-[#090d16] px-1 py-0.5 rounded text-blue-400 font-mono text-[10px]">file</code>. Initiates text extraction, runs the OpenRouter fallback, sanitizes statements, and writes parameters to the PostgreSQL database.
+                            </p>
                         </div>
-                        <p class="text-sm text-slate-400 ml-16">Handles multipart PDF uploads for AI-driven extraction and routing.</p>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-3">
-                            <span class="bg-purple-500/20 text-purple-400 px-3 py-1 rounded-lg text-xs font-bold uppercase">GET</span>
-                            <code class="text-white">/test-db</code>
+                        <!-- Endpoint 3 -->
+                        <div class="glass p-6 rounded-3xl border-white/5 space-y-4">
+                            <div class="flex flex-wrap items-center justify-between gap-2">
+                                <div class="flex items-center gap-3">
+                                    <span class="bg-purple-500/10 text-purple-400 border border-purple-500/20 px-3 py-1 rounded-xl text-[10px] font-mono font-bold uppercase">GET</span>
+                                    <code class="text-white text-sm font-semibold">/test-db</code>
+                                </div>
+                                <span class="text-slate-500 text-xs font-mono">Content-Type: application/json</span>
+                            </div>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Low-level connectivity test executing a minimal query (`SELECT 1`) to ensure PostgreSQL is online.
+                            </p>
                         </div>
-                        <p class="text-sm text-slate-400 ml-16">Verifies the health of the connection to the remote PostgreSQL database.</p>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- Section: Testing Tools -->
-            <section class="glass p-10 rounded-[2.5rem]">
-                <h2 class="text-3xl font-bold mb-6 flex items-center gap-4">
-                    <span class="w-1.5 h-8 bg-purple-500 rounded-full"></span>
-                    Terminal Testing Tools
-                </h2>
-                <p class="text-slate-400 mb-8">
-                    For developers, we provide standalone scripts to test database interactions without using the web interface.
-                </p>
-                
-                <div class="space-y-6">
-                    <div>
-                        <h4 class="text-white font-semibold mb-3 flex items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2H2v10h10V2zM12 12H2v10h10V12zM22 2h-10v10h10V2zM22 12h-10v10h10V12z"/></svg>
-                            test-post.py
-                        </h4>
-                        <p class="text-sm text-slate-500 mb-4">Inserts sample components (OPA2134, 2N2222A, IRFZ44N) with full parameters into the DB.</p>
-                        <pre><code>python3 test-post.py</code></pre>
+                <!-- SECTION: Database Schema -->
+                <section id="db-schema" class="scroll-mt-10 space-y-6">
+                    <h2 class="text-3xl font-bold text-white flex items-center gap-3">
+                        <span class="w-1 h-6 bg-blue-500 rounded-full"></span>
+                        Database Schema
+                    </h2>
+                    <p class="text-slate-400 text-sm">
+                        SheetBase maps component characteristics to three primary tables inside your PostgreSQL instance.
+                    </p>
+
+                    <!-- Tabbed Schema Views -->
+                    <div class="glass rounded-3xl overflow-hidden">
+                        <!-- Tab Selectors -->
+                        <div class="flex bg-white/5 border-b border-white/5 text-xs font-semibold">
+                            <button onclick="switchSchemaTab('opv')" id="tab-opv" class="flex-1 py-4 text-center border-b-2 border-blue-500 text-blue-400 bg-white/5 transition-all">Operational Amplifiers (opv)</button>
+                            <button onclick="switchSchemaTab('bjt')" id="tab-bjt" class="flex-1 py-4 text-center border-b-2 border-transparent text-slate-400 hover:text-white transition-all">BJT Transistors (bjt)</button>
+                            <button onclick="switchSchemaTab('mosfet')" id="tab-mosfet" class="flex-1 py-4 text-center border-b-2 border-transparent text-slate-400 hover:text-white transition-all">MOSFETs (mosfet)</button>
+                        </div>
+                        <!-- Tab Content -->
+                        <div class="p-6 bg-[#020617]/50">
+                            <!-- OPV SQL -->
+                            <pre id="schema-opv" class="text-[11px] text-blue-300 font-mono leading-relaxed">CREATE TABLE opv (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    power_supply_voltage TEXT,
+    input_offset_voltage TEXT,
+    input_offset_current TEXT,
+    input_common_mode_voltage_range TEXT,
+    large_signal_open_loop_gain TEXT,
+    input_bias_current TEXT,
+    output_voltage_high_low_limit TEXT,
+    output_source_current TEXT,
+    power_supply_current TEXT
+);</pre>
+                            <!-- BJT SQL -->
+                            <pre id="schema-bjt" class="hidden text-[11px] text-emerald-300 font-mono leading-relaxed">CREATE TABLE bjt (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    bjt_type TEXT CHECK (bjt_type IN ('NPN', 'PNP')),
+    dc_current_gain_hfe TEXT,
+    collector_emitter_voltage TEXT,
+    collector_base_voltage TEXT,
+    emitter_base_voltage TEXT,
+    base_emitter_on_voltage TEXT
+);</pre>
+                            <!-- MOSFET SQL -->
+                            <pre id="schema-mosfet" class="hidden text-[11px] text-purple-300 font-mono leading-relaxed">CREATE TABLE mosfet (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    mosfet_type TEXT CHECK (mosfet_type IN ('N-Kanal', 'P-Kanal')),
+    drain_source_voltage TEXT,
+    gate_source_voltage TEXT,
+    continuous_drain_current TEXT,
+    gate_threshold_voltage TEXT
+);</pre>
+                        </div>
                     </div>
-                    <div>
-                        <h4 class="text-white font-semibold mb-3 flex items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-                            test-conn.py
-                        </h4>
-                        <p class="text-sm text-slate-500 mb-4">Performs a low-level connectivity check and basic read/write tests.</p>
-                        <pre><code>python3 test-conn.py</code></pre>
+                </section>
+
+                <!-- SECTION: Diagnostics & Test -->
+                <section id="diagnostics" class="scroll-mt-10 space-y-6">
+                    <h2 class="text-3xl font-bold text-white flex items-center gap-3">
+                        <span class="w-1 h-6 bg-blue-500 rounded-full"></span>
+                        Diagnostics & Connections
+                    </h2>
+                    <p class="text-slate-400 text-sm">
+                        You can perform low-level diagnostic tests in the terminal to inspect database connectivity.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="glass p-6 rounded-3xl border-white/5 space-y-3">
+                            <h4 class="font-semibold text-white flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
+                                test-post.py
+                            </h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Inserts sample components (`OPA2134`, `2N2222A`, and `IRFZ44N`) with filled parameters into the database. Use this to verify insertion permissions.
+                            </p>
+                            <pre class="bg-[#090d16] p-3 rounded-xl text-[10px] text-slate-300 font-mono border border-white/5">python3 test-post.py</pre>
+                        </div>
+                        <div class="glass p-6 rounded-3xl border-white/5 space-y-3">
+                            <h4 class="font-semibold text-white flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                test-conn.py
+                            </h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Tests the connection to the PostgreSQL instance at a raw socket level and pulls existing OPV contents.
+                            </p>
+                            <pre class="bg-[#090d16] p-3 rounded-xl text-[10px] text-slate-300 font-mono border border-white/5">python3 test-conn.py</pre>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-        </div>
+                <!-- SECTION: Security & Risks -->
+                <section id="security-risks" class="scroll-mt-10 space-y-6">
+                    <h2 class="text-3xl font-bold text-red-500 flex items-center gap-3">
+                        <span class="w-1 h-6 bg-red-500 rounded-full"></span>
+                        Security & Risk Audit
+                    </h2>
+                    <p class="text-slate-400 text-sm">
+                        A transparency audit of the current architecture reveals critical risks and vulnerabilities to note in staging/production deployments.
+                    </p>
+                    <div class="glass p-8 rounded-[2rem] border-red-500/20 bg-gradient-to-br from-red-500/5 to-transparent space-y-6 text-sm">
+                        <!-- Risk 1 -->
+                        <div class="flex items-start gap-4">
+                            <div class="p-2 bg-red-500/10 rounded-xl text-red-400 shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            </div>
+                            <div class="space-y-1">
+                                <h4 class="font-semibold text-white">Direct LLM SQL Execution (High Risk)</h4>
+                                <p class="text-xs text-slate-400 leading-relaxed">
+                                    The pipeline parses and executes SQL returned by the LLM directly on your database. If a prompt or PDF is manipulated (e.g. prompt injection inside datasheet text), the model might generate malicious statements (like `DROP TABLE`).
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Risk 2 -->
+                        <div class="flex items-start gap-4">
+                            <div class="p-2 bg-red-500/10 rounded-xl text-red-400 shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            </div>
+                            <div class="space-y-1">
+                                <h4 class="font-semibold text-white">Missing API Authentication & Rate Limits</h4>
+                                <p class="text-xs text-slate-400 leading-relaxed">
+                                    Currently, `/upload-pdf` and database query endpoints are public. Anyone can execute operations, causing massive LLM expenses on your OpenRouter quota.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
-        <!-- Footer -->
-        <footer class="mt-20 pb-10 text-center text-slate-600 text-sm border-t border-white/5 pt-10">
-            <p>&copy; 2026 SheetBase Intelligence System. Built with Liquid Glass Architecture.</p>
-        </footer>
+                <!-- SECTION: Recommended Upgrades -->
+                <section id="upgrades" class="scroll-mt-10 space-y-6">
+                    <h2 class="text-3xl font-bold text-emerald-400 flex items-center gap-3">
+                        <span class="w-1 h-6 bg-emerald-500 rounded-full"></span>
+                        Recommended Upgrades
+                    </h2>
+                    <p class="text-slate-400 text-sm">
+                        These modifications are highly recommended to upgrade SheetBase to a secure production-grade application.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="glass-card p-6 rounded-3xl space-y-2">
+                            <h4 class="font-semibold text-white flex items-center gap-2">
+                                <span class="flex h-2 w-2 rounded-full bg-emerald-400"></span>
+                                SQL Validation Sandbox
+                            </h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Implement a SQL parsing step utilizing libraries like `sqlglot` to parse the LLM output and block statements containing `DROP`, `ALTER`, `DELETE`, or structural changes.
+                            </p>
+                        </div>
+                        <div class="glass-card p-6 rounded-3xl space-y-2">
+                            <h4 class="font-semibold text-white flex items-center gap-2">
+                                <span class="flex h-2 w-2 rounded-full bg-emerald-400"></span>
+                                Refactor to ORM Inserts
+                            </h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Request the LLM to output a clean JSON payload instead of raw SQL. The backend can parse the JSON and use safe, parameterized SQLAlchemy ORM mappings to add items.
+                            </p>
+                        </div>
+                        <div class="glass-card p-6 rounded-3xl space-y-2">
+                            <h4 class="font-semibold text-white flex items-center gap-2">
+                                <span class="flex h-2 w-2 rounded-full bg-emerald-400"></span>
+                                Background Task Queue (Celery)
+                            </h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Move document ingestion and OpenRouter queries into background workers. Return a task status ID to clients immediately, allowing the frontend to poll for completions without timing out.
+                            </p>
+                        </div>
+                        <div class="glass-card p-6 rounded-3xl space-y-2">
+                            <h4 class="font-semibold text-white flex items-center gap-2">
+                                <span class="flex h-2 w-2 rounded-full bg-emerald-400"></span>
+                                API Protection Layer
+                            </h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Implement OAuth2 token validation, rate-limiting per API token, and strict CORS policies to protect endpoints from DDOS and quota exhaustion.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <footer class="text-center text-slate-600 text-xs border-t border-white/5 pt-8">
+                    <p>&copy; 2026 SheetBase Intelligence Systems. Crafted with premium Glassmorphism Aesthetics.</p>
+                </footer>
+            </div>
+        </main>
     </div>
+
+    <!-- Interactive Navigation Scripts -->
+    <script>
+        // Tab switching for database schema preview
+        function switchSchemaTab(tab) {
+            const tabs = ['opv', 'bjt', 'mosfet'];
+            
+            tabs.forEach(t => {
+                const button = document.getElementById(`tab-${t}`);
+                const preview = document.getElementById(`schema-${t}`);
+                
+                if (t === tab) {
+                    button.className = "flex-1 py-4 text-center border-b-2 border-blue-500 text-blue-400 bg-white/5 transition-all";
+                    preview.classList.remove('hidden');
+                } else {
+                    button.className = "flex-1 py-4 text-center border-b-2 border-transparent text-slate-400 hover:text-white transition-all";
+                    preview.classList.add('hidden');
+                }
+            });
+        }
+
+        // Left Navigation ScrollSpy Active Highlighting
+        window.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    const id = entry.target.getAttribute('id');
+                    const navLink = document.querySelector(`.nav-item[href="#${id}"]`);
+                    
+                    if (entry.intersectionRatio > 0) {
+                        document.querySelectorAll('.nav-item').forEach(link => link.classList.remove('active'));
+                        if (navLink) navLink.classList.add('active');
+                    }
+                });
+            }, {
+                rootMargin: '-20% 0px -60% 0px' // Center-focused intersection
+            });
+
+            // Track all sections
+            document.querySelectorAll('section[id]').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
 </body>
+
 </html>

@@ -126,7 +126,7 @@ def upload_pdf():
             
     # 2. Extract text from PDF (limiting to first 10 pages for speed and token limit safety)
     try:
-        pdf_text = extract_text_from_pdf(pdf_path, max_pages=10)
+        pdf_text = extract_text_from_pdf(pdf_path, max_pages=100)
     except Exception as e:
         if temp_path and os.path.exists(temp_path):
             try:
