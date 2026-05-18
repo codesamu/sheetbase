@@ -3,7 +3,7 @@ import re
 import sys
 import os
 
-def extract_text_from_pdf(pdf_path):
+def extract_text_from_pdf(pdf_path, max_pages=None):
 
     if not os.path.exists(pdf_path):
         print("Datei nicht gefunden:", pdf_path)
@@ -12,9 +12,11 @@ def extract_text_from_pdf(pdf_path):
     doc = fitz.open(pdf_path)
     full_text = ""
 
-    print(f"Seiten im PDF: {len(doc)}")
+    total_pages = len(doc)
+    pages_to_read = min(total_pages, max_pages) if max_pages is not None else total_pages
+    print(f"Seiten im PDF (Gesamt): {total_pages}, Lese: {pages_to_read}")
 
-    for page_num in range(len(doc)):
+    for page_num in range(pages_to_read):
         page = doc.load_page(page_num)
         text = page.get_text("text")
 

@@ -124,9 +124,9 @@ def upload_pdf():
     file.save(temp_path)
     pdf_path = temp_path
             
-    # 2. Extract text from PDF
+    # 2. Extract text from PDF (limiting to first 10 pages for speed and token limit safety)
     try:
-        pdf_text = extract_text_from_pdf(pdf_path)
+        pdf_text = extract_text_from_pdf(pdf_path, max_pages=10)
     except Exception as e:
         if temp_path and os.path.exists(temp_path):
             try:
@@ -168,9 +168,15 @@ def upload_pdf():
     api_key = os.environ.get("OPENROUTER_API_KEY", API_KEY)
     sql = ""
     success_model = None
+    last_errors = []
+    
+    # Let's check if the API key is set to the default placeholder
+    if api_key == "API-KEY":
+        print("[WARNING] OpenRouter API key is set to default placeholder 'API-KEY'. Requests will likely fail.", flush=True)
+        last_errors.append("API key is set to default 'API-KEY'. Please specify a valid API key.")
     
     for model in MODELS:
-        print(f"Testing model: {model}")
+        print(f"Testing model: {model}", flush=True)
         try:
             response = requests.post(
                 API_URL,
@@ -194,9 +200,13 @@ def upload_pdf():
                     success_model = model
                     break
             else:
-                print(f"Model {model} returned status {response.status_code}: {response.text}")
+                error_msg = f"Model {model} returned status {response.status_code}: {response.text}"
+                print(error_msg, flush=True)
+                last_errors.append(error_msg)
         except Exception as e:
-            print(f"Error with model {model}: {e}")
+            error_msg = f"Error with model {model}: {str(e)}"
+            print(error_msg, flush=True)
+            last_errors.append(error_msg)
             
     # Clean up temp file
     if temp_path and os.path.exists(temp_path):
@@ -206,7 +216,12 @@ def upload_pdf():
             pass
         
     if not sql:
-        return jsonify({"error": "Failed to generate SQL from LLM models"}), 500
+        return jsonify({
+            "error": "Failed to generate SQL from LLM models.",
+            "details": "All tried models failed to return a response. Please check your API key, your internet connection, or if your context size is too large.",
+            "api_key_used": "API-KEY (placeholder)" if api_key == "API-KEY" else "Custom Key",
+            "errors": last_errors
+        }), 500
         
     # 5. Write to DB like in test-post.py (try, execute, commit, rollback)
     try:
