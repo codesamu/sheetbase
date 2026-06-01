@@ -137,6 +137,12 @@ Suffix-, Fussnoten- und Tabelleninformationen koennen in unterschiedlichen Teile
 stehen und muessen zusammen betrachtet werden.
 
 Gib ausschliesslich SQL INSERT Statements zurueck.
+Verwende in SQL-Textwerten nur ASCII-Zeichen:
+- Bereiche mit normalem Bindestrich, z.B. "3-32 V"
+- Mikro als "u", z.B. "240 uA"
+- kleiner/gleich als "<=", groesser/gleich als ">="
+- plus/minus als "+/-"
+- Apostrophe innerhalb von Textwerten als zwei Apostrophe escapen.
 
 Gesamtseiten im Original-PDF: {total_pages}
 
@@ -166,6 +172,13 @@ def normalize_sql_for_database(sql):
         "\u2013": "-",
         "\u2014": "-",
         "\u2212": "-",
+        "\u00b5": "u",
+        "\u03bc": "u",
+        "\u2264": "<=",
+        "\u2265": ">=",
+        "\u00b1": "+/-",
+        "\u2126": "Ohm",
+        "\u00b0": " deg ",
         "\u2018": "'",
         "\u2019": "'",
         "\u201c": '"',
@@ -177,6 +190,51 @@ def normalize_sql_for_database(sql):
         sql = sql.replace(old, new)
 
     return sql.encode("ascii", "replace").decode("ascii")
+
+
+def split_sql_statements(sql):
+    statements = []
+    current = []
+    in_single_quote = False
+    in_double_quote = False
+    index = 0
+
+    while index < len(sql):
+        char = sql[index]
+        next_char = sql[index + 1] if index + 1 < len(sql) else ""
+
+        if char == "'" and not in_double_quote:
+            current.append(char)
+            if in_single_quote and next_char == "'":
+                current.append(next_char)
+                index += 2
+                continue
+            in_single_quote = not in_single_quote
+            index += 1
+            continue
+
+        if char == '"' and not in_single_quote:
+            in_double_quote = not in_double_quote
+            current.append(char)
+            index += 1
+            continue
+
+        if char == ";" and not in_single_quote and not in_double_quote:
+            statement = "".join(current).strip()
+            if statement:
+                statements.append(statement)
+            current = []
+            index += 1
+            continue
+
+        current.append(char)
+        index += 1
+
+    statement = "".join(current).strip()
+    if statement:
+        statements.append(statement)
+
+    return statements
 
 
 def create_job(filename):
@@ -668,7 +726,7 @@ def process_pdf_job(job_id, temp_path):
             if sql_clean != sql:
                 debug("[Database] Normalized Unicode punctuation before SQL execution.")
 
-            statements = sql_clean.split(";")
+            statements = split_sql_statements(sql_clean)
             executed_count = 0
 
             for statement in statements:
@@ -959,7 +1017,7 @@ def upload_pdf_sync():
         sql_clean = normalize_sql_for_database(clean_sql_response(sql))
                 
         # Split by semicolon to execute separate statements safely
-        statements = sql_clean.split(";")
+        statements = split_sql_statements(sql_clean)
         executed_count = 0
         
         for statement in statements:
