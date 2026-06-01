@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 import os
 import requests
@@ -162,6 +162,22 @@ def home():
 @app.route("/docs")
 def docs():
     return render_template("docs.html")
+
+@app.route("/favicon.ico")
+def favicon():
+    return send_from_directory(
+        app.template_folder,
+        "favicon.svg",
+        mimetype="image/svg+xml"
+    )
+
+@app.route("/favicon.svg")
+def favicon_svg():
+    return send_from_directory(
+        app.template_folder,
+        "favicon.svg",
+        mimetype="image/svg+xml"
+    )
 
 @app.route("/data/<category>")
 def get_data(category):

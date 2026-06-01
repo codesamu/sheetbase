@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="SheetBase favicon">
+  <rect x="40" y="28" width="176" height="200" rx="28" fill="none" stroke="#ffffff" stroke-width="8"/>
+  <path d="M148 28v44h44" fill="none" stroke="#ffffff" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M148 28l44 44h-44z" fill="none" stroke="#ffffff" stroke-width="8" stroke-linejoin="round"/>
+  <rect x="72" y="92" width="112" height="14" rx="7" fill="#ffffff"/>
+  <rect x="72" y="124" width="90" height="14" rx="7" fill="#ffffff" opacity="0.88"/>
+  <rect x="72" y="156" width="74" height="14" rx="7" fill="#ffffff" opacity="0.76"/>
+  <circle cx="82" cy="198" r="10" fill="#ffffff" opacity="0.92"/>
+</svg>
