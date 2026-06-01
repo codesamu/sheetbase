@@ -26,6 +26,45 @@ def extract_text_from_pdf(pdf_path, max_pages=None):
     doc.close()
     return full_text
 
+
+def extract_text_chunks_from_pdf(pdf_path, chunk_size=10, max_pages=None):
+    if not os.path.exists(pdf_path):
+        print("Datei nicht gefunden:", pdf_path)
+        return []
+
+    doc = fitz.open(pdf_path)
+    chunks = []
+
+    try:
+        total_pages = len(doc)
+        pages_to_read = min(total_pages, max_pages) if max_pages is not None else total_pages
+        print(
+            f"Seiten im PDF (Gesamt): {total_pages}, Lese: {pages_to_read}, "
+            f"Chunk-Groesse: {chunk_size}"
+        )
+
+        for start_page in range(0, pages_to_read, chunk_size):
+            end_page = min(start_page + chunk_size, pages_to_read)
+            chunk_text = ""
+
+            for page_num in range(start_page, end_page):
+                page = doc.load_page(page_num)
+                text = page.get_text("text")
+
+                chunk_text += f"\n--- Seite {page_num+1} ---\n"
+                chunk_text += text
+
+            chunks.append({
+                "start_page": start_page + 1,
+                "end_page": end_page,
+                "total_pages": total_pages,
+                "text": chunk_text
+            })
+    finally:
+        doc.close()
+
+    return chunks
+
 def clean_text(text):
 
     replacements = {
