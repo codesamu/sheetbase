@@ -3,6 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import os
 import requests
+import threading
+import uuid
+import time
 from pdf_extractor import extract_text_chunks_from_pdf
 
 # =========================
@@ -19,6 +22,9 @@ MODELS = [
 PDF_CHUNK_SIZE = 10
 MAX_PDF_PAGES = 100
 PDF_CLEANUP_MAX_WORKERS = 4
+
+JOBS = {}
+JOBS_LOCK = threading.Lock()
 
 # =========================
 # FLASK APP
@@ -152,13 +158,85 @@ def clean_sql_response(sql):
     return sql_clean
 
 
-def ask_openrouter_with_fallback(prompt, api_key, debug_label="OpenRouter", max_tokens=4000):
+def normalize_sql_for_database(sql):
+    replacements = {
+        "\u2010": "-",
+        "\u2011": "-",
+        "\u2012": "-",
+        "\u2013": "-",
+        "\u2014": "-",
+        "\u2212": "-",
+        "\u2018": "'",
+        "\u2019": "'",
+        "\u201c": '"',
+        "\u201d": '"',
+        "\xa0": " "
+    }
+
+    for old, new in replacements.items():
+        sql = sql.replace(old, new)
+
+    return sql.encode("ascii", "replace").decode("ascii")
+
+
+def create_job(filename):
+    job_id = uuid.uuid4().hex
+    with JOBS_LOCK:
+        JOBS[job_id] = {
+            "id": job_id,
+            "filename": filename,
+            "status": "queued",
+            "phase": "queued",
+            "progress": 2,
+            "logs": [],
+            "result": None,
+            "error": None,
+            "created_at": time.time()
+        }
+    return job_id
+
+
+def update_job(job_id, **fields):
+    with JOBS_LOCK:
+        job = JOBS.get(job_id)
+        if not job:
+            return
+        job.update(fields)
+
+
+def add_job_log(job_id, message):
+    print(message, flush=True)
+    with JOBS_LOCK:
+        job = JOBS.get(job_id)
+        if not job:
+            return
+        job["logs"].append(message)
+        job["logs"] = job["logs"][-400:]
+
+
+def get_job_snapshot(job_id):
+    with JOBS_LOCK:
+        job = JOBS.get(job_id)
+        if not job:
+            return None
+        snapshot = dict(job)
+        snapshot["logs"] = list(job["logs"])
+        return snapshot
+
+
+def ask_openrouter_with_fallback(prompt, api_key, debug_label="OpenRouter", max_tokens=4000, log_callback=None):
     content_result = ""
     success_model = None
     last_errors = []
 
+    def log(message):
+        if log_callback:
+            log_callback(message)
+        else:
+            print(message, flush=True)
+
     for model in MODELS:
-        print(f"[{debug_label}] Testing model: {model}", flush=True)
+        log(f"[{debug_label}] Testing model: {model}")
         try:
             response = requests.post(
                 API_URL,
@@ -180,26 +258,29 @@ def ask_openrouter_with_fallback(prompt, api_key, debug_label="OpenRouter", max_
                 if content:
                     content_result = content
                     success_model = model
-                    print(f"[{debug_label}] Success with model: {model}", flush=True)
+                    log(f"[{debug_label}] Success with model: {model}")
                     break
             else:
                 error_msg = f"[{debug_label}] Model {model} returned status {response.status_code}: {response.text}"
-                print(error_msg, flush=True)
+                log(error_msg)
                 last_errors.append(error_msg)
         except Exception as e:
             error_msg = f"[{debug_label}] Error with model {model}: {str(e)}"
-            print(error_msg, flush=True)
+            log(error_msg)
             last_errors.append(error_msg)
 
     return content_result, success_model, last_errors
 
 
-def clean_pdf_chunk_with_ai(chunk_index, total_chunks, chunk, api_key):
+def clean_pdf_chunk_with_ai(chunk_index, total_chunks, chunk, api_key, log_callback=None):
     debug_label = (
         f"Cleanup chunk {chunk_index}/{total_chunks} "
         f"pages {chunk['start_page']}-{chunk['end_page']}"
     )
-    print(f"[{debug_label}] Starting cleanup request", flush=True)
+    if log_callback:
+        log_callback(f"[{debug_label}] Starting cleanup request")
+    else:
+        print(f"[{debug_label}] Starting cleanup request", flush=True)
 
     prompt = build_cleanup_prompt(
         pdf_text=chunk["text"],
@@ -213,18 +294,22 @@ def clean_pdf_chunk_with_ai(chunk_index, total_chunks, chunk, api_key):
         prompt,
         api_key,
         debug_label=debug_label,
-        max_tokens=4000
+        max_tokens=4000,
+        log_callback=log_callback
     )
     cleaned_text = clean_sql_response(cleaned_text)
 
     if not cleaned_text:
         errors.append(f"[{debug_label}] Empty cleanup response")
 
-    print(
+    message = (
         f"[{debug_label}] Finished cleanup. "
-        f"Input chars: {len(chunk['text'])}, output chars: {len(cleaned_text)}",
-        flush=True
+        f"Input chars: {len(chunk['text'])}, output chars: {len(cleaned_text)}"
     )
+    if log_callback:
+        log_callback(message)
+    else:
+        print(message, flush=True)
 
     return {
         "chunk_index": chunk_index,
@@ -237,21 +322,32 @@ def clean_pdf_chunk_with_ai(chunk_index, total_chunks, chunk, api_key):
     }
 
 
-def clean_pdf_chunks_concurrently(pdf_chunks, api_key):
+def clean_pdf_chunks_concurrently(pdf_chunks, api_key, log_callback=None, progress_callback=None):
     total_chunks = len(pdf_chunks)
     max_workers = min(PDF_CLEANUP_MAX_WORKERS, total_chunks)
     results = []
     errors = []
+    completed_chunks = 0
 
-    print(
+    start_message = (
         f"[Cleanup] Starting parallel cleanup for {total_chunks} chunks "
-        f"with {max_workers} workers",
-        flush=True
+        f"with {max_workers} workers"
     )
+    if log_callback:
+        log_callback(start_message)
+    else:
+        print(start_message, flush=True)
 
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = {
-            executor.submit(clean_pdf_chunk_with_ai, index, total_chunks, chunk, api_key): index
+            executor.submit(
+                clean_pdf_chunk_with_ai,
+                index,
+                total_chunks,
+                chunk,
+                api_key,
+                log_callback
+            ): index
             for index, chunk in enumerate(pdf_chunks, start=1)
         }
 
@@ -261,13 +357,20 @@ def clean_pdf_chunks_concurrently(pdf_chunks, api_key):
                 result = future.result()
                 results.append(result)
                 errors.extend(result["errors"])
-                print(
-                    f"[Cleanup] Chunk {chunk_index}/{total_chunks} completed",
-                    flush=True
-                )
+                completed_chunks += 1
+                if progress_callback:
+                    progress_callback(completed_chunks, total_chunks)
+                complete_message = f"[Cleanup] Chunk {chunk_index}/{total_chunks} completed"
+                if log_callback:
+                    log_callback(complete_message)
+                else:
+                    print(complete_message, flush=True)
             except Exception as e:
                 error_msg = f"[Cleanup] Chunk {chunk_index}/{total_chunks} failed: {str(e)}"
-                print(error_msg, flush=True)
+                if log_callback:
+                    log_callback(error_msg)
+                else:
+                    print(error_msg, flush=True)
                 errors.append(error_msg)
 
     results.sort(key=lambda item: item["chunk_index"])
@@ -329,23 +432,364 @@ def get_data(category):
     rows = model.query.all()
     return jsonify([r.to_dict() for r in rows])
 
+
+def process_pdf_job(job_id, temp_path):
+    with app.app_context():
+        debug_messages = []
+        last_errors = []
+        api_key = os.environ.get("OPENROUTER_API_KEY", API_KEY)
+
+        def debug(message):
+            debug_messages.append(message)
+            add_job_log(job_id, message)
+
+        def set_progress(phase, progress, **fields):
+            update_job(job_id, phase=phase, progress=progress, **fields)
+
+        set_progress("extract", 8, status="running")
+        debug("[Pipeline] Upload stored. Starting PDF text extraction.")
+
+        pdf_path = temp_path
+
+        # 1. Extract text from PDF in 10-page chunks
+        try:
+            pdf_chunks = extract_text_chunks_from_pdf(
+                pdf_path,
+                chunk_size=PDF_CHUNK_SIZE,
+                max_pages=MAX_PDF_PAGES
+            )
+        except Exception as e:
+            update_job(
+                job_id,
+                status="error",
+                phase="extract",
+                progress=100,
+                error=f"Failed to extract text from PDF: {str(e)}"
+            )
+            debug(f"[ERROR] Failed to extract text from PDF: {str(e)}")
+            if os.path.exists(temp_path):
+                try:
+                    os.remove(temp_path)
+                except Exception:
+                    pass
+            return
+
+        # 2. Read prompt
+        set_progress("prompt", 18)
+        debug("[Pipeline] PDF text extracted. Reading prompt.txt.")
+        prompt_path = "prompt.txt"
+        try:
+            with open(prompt_path, "r", encoding="utf-8") as f:
+                base_prompt = f.read()
+        except Exception as e:
+            update_job(
+                job_id,
+                status="error",
+                phase="prompt",
+                progress=100,
+                error=f"Failed to read prompt file: {str(e)}"
+            )
+            debug(f"[ERROR] Failed to read prompt file: {str(e)}")
+            if os.path.exists(temp_path):
+                try:
+                    os.remove(temp_path)
+                except Exception:
+                    pass
+            return
+
+        pdf_chunks = [chunk for chunk in pdf_chunks if chunk.get("text", "").strip()]
+
+        if not pdf_chunks or not base_prompt:
+            update_job(
+                job_id,
+                status="error",
+                phase="prompt",
+                progress=100,
+                error="Empty PDF text or prompt"
+            )
+            debug("[ERROR] Empty PDF text or prompt.")
+            if os.path.exists(temp_path):
+                try:
+                    os.remove(temp_path)
+                except Exception:
+                    pass
+            return
+
+        if api_key == "API-KEY":
+            warning = "[WARNING] OpenRouter API key is set to default placeholder 'API-KEY'. Requests will likely fail."
+            debug(warning)
+            last_errors.append("API key is set to default 'API-KEY'. Please specify a valid API key.")
+
+        total_chunks = len(pdf_chunks)
+        total_pages = pdf_chunks[0]["total_pages"] if pdf_chunks else 0
+        original_char_count = sum(len(chunk.get("text", "")) for chunk in pdf_chunks)
+
+        update_job(
+            job_id,
+            chunks_total=total_chunks,
+            chunks_done=0,
+            original_char_count=original_char_count
+        )
+
+        debug(
+            f"[Pipeline] Extracted {total_chunks} PDF chunks "
+            f"({PDF_CHUNK_SIZE} pages each, max {MAX_PDF_PAGES} pages)."
+        )
+        debug(f"[Pipeline] Original extracted text size: {original_char_count} characters.")
+        debug("[Pipeline] Starting parallel AI cleanup phase.")
+        set_progress("cleanup", 25)
+
+        def cleanup_progress(done, total):
+            progress = 25 + int((done / total) * 45)
+            update_job(
+                job_id,
+                phase="cleanup",
+                progress=progress,
+                chunks_done=done,
+                chunks_total=total
+            )
+
+        cleaned_chunks, cleanup_errors = clean_pdf_chunks_concurrently(
+            pdf_chunks,
+            api_key,
+            log_callback=debug,
+            progress_callback=cleanup_progress
+        )
+        last_errors.extend(cleanup_errors)
+
+        original_lengths_by_index = {
+            index: len(chunk.get("text", ""))
+            for index, chunk in enumerate(pdf_chunks, start=1)
+        }
+
+        for cleaned_chunk in cleaned_chunks:
+            debug(
+                f"[Cleanup] Chunk {cleaned_chunk['chunk_index']}/{total_chunks} "
+                f"pages {cleaned_chunk['start_page']}-{cleaned_chunk['end_page']} "
+                f"cleaned with {cleaned_chunk.get('model') or 'unknown'} "
+                f"({original_lengths_by_index.get(cleaned_chunk['chunk_index'], 0)} -> "
+                f"{len(cleaned_chunk.get('text', ''))} chars)."
+            )
+
+        cleanup_failed = (
+            len(cleaned_chunks) != total_chunks or
+            any(not chunk.get("text", "").strip() for chunk in cleaned_chunks)
+        )
+
+        if cleanup_failed:
+            error = "Failed to clean PDF chunks with LLM models."
+            debug("[Pipeline] Cleanup phase failed. Aborting before final SQL generation.")
+            update_job(
+                job_id,
+                status="error",
+                phase="cleanup",
+                progress=100,
+                error=error,
+                errors=last_errors,
+                debug_messages=debug_messages
+            )
+            if os.path.exists(temp_path):
+                try:
+                    os.remove(temp_path)
+                except Exception:
+                    pass
+            return
+
+        cleaned_text_parts = []
+        cleanup_models = []
+
+        for chunk in cleaned_chunks:
+            cleaned_text_parts.append(
+                f"\n--- Bereinigter Chunk {chunk['chunk_index']}/{total_chunks}, "
+                f"Seiten {chunk['start_page']}-{chunk['end_page']} ---\n"
+                f"{chunk['text']}"
+            )
+            if chunk.get("model"):
+                cleanup_models.append(chunk["model"])
+
+        cleaned_pdf_text = "\n\n".join(cleaned_text_parts)
+        cleaned_char_count = len(cleaned_pdf_text)
+        reduction_percent = 0
+
+        if original_char_count:
+            reduction_percent = round((1 - cleaned_char_count / original_char_count) * 100, 1)
+
+        update_job(
+            job_id,
+            cleaned_char_count=cleaned_char_count,
+            text_reduction_percent=reduction_percent
+        )
+        debug("[Pipeline] Cleanup phase complete.")
+        debug(f"[Pipeline] Cleaned context size: {cleaned_char_count} characters.")
+        debug(f"[Pipeline] Approximate text reduction: {reduction_percent}%.")
+        debug("[Pipeline] Starting final SQL generation with merged cleaned context.")
+        set_progress("final_sql", 75)
+
+        final_prompt = build_final_pdf_prompt(
+            base_prompt=base_prompt,
+            cleaned_pdf_text=cleaned_pdf_text,
+            total_pages=total_pages,
+            total_chunks=total_chunks
+        )
+        sql, sql_model, sql_errors = ask_openrouter_with_fallback(
+            final_prompt,
+            api_key,
+            debug_label="Final SQL generation",
+            max_tokens=4000,
+            log_callback=debug
+        )
+        last_errors.extend(sql_errors)
+        sql = clean_sql_response(sql)
+
+        if not sql:
+            error = "Failed to generate SQL from LLM models."
+            debug("[Pipeline] Final SQL generation returned no SQL.")
+            update_job(
+                job_id,
+                status="error",
+                phase="final_sql",
+                progress=100,
+                error=error,
+                errors=last_errors,
+                debug_messages=debug_messages
+            )
+            if os.path.exists(temp_path):
+                try:
+                    os.remove(temp_path)
+                except Exception:
+                    pass
+            return
+
+        debug(f"[Pipeline] Final SQL generated with model: {sql_model or 'unknown'}.")
+        set_progress("database", 88)
+
+        try:
+            sql_clean = normalize_sql_for_database(clean_sql_response(sql))
+            if sql_clean != sql:
+                debug("[Database] Normalized Unicode punctuation before SQL execution.")
+
+            statements = sql_clean.split(";")
+            executed_count = 0
+
+            for statement in statements:
+                statement = statement.strip()
+                if not statement:
+                    continue
+                db.session.execute(db.text(statement))
+                executed_count += 1
+
+            db.session.commit()
+            debug(f"[Database] Commit successful. Statements executed: {executed_count}.")
+
+            cleanup_model_names = ", ".join(dict.fromkeys(cleanup_models)) or "unknown"
+            sql_model_name = sql_model or "unknown"
+            result = {
+                "message": f"Successfully processed datasheet using {sql_model_name}.",
+                "status": "success",
+                "chunks_processed": total_chunks,
+                "cleanup_models": cleanup_model_names,
+                "sql_model": sql_model_name,
+                "original_char_count": original_char_count,
+                "cleaned_char_count": cleaned_char_count,
+                "text_reduction_percent": reduction_percent,
+                "statements_executed": executed_count,
+                "sql": sql_clean,
+                "debug_messages": debug_messages
+            }
+            update_job(
+                job_id,
+                status="success",
+                phase="complete",
+                progress=100,
+                result=result
+            )
+        except Exception as e:
+            db.session.rollback()
+            error = f"Database insertion failed: {str(e)}"
+            debug(f"[Database] Rollback after insertion failure: {str(e)}")
+            update_job(
+                job_id,
+                status="error",
+                phase="database",
+                progress=100,
+                error=error,
+                result={"sql": normalize_sql_for_database(sql)},
+                debug_messages=debug_messages
+            )
+        finally:
+            if os.path.exists(temp_path):
+                try:
+                    os.remove(temp_path)
+                except Exception:
+                    pass
+
+
+def run_pdf_job_safe(job_id, temp_path):
+    try:
+        process_pdf_job(job_id, temp_path)
+    except Exception as e:
+        add_job_log(job_id, f"[ERROR] Unexpected upload job failure: {str(e)}")
+        update_job(
+            job_id,
+            status="error",
+            phase="unexpected_error",
+            progress=100,
+            error=f"Unexpected upload job failure: {str(e)}"
+        )
+        if os.path.exists(temp_path):
+            try:
+                os.remove(temp_path)
+            except Exception:
+                pass
+
+
 @app.route("/upload-pdf", methods=["POST"])
 def upload_pdf():
-    # 1. Determine PDF path (use the uploaded pdf, comment out the datenblatt.pdf)
-    # pdf_path = "datenblatt.pdf"
-    temp_path = None
-    
     if "file" not in request.files:
         return jsonify({"error": "No file part in the request"}), 400
-        
+
     file = request.files["file"]
     if file.filename == "":
         return jsonify({"error": "No selected file"}), 400
-        
+
+    job_id = create_job(file.filename)
+    temp_path = f"temp_uploaded_{job_id}.pdf"
+    file.save(temp_path)
+    add_job_log(job_id, f"[Upload] Received {file.filename}. Background job started.")
+
+    worker = threading.Thread(
+        target=run_pdf_job_safe,
+        args=(job_id, temp_path),
+        daemon=True
+    )
+    worker.start()
+
+    return jsonify({"status": "started", "job_id": job_id}), 202
+
+
+@app.route("/upload-status/<job_id>")
+def upload_status(job_id):
+    job = get_job_snapshot(job_id)
+    if not job:
+        return jsonify({"error": "Unknown upload job"}), 404
+    return jsonify(job)
+
+
+@app.route("/upload-pdf-sync", methods=["POST"])
+def upload_pdf_sync():
+    temp_path = None
+
+    if "file" not in request.files:
+        return jsonify({"error": "No file part in the request"}), 400
+
+    file = request.files["file"]
+    if file.filename == "":
+        return jsonify({"error": "No selected file"}), 400
+
     temp_path = "temp_uploaded.pdf"
     file.save(temp_path)
     pdf_path = temp_path
-            
+
     # 2. Extract text from PDF in 10-page chunks
     try:
         pdf_chunks = extract_text_chunks_from_pdf(
@@ -512,7 +956,7 @@ def upload_pdf():
     # 5. Write to DB like in test-post.py (try, execute, commit, rollback)
     try:
         # Clean the SQL
-        sql_clean = clean_sql_response(sql)
+        sql_clean = normalize_sql_for_database(clean_sql_response(sql))
                 
         # Split by semicolon to execute separate statements safely
         statements = sql_clean.split(";")

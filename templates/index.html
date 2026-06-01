@@ -184,7 +184,7 @@
 
     <!-- Processing/Debug Modal -->
     <div id="debug-modal" class="fixed inset-0 bg-[#020617]/85 backdrop-blur-md flex items-center justify-center p-4 z-50 hidden">
-        <div class="glass max-w-2xl w-full rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[85vh]">
+        <div class="glass max-w-4xl w-full rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
             <!-- Modal Header -->
             <div id="modal-header-bg" class="p-6 border-b border-white/10 flex justify-between items-center bg-gradient-to-r from-blue-500/10 to-emerald-500/10">
                 <div class="flex items-center gap-3">
@@ -222,21 +222,45 @@
                             <span class="step-dot w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
                             <span class="text-slate-300 font-medium">2. Text Extraction</span>
                         </div>
-                        <div id="step-ai" class="flex items-center gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5">
+                        <div id="step-cleanup" class="flex items-center gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5">
                             <span class="step-dot w-2 h-2 rounded-full bg-slate-500"></span>
-                            <span class="text-slate-400">3. AI Classify & Extract</span>
+                            <span class="text-slate-400">3. Parallel AI Cleanup</span>
+                        </div>
+                        <div id="step-final-sql" class="flex items-center gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5">
+                            <span class="step-dot w-2 h-2 rounded-full bg-slate-500"></span>
+                            <span class="text-slate-400">4. Final SQL Generation</span>
                         </div>
                         <div id="step-db" class="flex items-center gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5">
                             <span class="step-dot w-2 h-2 rounded-full bg-slate-500"></span>
-                            <span class="text-slate-400">4. DB Ingestion</span>
+                            <span class="text-slate-400">5. DB Ingestion</span>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Live Metrics -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <div class="bg-white/5 border border-white/5 rounded-2xl p-3">
+                        <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Phase</p>
+                        <p id="metric-phase" class="font-mono text-sm text-blue-300 mt-1">queued</p>
+                    </div>
+                    <div class="bg-white/5 border border-white/5 rounded-2xl p-3">
+                        <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Chunks</p>
+                        <p id="metric-chunks" class="font-mono text-sm text-emerald-300 mt-1">0 / 0</p>
+                    </div>
+                    <div class="bg-white/5 border border-white/5 rounded-2xl p-3">
+                        <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Text Size</p>
+                        <p id="metric-text-size" class="font-mono text-sm text-purple-300 mt-1">0 -> 0</p>
+                    </div>
+                    <div class="bg-white/5 border border-white/5 rounded-2xl p-3">
+                        <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Reduction</p>
+                        <p id="metric-reduction" class="font-mono text-sm text-yellow-300 mt-1">0%</p>
                     </div>
                 </div>
 
                 <!-- Live Debug Console -->
                 <div class="space-y-2">
                     <h4 class="font-semibold text-slate-300">Detailed Logs & Diagnostics</h4>
-                    <div id="debug-console" class="bg-[#020617] border border-white/10 rounded-2xl p-4 font-mono text-xs text-slate-300 space-y-2 max-h-[250px] overflow-y-auto custom-scrollbar">
+                    <div id="debug-console" class="bg-[#020617] border border-white/10 rounded-2xl p-4 font-mono text-xs text-slate-300 space-y-2 max-h-[360px] overflow-y-auto custom-scrollbar">
                         <div class="text-emerald-400">[INFO] Starting upload...</div>
                     </div>
                 </div>
@@ -408,110 +432,145 @@
             openDebugModal(filename);
             
             try {
-                // Step 1: Upload & Extract Text
-                updateStep('step-upload', 'success');
-                updateStep('step-extract', 'active');
-                logConsole(`[INFO] Uploaded ${filename}. Reading PDF and extracting text in 10-page chunks...`);
+                updateStep('step-upload', 'active');
+                updateProgressBar(5);
+                updateMetrics({ phase: 'upload' });
+                logConsole(`[INFO] Uploading ${filename} and creating background job...`);
                 
                 const formData = new FormData();
                 formData.append('file', file);
-                
-                // Transition to AI routing
-                setTimeout(() => {
-                    updateStep('step-extract', 'success');
-                    updateStep('step-ai', 'active');
-                    logConsole(`[INFO] PDF text successfully extracted. Starting parallel AI cleanup for the chunks...`);
-                    logConsole(`[INFO] Retrying fallbacks if a model fails: openai/gpt-oss-120b:free, meta-llama/llama-3.3-70b-instruct:free, qwen/qwen3-next-80b-a3b-instruct:free`);
-                }, 1500);
 
                 const response = await fetch('/upload-pdf', {
                     method: 'POST',
                     body: formData
                 });
                 
-                const result = await response.json();
-                
-                if (response.status === 200) {
-                    // Success!
-                    updateStep('step-ai', 'success');
-                    updateStep('step-db', 'success');
-                    updateProgressBar(100);
-                    
-                    // Show success state in modal
-                    setModalSuccess(`Successfully processed datasheet!`);
-                    
-                    logConsole(`[SUCCESS] AI processing complete!`);
-                    logConsole(`[SUCCESS] Extracted component data from datasheet.`);
-                    logConsole(`[INFO] Model used: ${result.message.match(/using (.*)\./)?.[1] || 'OpenRouter Model'}`);
-                    logConsole(`[INFO] Chunks processed: ${result.chunks_processed}`);
-                    logConsole(`[INFO] Cleanup models: ${result.cleanup_models || 'unknown'}`);
-                    logConsole(`[INFO] Text reduction: ${result.text_reduction_percent ?? 0}% (${result.original_char_count ?? 0} -> ${result.cleaned_char_count ?? 0} chars)`);
-                    logConsole(`[INFO] DB Statements executed: ${result.statements_executed}`);
+                const startResult = await response.json();
 
-                    if (Array.isArray(result.debug_messages)) {
-                        result.debug_messages.forEach(message => logConsole(message));
-                    }
-                    
-                    // Show SQL code block
-                    showSQLBlock(result.sql);
-                    
-                    showToast('Datasheet processed successfully!', 'success');
-                    
-                    // Refresh data in current category
-                    fetchData();
-                } else {
-                    // Error response (e.g. 500)
-                    throw { status: response.status, data: result };
+                if (response.status !== 202 || !startResult.job_id) {
+                    throw { status: response.status, data: startResult };
                 }
+
+                updateStep('step-upload', 'success');
+                updateStep('step-extract', 'active');
+                logConsole(`[INFO] Job started: ${startResult.job_id}`);
+                await pollUploadJob(startResult.job_id);
                 
             } catch (err) {
-                // Handle detailed errors
                 updateProgressBar(100, true);
-                
                 const status = err.status || 500;
                 const data = err.data || { error: 'Unknown Error', details: 'Check your Flask logs or network connection.' };
-                
-                // Highlight where it failed
-                if (data.errors && data.errors.length > 0) {
-                    updateStep('step-ai', 'error');
-                    updateStep('step-db', 'pending');
-                } else if (data.error && data.error.includes("Database")) {
-                    updateStep('step-ai', 'success');
-                    updateStep('step-db', 'error');
-                } else {
-                    updateStep('step-extract', 'error');
-                    updateStep('step-ai', 'pending');
-                    updateStep('step-db', 'pending');
-                }
-                
                 setModalError(`Processing Failed (${status})`, data.error || 'Check details below.');
-                
                 logConsole(`[ERROR] Processing failed with status code ${status}`);
                 if (data.error) logConsole(`[ERROR] Main message: ${data.error}`);
                 if (data.details) logConsole(`[ERROR] Details: ${data.details}`);
-                
-                if (data.errors && Array.isArray(data.errors)) {
-                    data.errors.forEach(e => {
-                        logConsole(`[ERROR] OpenRouter attempt: ${e}`);
-                    });
-                }
-
-                if (Array.isArray(data.debug_messages)) {
-                    data.debug_messages.forEach(message => logConsole(message));
-                }
-                
-                // Show API helper guide if OpenRouter unauthorized
-                if (data.api_key_used === 'API-KEY (placeholder)' || (data.errors && data.errors.some(e => e.includes('401') || e.includes('Key')))) {
-                    document.getElementById('api-helper-card').classList.remove('hidden');
-                }
-                
-                // Show SQL if there was a DB insertion error but SQL was generated
-                if (data.sql) {
-                    showSQLBlock(data.sql);
-                }
-                
                 showToast(data.error || 'Upload failed', 'error');
             }
+        }
+
+        async function pollUploadJob(jobId) {
+            let lastLogCount = 0;
+
+            while (true) {
+                const response = await fetch(`/upload-status/${jobId}`);
+                const job = await response.json();
+
+                if (!response.ok) {
+                    throw { status: response.status, data: job };
+                }
+
+                applyJobState(job);
+
+                const logs = Array.isArray(job.logs) ? job.logs : [];
+                logs.slice(lastLogCount).forEach(message => logConsole(message));
+                lastLogCount = logs.length;
+
+                if (job.status === 'success') {
+                    const result = job.result || {};
+                    setModalSuccess('Successfully processed datasheet!');
+                    updateProgressBar(100);
+                    updateStep('step-upload', 'success');
+                    updateStep('step-extract', 'success');
+                    updateStep('step-cleanup', 'success');
+                    updateStep('step-final-sql', 'success');
+                    updateStep('step-db', 'success');
+
+                    logConsole(`[SUCCESS] AI processing complete.`);
+                    logConsole(`[SUCCESS] DB Statements executed: ${result.statements_executed || 0}`);
+                    showSQLBlock(result.sql || '');
+                    showToast('Datasheet processed successfully!', 'success');
+                    fetchData();
+                    return;
+                }
+
+                if (job.status === 'error') {
+                    markPhaseError(job.phase);
+                    updateProgressBar(100, true);
+                    setModalError('Processing Failed', job.error || 'Check details below.');
+
+                    if (Array.isArray(job.errors) && job.errors.some(e => e.includes('401') || e.includes('Key'))) {
+                        document.getElementById('api-helper-card').classList.remove('hidden');
+                    }
+
+                    if (job.result && job.result.sql) {
+                        showSQLBlock(job.result.sql);
+                    }
+
+                    showToast(job.error || 'Upload failed', 'error');
+                    return;
+                }
+
+                await new Promise(resolve => setTimeout(resolve, 900));
+            }
+        }
+
+        function applyJobState(job) {
+            updateProgressBar(job.progress || 0);
+            updateMetrics(job);
+
+            const phase = job.phase || 'queued';
+            if (phase === 'queued' || phase === 'upload') {
+                updateStep('step-upload', 'active');
+            } else if (phase === 'extract' || phase === 'prompt') {
+                updateStep('step-upload', 'success');
+                updateStep('step-extract', 'active');
+            } else if (phase === 'cleanup') {
+                updateStep('step-upload', 'success');
+                updateStep('step-extract', 'success');
+                updateStep('step-cleanup', 'active');
+            } else if (phase === 'final_sql') {
+                updateStep('step-upload', 'success');
+                updateStep('step-extract', 'success');
+                updateStep('step-cleanup', 'success');
+                updateStep('step-final-sql', 'active');
+            } else if (phase === 'database') {
+                updateStep('step-upload', 'success');
+                updateStep('step-extract', 'success');
+                updateStep('step-cleanup', 'success');
+                updateStep('step-final-sql', 'success');
+                updateStep('step-db', 'active');
+            }
+        }
+
+        function markPhaseError(phase) {
+            if (phase === 'database') {
+                updateStep('step-db', 'error');
+            } else if (phase === 'final_sql') {
+                updateStep('step-final-sql', 'error');
+            } else if (phase === 'cleanup') {
+                updateStep('step-cleanup', 'error');
+            } else if (phase === 'extract' || phase === 'prompt') {
+                updateStep('step-extract', 'error');
+            } else {
+                updateStep('step-upload', 'error');
+            }
+        }
+
+        function updateMetrics(job) {
+            document.getElementById('metric-phase').innerText = job.phase || 'queued';
+            document.getElementById('metric-chunks').innerText = `${job.chunks_done || 0} / ${job.chunks_total || 0}`;
+            document.getElementById('metric-text-size').innerText = `${job.original_char_count || 0} -> ${job.cleaned_char_count || 0}`;
+            document.getElementById('metric-reduction').innerText = `${job.text_reduction_percent || 0}%`;
         }
 
         function openDebugModal(filename) {
@@ -527,7 +586,8 @@
             document.getElementById('modal-subtitle').innerText = `AI Routing and Parameter Extraction: ${filename}`;
             
             // Reset pipeline progress
-            updateProgressBar(25);
+            updateProgressBar(2);
+            updateMetrics({ phase: 'queued' });
             resetSteps();
             
             // Clear debug console
@@ -557,7 +617,7 @@
         }
 
         function resetSteps() {
-            const steps = ['step-upload', 'step-extract', 'step-ai', 'step-db'];
+            const steps = ['step-upload', 'step-extract', 'step-cleanup', 'step-final-sql', 'step-db'];
             steps.forEach(id => {
                 const el = document.getElementById(id);
                 el.className = "flex items-center gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5";
