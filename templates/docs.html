@@ -186,7 +186,7 @@
                         System Architecture & Guides
                     </h1>
                     <p class="text-lg text-slate-400 leading-relaxed font-light">
-                        Full technical blueprint of SheetBase. Discover how the platform ingests, processes, and stores complex electrical component specifications using artificial intelligence.
+                        Full technical blueprint of SheetBase. Discover how the platform ingests, reduces, and stores complex electrical component specifications using a parallel text reduction pipeline and artificial intelligence.
                     </p>
                 </header>
 
@@ -201,7 +201,7 @@
                             SheetBase is a hybrid database management utility designed for electronic engineers. It resolves a crucial engineering bottleneck: manually extracting and parsing multi-page component datasheets into inventory lists. 
                         </p>
                         <p>
-                            By leveraging state-of-the-art Large Language Models (LLMs) paired with targeted parsing pipelines, SheetBase allows developers and engineers to upload raw PDF datasheets and automatically populate PostgreSQL tables with strict schema mapping.
+                            By leveraging state-of-the-art Large Language Models (LLMs) paired with targeted parsing pipelines, SheetBase allows developers and engineers to upload raw PDF datasheets, reduce them in parallel chunk passes, and automatically populate PostgreSQL tables with strict schema mapping.
                         </p>
                     </div>
                     <!-- Flow Diagram -->
@@ -212,7 +212,9 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-600 rotate-90 md:rotate-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                             <div class="glass-card px-4 py-3 rounded-2xl w-full border-blue-500/20 bg-blue-500/5">⚡ PyMuPDF Parse</div>
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-600 rotate-90 md:rotate-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                            <div class="glass-card px-4 py-3 rounded-2xl w-full border-purple-500/20 bg-purple-500/5">🤖 LLM Extraction</div>
+                            <div class="glass-card px-4 py-3 rounded-2xl w-full border-purple-500/20 bg-purple-500/5">🧩 Parallel Text Reduction</div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-600 rotate-90 md:rotate-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            <div class="glass-card px-4 py-3 rounded-2xl w-full border-purple-500/20 bg-purple-500/5">🤖 Final SQL Extraction</div>
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-600 rotate-90 md:rotate-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                             <div class="glass-card px-4 py-3 rounded-2xl w-full border-emerald-500/20 bg-emerald-500/5">🗄 SQL Ingestion</div>
                         </div>
@@ -263,8 +265,9 @@
                             <h3 class="font-bold text-white mb-2">Intelligence Layer</h3>
                             <ul class="text-xs text-slate-400 space-y-1.5 list-disc pl-4">
                                 <li>OpenRouter LLM Interface</li>
-                                <li>Dynamic fallback queue</li>
+                                <li>Parallel chunk text reduction</li>
                                 <li>PyMuPDF (fitz) text parsing</li>
+                                <li>Dynamic fallback queue</li>
                                 <li>Smart token limit checks</li>
                             </ul>
                         </div>
@@ -301,20 +304,34 @@
                         <!-- Step 3 -->
                         <div class="relative">
                             <div class="absolute -left-[41px] top-0.5 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500 flex items-center justify-center text-blue-400 text-[10px] font-bold font-mono">3</div>
+                            <h3 class="font-bold text-white mb-1">Parallel Text Reduction</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed mb-2">
+                                The extracted pages are split into chunks and cleaned in parallel worker threads before the final prompt is assembled. Each worker trims layout noise, marketing copy, and repeated text while preserving parameter tables, units, and electrical limits.
+                            </p>
+                            <pre class="bg-[#090d16] p-4 rounded-2xl border border-white/5 text-[11px] text-blue-300 font-mono">cleaned_chunks, cleanup_errors = clean_pdf_chunks_concurrently(
+    pdf_chunks,
+    api_key,
+    log_callback=debug,
+    progress_callback=cleanup_progress
+)</pre>
+                        </div>
+                        <!-- Step 4 -->
+                        <div class="relative">
+                            <div class="absolute -left-[41px] top-0.5 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500 flex items-center justify-center text-blue-400 text-[10px] font-bold font-mono">4</div>
                             <h3 class="font-bold text-white mb-1">OpenRouter Prompt Assembly & LLM Routing</h3>
                             <p class="text-xs text-slate-400 leading-relaxed mb-2">
-                                The text is injected into `prompt.txt`. The backend queries OpenRouter models sequentially, using a dynamic fallback mechanism to guarantee responses.
+                                The cleaned chunk output is merged into a single context block and injected into `prompt.txt`. The backend queries OpenRouter models sequentially, using a dynamic fallback mechanism to guarantee a final SQL response.
                             </p>
                             <pre class="bg-[#090d16] p-4 rounded-2xl border border-white/5 text-[11px] text-blue-300 font-mono"># Dynamic model fallback chain
 MODELS = [
     "openai/gpt-oss-120b:free",
     "meta-llama/llama-3.3-70b-instruct:free",
-    "qwen/qwen3-next-80b-a3b-instruct:free"
+    "qwen/qwen3-next-80b-a3-b-instruct:free"
 ]</pre>
                         </div>
-                        <!-- Step 4 -->
+                        <!-- Step 5 -->
                         <div class="relative">
-                            <div class="absolute -left-[41px] top-0.5 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500 flex items-center justify-center text-blue-400 text-[10px] font-bold font-mono">4</div>
+                            <div class="absolute -left-[41px] top-0.5 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500 flex items-center justify-center text-blue-400 text-[10px] font-bold font-mono">5</div>
                             <h3 class="font-bold text-white mb-1">SQL Sanitization & Transaction Ingestion</h3>
                             <p class="text-xs text-slate-400 leading-relaxed mb-2">
                                 The returned SQL statement is stripped of markdown fences (` ```sql `). It is split by semicolons to execute separate statements sequentially inside an isolated database transaction, ensuring `rollback` if any error is encountered.
@@ -356,7 +373,7 @@ MODELS = [
                                 <span class="text-slate-500 text-xs font-mono">Content-Type: multipart/form-data</span>
                             </div>
                             <p class="text-xs text-slate-400 leading-relaxed">
-                                Main entrypoint. Expects a PDF file under the name <code class="bg-[#090d16] px-1 py-0.5 rounded text-blue-400 font-mono text-[10px]">file</code>. Initiates text extraction, runs the OpenRouter fallback, sanitizes statements, and writes parameters to the PostgreSQL database.
+                                Main entrypoint. Expects a PDF file under the name <code class="bg-[#090d16] px-1 py-0.5 rounded text-blue-400 font-mono text-[10px]">file</code>. Initiates text extraction, runs parallel text reduction, merges the cleaned context, runs the OpenRouter fallback, sanitizes statements, and writes parameters to the PostgreSQL database.
                             </p>
                         </div>
                         <!-- Endpoint 3 -->
