@@ -411,7 +411,7 @@
                 // Step 1: Upload & Extract Text
                 updateStep('step-upload', 'success');
                 updateStep('step-extract', 'active');
-                logConsole(`[INFO] Uploaded ${filename}. Reading PDF and extracting text (max 10 pages)...`);
+                logConsole(`[INFO] Uploaded ${filename}. Reading PDF and extracting text in 10-page chunks...`);
                 
                 const formData = new FormData();
                 formData.append('file', file);
@@ -420,7 +420,7 @@
                 setTimeout(() => {
                     updateStep('step-extract', 'success');
                     updateStep('step-ai', 'active');
-                    logConsole(`[INFO] PDF text successfully extracted. Calling OpenRouter AI to classify and extract parameters...`);
+                    logConsole(`[INFO] PDF text successfully extracted. Starting parallel AI cleanup for the chunks...`);
                     logConsole(`[INFO] Retrying fallbacks if a model fails: openai/gpt-oss-120b:free, meta-llama/llama-3.3-70b-instruct:free, qwen/qwen3-next-80b-a3b-instruct:free`);
                 }, 1500);
 
@@ -443,7 +443,14 @@
                     logConsole(`[SUCCESS] AI processing complete!`);
                     logConsole(`[SUCCESS] Extracted component data from datasheet.`);
                     logConsole(`[INFO] Model used: ${result.message.match(/using (.*)\./)?.[1] || 'OpenRouter Model'}`);
+                    logConsole(`[INFO] Chunks processed: ${result.chunks_processed}`);
+                    logConsole(`[INFO] Cleanup models: ${result.cleanup_models || 'unknown'}`);
+                    logConsole(`[INFO] Text reduction: ${result.text_reduction_percent ?? 0}% (${result.original_char_count ?? 0} -> ${result.cleaned_char_count ?? 0} chars)`);
                     logConsole(`[INFO] DB Statements executed: ${result.statements_executed}`);
+
+                    if (Array.isArray(result.debug_messages)) {
+                        result.debug_messages.forEach(message => logConsole(message));
+                    }
                     
                     // Show SQL code block
                     showSQLBlock(result.sql);
@@ -487,6 +494,10 @@
                     data.errors.forEach(e => {
                         logConsole(`[ERROR] OpenRouter attempt: ${e}`);
                     });
+                }
+
+                if (Array.isArray(data.debug_messages)) {
+                    data.debug_messages.forEach(message => logConsole(message));
                 }
                 
                 // Show API helper guide if OpenRouter unauthorized
