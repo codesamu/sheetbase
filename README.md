@@ -1,23 +1,78 @@
 # Sheetbase
+### Datasheet + Database, Combined.
 
-Sheetbase is a local Flask web application for storing, viewing and importing
-electronic component data from datasheets. The application uses PostgreSQL as
-its database, SQLAlchemy as ORM, PyMuPDF for PDF text extraction and OpenRouter
-for AI-assisted SQL generation from datasheets.
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/Flask-Web_App-000000?style=for-the-badge&logo=flask&logoColor=white" />
+  <img src="https://img.shields.io/badge/PostgreSQL-Database-336791?style=for-the-badge&logo=postgresql&logoColor=white" />
+  <img src="https://img.shields.io/badge/SQLAlchemy-ORM-D71F00?style=for-the-badge&logo=sqlalchemy&logoColor=white" />
+  <img src="https://img.shields.io/badge/TailwindCSS-UI-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" />
+  <img src="https://img.shields.io/badge/OpenRouter-AI_API-8A2BE2?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/PyMuPDF-PDF_Processing-009688?style=for-the-badge" />
+</p>
+
+<p align="center">
+  <b>Datenblaetter einlesen, Bauteile speichern und alles ueber PostgreSQL verwalten.</b>
+</p>
+
+---
+
+## Was ist Sheetbase?
+
+Sheetbase ist eine kleine Flask-Web-App fuer elektronische Bauteildaten.
+Die App kann Daten aus PostgreSQL anzeigen und Datenblaetter per PDF einlesen.
+Fuer die PDF-Auswertung wird OpenRouter verwendet, damit aus dem Datenblatt
+SQL-INSERT-Statements fuer die Datenbank erzeugt werden koennen.
+
+Kurz gesagt:
+
+- Flask startet die Webseite.
+- PostgreSQL speichert die Bauteildaten.
+- SQLAlchemy verbindet Python mit der Datenbank.
+- PyMuPDF liest Text aus PDFs.
+- OpenRouter hilft beim Umwandeln von Datenblatt-Text in SQL.
+
+## PostgreSQL zuerst herunterladen
+
+PostgreSQL muss installiert sein, bevor die App richtig laufen kann.
+
+Download:
+
+[PostgreSQL herunterladen](https://www.postgresql.org/download/)
+
+Beim Installieren unbedingt das Passwort fuer den PostgreSQL-Admin-User
+`postgres` merken. Das braucht man spaeter zum Erstellen der Datenbank und des
+Users.
 
 ## Tech Stack
 
-| Area | Technology |
+| Bereich | Technik |
 | --- | --- |
 | Backend | Python, Flask |
-| Database | PostgreSQL |
+| Datenbank | PostgreSQL |
 | ORM | Flask-SQLAlchemy, SQLAlchemy |
-| PostgreSQL driver | psycopg2 |
-| PDF extraction | PyMuPDF |
-| AI API | OpenRouter |
-| Frontend | HTML templates, Tailwind CSS |
+| PostgreSQL-Treiber | psycopg2 |
+| PDF-Verarbeitung | PyMuPDF |
+| KI/API | OpenRouter |
+| Frontend | HTML Templates, Tailwind CSS |
 
-## Project Structure
+## Aufbau
+
+```text
+                +-------------------+
+                |    Tailwind UI    |
+                +---------+---------+
+                          |
+                       Flask App
+                          |
+        +-----------------+-----------------+
+        |                 |                 |
+   SQLAlchemy        OpenRouter AI        PyMuPDF
+        |                 |                 |
+        +------------ PostgreSQL ----------+
+```
+
+## Projektstruktur
 
 ```text
 sheetbase/
@@ -35,63 +90,57 @@ sheetbase/
 +-- README.md
 ```
 
-## Default Configuration
+## Wichtige Standardwerte
 
-The database connection is currently configured directly in `app.py`,
-`test-conn.py` and `test-post.py`:
+Die Datenbankverbindung steht aktuell direkt in `app.py`, `test-conn.py` und
+`test-post.py`.
 
 ```text
 postgresql+psycopg2://flaskusr:sheetbase@192.168.1.21:5432/datasheetdb
 ```
 
-That means the application expects:
+Die App erwartet also diese Daten:
 
-| Setting | Value |
+| Einstellung | Wert |
 | --- | --- |
-| Database system | PostgreSQL |
+| Datenbank | PostgreSQL |
 | Host | `192.168.1.21` |
 | Port | `5432` |
-| Database | `datasheetdb` |
+| Datenbankname | `datasheetdb` |
 | User | `flaskusr` |
-| Password | `sheetbase` |
+| Passwort | `sheetbase` |
 
-Important: If PostgreSQL runs on the same computer, the easiest setup is to
-make PostgreSQL reachable at the host used by the app, or to update the
-connection string in the Python files to use `localhost`.
+Wenn PostgreSQL auf demselben PC laeuft, ist `localhost` normalerweise
+einfacher. Dann muss aber der Host in den Python-Dateien von `192.168.1.21` auf
+`localhost` geaendert werden. Wenn nichts am Code geaendert werden soll, muss
+PostgreSQL wirklich unter `192.168.1.21` erreichbar sein.
 
-## Requirements
+## Voraussetzungen
 
-Install these programs first:
+Installiert werden muessen:
 
-1. Python 3.11 or newer
+1. Python 3.11 oder neuer
 2. PostgreSQL
-3. Git, optional but recommended
-4. An OpenRouter API key, required for PDF/AI import
+3. Git, falls das Projekt aus einem Repository geklont wird
+4. Ein OpenRouter API-Key, wenn der PDF-Import verwendet werden soll
 
-On Windows, install Python from:
+Python Download:
 
-```text
-https://www.python.org/downloads/
-```
+[Python herunterladen](https://www.python.org/downloads/)
 
-Install PostgreSQL from:
+PostgreSQL Download:
 
-```text
-https://www.postgresql.org/download/
-```
+[PostgreSQL herunterladen](https://www.postgresql.org/download/)
 
-During the PostgreSQL installation, remember the password you set for the
-default PostgreSQL admin user `postgres`.
-
-## 1. Open The Project Folder
+## 1. Projektordner oeffnen
 
 Windows PowerShell:
 
 ```powershell
-cd C:\path\to\sheetbase
+cd C:\Pfad\zu\sheetbase
 ```
 
-Example:
+Beispiel:
 
 ```powershell
 cd C:\Users\Max\Desktop\Schule\sheetbase
@@ -100,10 +149,10 @@ cd C:\Users\Max\Desktop\Schule\sheetbase
 Linux/macOS:
 
 ```bash
-cd /path/to/sheetbase
+cd /pfad/zu/sheetbase
 ```
 
-## 2. Create A Virtual Environment
+## 2. Virtuelle Python-Umgebung erstellen
 
 Windows PowerShell:
 
@@ -112,13 +161,13 @@ py -3 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 ```
 
-If PowerShell blocks activation scripts, run this once:
+Falls PowerShell das Aktivieren blockiert:
 
 ```powershell
 Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 ```
 
-Then activate the environment again:
+Danach nochmal aktivieren:
 
 ```powershell
 .\.venv\Scripts\Activate.ps1
@@ -131,16 +180,16 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-After activation, your terminal should show `(.venv)`.
+Wenn alles passt, steht vorne im Terminal `(.venv)`.
 
-## 3. Install Python Dependencies
+## 3. Python-Pakete installieren
 
 ```bash
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-The project installs these Python packages:
+In `requirements.txt` stehen:
 
 ```text
 flask
@@ -151,36 +200,32 @@ requests
 pymupdf
 ```
 
-## 4. Start Or Check PostgreSQL
+## 4. PostgreSQL starten oder pruefen
 
 ### Windows
 
-Check whether PostgreSQL is running:
+Pruefen, ob PostgreSQL laeuft:
 
 ```powershell
 Get-Service | Where-Object { $_.Name -like "*postgres*" -or $_.DisplayName -like "*PostgreSQL*" }
 ```
 
-Start the service if needed:
+Falls der Dienst nicht laeuft:
 
 ```powershell
 Start-Service postgresql-x64-18
 ```
 
-Your service name may be different, for example `postgresql-x64-17` or
-`postgresql-x64-16`.
+Die Zahl kann je nach installierter Version anders sein, zum Beispiel
+`postgresql-x64-17` oder `postgresql-x64-16`.
 
-If `psql` is not in your PATH, use the full path. Examples:
+Wenn `psql` nicht erkannt wird, den ganzen Pfad verwenden:
 
 ```powershell
 & "C:\Program Files\PostgreSQL\18\bin\psql.exe" -U postgres -h localhost
 ```
 
-or:
-
-```powershell
-& "C:\Program Files\PostgreSQL\17\bin\psql.exe" -U postgres -h localhost
-```
+Bei einer anderen PostgreSQL-Version die Zahl im Pfad anpassen.
 
 ### Linux
 
@@ -191,16 +236,16 @@ sudo systemctl start postgresql
 
 ### macOS
 
-If PostgreSQL was installed with Homebrew:
+Wenn PostgreSQL mit Homebrew installiert wurde:
 
 ```bash
 brew services list
 brew services start postgresql
 ```
 
-## 5. Create The Database User And Database
+## 5. Datenbank-User und Datenbank erstellen
 
-Open `psql` as the PostgreSQL admin user:
+Als PostgreSQL-Admin einloggen.
 
 Windows:
 
@@ -220,7 +265,7 @@ macOS:
 psql -U postgres
 ```
 
-Then run:
+Dann diese SQL-Befehle ausfuehren:
 
 ```sql
 CREATE USER flaskusr WITH PASSWORD 'sheetbase';
@@ -228,55 +273,53 @@ CREATE DATABASE datasheetdb OWNER flaskusr ENCODING 'UTF8';
 GRANT ALL PRIVILEGES ON DATABASE datasheetdb TO flaskusr;
 ```
 
-Exit `psql`:
+Mit `psql` fertig:
 
 ```sql
 \q
 ```
 
-If the user already exists, use:
+Falls der User schon existiert:
 
 ```sql
 ALTER USER flaskusr WITH PASSWORD 'sheetbase';
 ```
 
-If the database already exists, make sure the owner is correct:
+Falls die Datenbank schon existiert:
 
 ```sql
 ALTER DATABASE datasheetdb OWNER TO flaskusr;
 GRANT ALL PRIVILEGES ON DATABASE datasheetdb TO flaskusr;
 ```
 
-## 6. Allow The Correct Database Host
+## 6. Richtigen Datenbank-Host verwenden
 
-The current app expects PostgreSQL at:
+Die App sucht PostgreSQL hier:
 
 ```text
 192.168.1.21:5432
 ```
 
-You have two possible setup variants.
+Es gibt zwei sinnvolle Varianten.
 
-### Variant A: Use The Configured Host
+### Variante A: Host aus dem Code verwenden
 
-Use this if PostgreSQL should be reachable exactly at `192.168.1.21`.
+Diese Variante passt, wenn PostgreSQL wirklich unter `192.168.1.21` erreichbar
+sein soll.
 
-Make sure the machine running PostgreSQL has this IP address. Then allow
-PostgreSQL to listen for network connections.
-
-In `postgresql.conf`, set:
+In `postgresql.conf`:
 
 ```text
 listen_addresses = '*'
 ```
 
-In `pg_hba.conf`, add a rule like this:
+In `pg_hba.conf` zum Beispiel:
 
 ```text
 host    datasheetdb    flaskusr    192.168.1.0/24    scram-sha-256
 ```
 
-Restart PostgreSQL afterwards.
+Danach PostgreSQL neu starten.
 
 Windows:
 
@@ -290,58 +333,59 @@ Linux:
 sudo systemctl restart postgresql
 ```
 
-macOS with Homebrew:
+macOS mit Homebrew:
 
 ```bash
 brew services restart postgresql
 ```
 
-Test the exact connection used by the app:
+Verbindung testen:
 
 ```bash
 psql -U flaskusr -d datasheetdb -h 192.168.1.21 -p 5432 -c "SELECT current_user, current_database();"
 ```
 
-On Windows without `psql` in PATH:
+Windows mit vollem `psql`-Pfad:
 
 ```powershell
 & "C:\Program Files\PostgreSQL\18\bin\psql.exe" -U flaskusr -d datasheetdb -h 192.168.1.21 -p 5432 -c "SELECT current_user, current_database();"
 ```
 
-### Variant B: Use Localhost
+### Variante B: Lokal mit localhost arbeiten
 
-Use this if PostgreSQL only runs locally on the same computer.
+Diese Variante ist am einfachsten, wenn PostgreSQL nur auf dem eigenen Rechner
+laeuft.
 
-Change the database host in `app.py`, `test-conn.py` and `test-post.py` from:
+Dazu in `app.py`, `test-conn.py` und `test-post.py` den Host aendern:
 
 ```text
 192.168.1.21
 ```
 
-to:
+zu:
 
 ```text
 localhost
 ```
 
-The connection string then becomes:
+Dann lautet die Verbindung:
 
 ```text
 postgresql+psycopg2://flaskusr:sheetbase@localhost:5432/datasheetdb
 ```
 
-Then test:
+Verbindung testen:
 
 ```bash
 psql -U flaskusr -d datasheetdb -h localhost -p 5432 -c "SELECT current_user, current_database();"
 ```
 
-## 7. Create The Database Tables
+## 7. Tabellen erstellen
 
-The application does not automatically create the tables. Create them once
-manually.
+Die Tabellen werden von der App nicht automatisch angelegt. Das muss einmal in
+PostgreSQL gemacht werden.
 
-Open the application database as `flaskusr`:
+Als App-User in die Datenbank einloggen.
 
 Windows:
 
@@ -355,9 +399,9 @@ Linux/macOS:
 psql -U flaskusr -d datasheetdb -h 192.168.1.21
 ```
 
-If you use `localhost`, replace `192.168.1.21` with `localhost`.
+Wenn `localhost` verwendet wird, `192.168.1.21` durch `localhost` ersetzen.
 
-Then run:
+Dann diese Tabellen anlegen:
 
 ```sql
 CREATE TABLE IF NOT EXISTS opv (
@@ -396,57 +440,57 @@ CREATE TABLE IF NOT EXISTS mosfet (
 );
 ```
 
-Check the tables:
+Tabellen pruefen:
 
 ```sql
 \dt
 ```
 
-Exit:
+`psql` verlassen:
 
 ```sql
 \q
 ```
 
-## 8. Configure OpenRouter
+## 8. OpenRouter API-Key setzen
 
-The UI and database can start without an OpenRouter API key, but the PDF import
-and AI extraction will fail until a valid key is configured.
+Ohne OpenRouter-Key kann die Webseite starten, aber der PDF-Import mit
+KI-Auswertung funktioniert nicht.
 
-The app reads this environment variable:
+Die App liest diesen Wert:
 
 ```text
 OPENROUTER_API_KEY
 ```
 
-Windows PowerShell, only for the current terminal:
+Windows PowerShell, nur fuer das aktuelle Terminal:
 
 ```powershell
-$env:OPENROUTER_API_KEY="your-openrouter-api-key"
+$env:OPENROUTER_API_KEY="dein-openrouter-api-key"
 ```
 
-Windows PowerShell, permanent for future terminals:
+Windows PowerShell, dauerhaft fuer neue Terminals:
 
 ```powershell
-setx OPENROUTER_API_KEY "your-openrouter-api-key"
+setx OPENROUTER_API_KEY "dein-openrouter-api-key"
 ```
 
-Linux/macOS, only for the current terminal:
+Linux/macOS, nur fuer das aktuelle Terminal:
 
 ```bash
-export OPENROUTER_API_KEY="your-openrouter-api-key"
+export OPENROUTER_API_KEY="dein-openrouter-api-key"
 ```
 
-Linux/macOS, permanent example for Bash:
+Linux/macOS, dauerhaft fuer Bash:
 
 ```bash
-echo 'export OPENROUTER_API_KEY="your-openrouter-api-key"' >> ~/.bashrc
+echo 'export OPENROUTER_API_KEY="dein-openrouter-api-key"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-## 9. Start The Application
+## 9. App starten
 
-Make sure the virtual environment is active.
+Virtuelle Umgebung aktivieren und App starten.
 
 Windows:
 
@@ -462,24 +506,15 @@ source .venv/bin/activate
 python app.py
 ```
 
-The app starts on:
+Danach im Browser oeffnen:
 
 ```text
 http://127.0.0.1:5000
 ```
 
-Because `app.py` uses:
+## 10. Installation testen
 
-```text
-host="0.0.0.0", port=5000, debug=True
-```
-
-the app can also be reachable from other devices in the same network via the
-computer's IP address.
-
-## 10. Verify The Installation
-
-Open these URLs in the browser:
+Diese Seiten pruefen:
 
 ```text
 http://127.0.0.1:5000/
@@ -487,7 +522,7 @@ http://127.0.0.1:5000/docs
 http://127.0.0.1:5000/test-db
 ```
 
-The database test should return:
+Wenn die Datenbankverbindung stimmt, kommt bei `/test-db`:
 
 ```json
 {
@@ -495,7 +530,7 @@ The database test should return:
 }
 ```
 
-You can also check the data API endpoints:
+Die Daten-Endpoints:
 
 ```text
 http://127.0.0.1:5000/data/opv
@@ -503,112 +538,111 @@ http://127.0.0.1:5000/data/bjt
 http://127.0.0.1:5000/data/mosfet
 ```
 
-At the beginning they should return empty lists:
+Am Anfang sind sie normalerweise leer:
 
 ```json
 []
 ```
 
-## Test Scripts
+## Test-Skripte
 
-The repository contains two test scripts:
+Im Projekt liegen zwei Testdateien:
 
-| Script | Purpose |
+| Datei | Was sie macht |
 | --- | --- |
-| `test-conn.py` | Tests the database connection and inserts one test OPV row |
-| `test-post.py` | Inserts example OPV, BJT and MOSFET rows |
+| `test-conn.py` | Testet die Verbindung und fuegt einen OPV-Testeintrag ein |
+| `test-post.py` | Fuegt Beispielwerte fuer OPV, BJT und MOSFET ein |
 
-Run them only if test rows in the database are okay:
+Nur ausfuehren, wenn Testdaten in der Datenbank okay sind:
 
 ```bash
 python test-conn.py
 python test-post.py
 ```
 
-## Troubleshooting
+## Fehlerbehebung
 
-### `psql` Is Not Recognized
+### `psql` wird nicht erkannt
 
-Use the full path to `psql.exe`:
+Den ganzen Pfad verwenden:
 
 ```powershell
 & "C:\Program Files\PostgreSQL\18\bin\psql.exe"
 ```
 
-Or add PostgreSQL's `bin` folder to PATH:
+Oder den PostgreSQL-`bin`-Ordner zu PATH hinzufuegen:
 
 ```text
 C:\Program Files\PostgreSQL\18\bin
 ```
 
-### Password Authentication Failed
+### Passwort stimmt nicht
 
-Reset the password for the app user:
+Passwort fuer den App-User neu setzen:
 
 ```sql
 ALTER USER flaskusr WITH PASSWORD 'sheetbase';
 ```
 
-### Could Not Connect To Server
+### Verbindung zur Datenbank klappt nicht
 
-Check:
+Pruefen:
 
-1. PostgreSQL is running.
-2. The host in the connection string is reachable.
-3. PostgreSQL listens on the needed address.
-4. `pg_hba.conf` allows the connection.
-5. The firewall allows port `5432` if connecting over the network.
+1. Laeuft PostgreSQL?
+2. Stimmt der Host, also `192.168.1.21` oder `localhost`?
+3. Ist Port `5432` erreichbar?
+4. Erlaubt `pg_hba.conf` die Verbindung?
+5. Blockiert die Firewall den Zugriff?
 
-### Relation Does Not Exist
+### `relation does not exist`
 
-This means the tables were not created yet. Run the SQL from
-"Create The Database Tables" again.
+Dann fehlen die Tabellen. Den Abschnitt `Tabellen erstellen` nochmal ausfuehren.
 
-### PDF Import Fails
+### PDF-Import klappt nicht
 
-Check:
+Pruefen:
 
-1. `OPENROUTER_API_KEY` is set.
-2. The computer has internet access.
-3. The OpenRouter key is valid.
-4. The uploaded PDF contains readable text.
-5. PostgreSQL tables exist.
+1. Ist `OPENROUTER_API_KEY` gesetzt?
+2. Hat der PC Internet?
+3. Ist der OpenRouter-Key gueltig?
+4. Hat das PDF lesbaren Text?
+5. Existieren die Tabellen in PostgreSQL?
 
-### Port 5000 Is Already In Use
+### Port 5000 ist belegt
 
-Close the other program using port `5000`, or change the port in `app.py`.
+Ein anderes Programm nutzt Port `5000`. Dieses Programm schliessen oder den Port
+in `app.py` aendern.
 
-## Useful Commands
+## Nuetzliche Befehle
 
-Show installed Python packages:
-
-```bash
-pip list
-```
-
-Check Python version:
+Python-Version anzeigen:
 
 ```bash
 python --version
 ```
 
-Check PostgreSQL connection:
+Installierte Pakete anzeigen:
+
+```bash
+pip list
+```
+
+Datenbankverbindung testen:
 
 ```bash
 psql -U flaskusr -d datasheetdb -h 192.168.1.21 -p 5432
 ```
 
-Run the Flask app:
+App starten:
 
 ```bash
 python app.py
 ```
 
-## Notes For Development
+## Hinweise
 
-- Keep the virtual environment folder out of Git.
-- Do not commit real API keys.
-- The database URL is currently hardcoded in the Python files.
-- The table definitions in PostgreSQL must match the SQLAlchemy models in
-  `app.py`.
-- `prompt.txt` controls how datasheet information should be converted into SQL.
+- Keine echten API-Keys committen.
+- Das virtuelle Environment gehoert nicht ins Repository.
+- Die Datenbank-URL ist aktuell direkt in den Python-Dateien eingetragen.
+- Die PostgreSQL-Tabellen muessen zu den SQLAlchemy-Modellen in `app.py` passen.
+- `prompt.txt` enthaelt die Regeln fuer die SQL-Erzeugung aus Datenblaettern.
