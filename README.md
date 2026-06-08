@@ -44,6 +44,26 @@ If PostgreSQL runs on your own machine, either make it reachable at
 
 ## Setup
 
+Automatic setup on Windows:
+
+```powershell
+.\setup.ps1
+```
+
+If PostgreSQL should be used on `localhost` instead of `192.168.1.21`:
+
+```powershell
+.\setup.ps1 -DbHost localhost
+```
+
+With an OpenRouter key for the current PowerShell session:
+
+```powershell
+.\setup.ps1 -OpenRouterApiKey "your-openrouter-api-key"
+```
+
+Manual setup:
+
 Open the project folder:
 
 ```bash
