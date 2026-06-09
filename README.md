@@ -50,6 +50,12 @@ Automatic setup on Windows:
 .\setup.ps1
 ```
 
+Automatic setup on Linux/macOS:
+
+```bash
+./setup.sh
+```
+
 If PostgreSQL should be used on `localhost` instead of `192.168.1.21`:
 
 ```powershell
@@ -60,6 +66,13 @@ With an OpenRouter key for the current PowerShell session:
 
 ```powershell
 .\setup.ps1 -OpenRouterApiKey "your-openrouter-api-key"
+```
+
+With an OpenRouter key for the current shell session:
+
+```bash
+export OPENROUTER_API_KEY="your-openrouter-api-key"
+./setup.sh
 ```
 
 Manual setup:
